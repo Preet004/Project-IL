@@ -2,7 +2,7 @@ name: Deploy Vite App to GitHub Pages
 
 on:
   push:
-    branches: ['main'] # Change to 'master' if your main branch is named master
+    branches: ['main'] # Change to 'master' if your default branch is master
   workflow_dispatch:
 
 permissions:
@@ -28,7 +28,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: 'npm'
+          # Cache removed to prevent lockfile requirement
 
       - name: Install dependencies
         run: npm install
