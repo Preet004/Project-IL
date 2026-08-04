@@ -1,0 +1,6 @@
+{
+  "name": "InternsLoom - Career Platform",
+  "description": "The bridge between student ambition and professional excellence with AI internship matching, mentorship portal, and resource vault.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
