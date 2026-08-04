@@ -4,7 +4,7 @@ export const MOCK_INTERNSHIPS: Internship[] = [
   {
     id: 'int-1',
     title: 'Full Stack Web Development Training & Internship',
-    company: 'InternsForge',
+    company: 'InternsLoom',
     department: 'Web Engineering',
     location: 'Remote / Work From Home',
     workType: 'Remote',
@@ -16,10 +16,10 @@ export const MOCK_INTERNSHIPS: Internship[] = [
     batchDate: 'Upcoming Batch: Starting Next Week',
     scholarshipFee: 'MSME & Startup India Accredited Grant Available',
     tags: ['Full Stack', 'React', 'Node.js', 'Express', 'MongoDB', 'Python', 'HTML/CSS', 'JavaScript'],
-    description: 'A comprehensive 6-month Full Stack Web Development program designed to bridge academic knowledge with industry demands. Master modern frontend frameworks, backend API architectures, database management, and complete a live project internship with InternsForge.',
+    description: 'A comprehensive 6-month Full Stack Web Development program designed to bridge academic knowledge with industry demands. Master modern frontend frameworks, backend API architectures, database management, and complete a live project internship with InternsLoom.',
     responsibilities: [
       'Phase 1 (Training): Build responsive web applications using HTML5, CSS3, JavaScript ES6+, React, and Node.js.',
-      'Phase 2 (Internship): Develop end-to-end full stack web portals and REST APIs for InternsForge client solutions.',
+      'Phase 2 (Internship): Develop end-to-end full stack web portals and REST APIs for InternsLoom client solutions.',
       'Collaborate with industry mentors in weekly code review sessions and agile sprint boards.',
       'Participate in mock technical interviews, aptitude preparation, and HR personality development workshops.'
     ],
@@ -31,14 +31,14 @@ export const MOCK_INTERNSHIPS: Internship[] = [
     ],
     benefits: [
       'ISO 9001:2015 Certified Web Development Training Certificate.',
-      'Official InternsForge Internship Experience Certificate.',
+      'Official InternsLoom Internship Experience Certificate.',
       'Letter of Recommendation (LOR) for top performing interns.',
       'Placement Support & Guaranteed Mock Interview preparation with 100+ partner companies.',
       'Recognized by MSME, Startup India, and Ministry of Corporate Affairs (MCA).'
     ],
     certifications: [
       'ISO Certified Full Stack Web Developer Certificate',
-      'Verified InternsForge Industry Internship Experience Certificate',
+      'Verified InternsLoom Industry Internship Experience Certificate',
       'Letter of Recommendation (LOR) for High Performers'
     ],
     toolsCovered: ['HTML5 & CSS3', 'JavaScript ES6+', 'React.js', 'Node.js', 'Express.js', 'MongoDB', 'Git & GitHub', 'Postman'],
@@ -106,7 +106,7 @@ export const MOCK_INTERNSHIPS: Internship[] = [
   {
     id: 'int-2',
     title: 'Advanced Cyber Security Training & Internship',
-    company: 'InternsForge',
+    company: 'InternsLoom',
     department: 'Cyber Security & Forensics',
     location: 'Remote / Work From Home',
     workType: 'Remote',
@@ -132,13 +132,13 @@ export const MOCK_INTERNSHIPS: Internship[] = [
     ],
     benefits: [
       'ISO 9001:2015 Certified Cyber Security Specialist Certificate.',
-      'Official InternsForge Cybersecurity Internship Completion Certificate.',
+      'Official InternsLoom Cybersecurity Internship Completion Certificate.',
       'Letter of Recommendation (LOR) for top performers.',
       'Placement support for SOC Analyst and Security Auditor roles.'
     ],
     certifications: [
       'ISO Certified Advanced Cyber Security Specialist',
-      'InternsForge Security Analyst Internship Certificate',
+      'InternsLoom Security Analyst Internship Certificate',
       'Letter of Recommendation signed by Security Leads'
     ],
     toolsCovered: ['Kali Linux', 'Wireshark', 'Nmap', 'Burp Suite', 'Metasploit', 'OWASP ZAP', 'Hydra', 'John the Ripper'],
@@ -182,7 +182,7 @@ export const MOCK_INTERNSHIPS: Internship[] = [
   {
     id: 'int-3',
     title: 'Artificial Intelligence & Generative AI Program',
-    company: 'InternsForge',
+    company: 'InternsLoom',
     department: 'Artificial Intelligence & ML',
     location: 'Remote / Work From Home',
     workType: 'Remote',
@@ -207,13 +207,13 @@ export const MOCK_INTERNSHIPS: Internship[] = [
     ],
     benefits: [
       'ISO 9001:2015 Certified Artificial Intelligence Specialist Certificate.',
-      'InternsForge AI Internship Completion Certificate.',
+      'InternsLoom AI Internship Completion Certificate.',
       'Letter of Recommendation for top performing AI developers.',
       'Career placement support with AI product startups and tech firms.'
     ],
     certifications: [
       'ISO Certified Artificial Intelligence & GenAI Engineer',
-      'InternsForge AI Internship Experience Certificate',
+      'InternsLoom AI Internship Experience Certificate',
       'AI Lead Recommendation Letter'
     ],
     toolsCovered: ['Python', 'NumPy', 'Pandas', 'PyTorch', 'TensorFlow', 'Scikit-Learn', 'OpenCV', 'Gemini API', 'LangChain'],
@@ -257,7 +257,7 @@ export const MOCK_INTERNSHIPS: Internship[] = [
   {
     id: 'int-4',
     title: 'Network Security & Infrastructure Program',
-    company: 'InternsForge',
+    company: 'InternsLoom',
     department: 'Network Engineering',
     location: 'Remote / Work From Home',
     workType: 'Remote',
@@ -281,13 +281,13 @@ export const MOCK_INTERNSHIPS: Internship[] = [
     ],
     benefits: [
       'ISO 9001:2015 Certified Network Security Engineer Certificate.',
-      'InternsForge Network Security Internship Certificate.',
+      'InternsLoom Network Security Internship Certificate.',
       'Preparation support for CCNA / Network Security certifications.',
       'Direct interview referrals with IT infrastructure companies.'
     ],
     certifications: [
       'ISO Certified Network Security Engineer',
-      'InternsForge Network Infrastructure Internship Certificate',
+      'InternsLoom Network Infrastructure Internship Certificate',
       'Network Team LOR for Top Candidates'
     ],
     toolsCovered: ['Cisco Packet Tracer', 'GNS3', 'Wireshark', 'PFSense Firewall', 'PuTTY', 'OpenVPN', 'Nmap'],
@@ -331,7 +331,7 @@ export const MOCK_INTERNSHIPS: Internship[] = [
   {
     id: 'int-5',
     title: 'Data Science & Data Analytics Training & Internship',
-    company: 'InternsForge',
+    company: 'InternsLoom',
     department: 'Data & Business Intelligence',
     location: 'Remote / Work From Home',
     workType: 'Remote',
@@ -355,13 +355,13 @@ export const MOCK_INTERNSHIPS: Internship[] = [
     ],
     benefits: [
       'ISO 9001:2015 Certified Data Analyst & Scientist Certificate.',
-      'Verified InternsForge Data Analytics Internship Certificate.',
+      'Verified InternsLoom Data Analytics Internship Certificate.',
       'Letter of Recommendation for outstanding performers.',
       'Resume review and interview preparation with senior data scientists.'
     ],
     certifications: [
       'ISO Certified Data Scientist & Analyst',
-      'InternsForge Data Analytics Internship Completion Certificate',
+      'InternsLoom Data Analytics Internship Completion Certificate',
       'Senior Analyst Recommendation Letter'
     ],
     toolsCovered: ['Python', 'Pandas', 'NumPy', 'SQL / PostgreSQL', 'Power BI', 'Excel Advanced', 'Scikit-Learn', 'Tableau'],
@@ -404,7 +404,7 @@ export const MOCK_INTERNSHIPS: Internship[] = [
   {
     id: 'int-6',
     title: 'Cloud Computing & AWS DevOps Program',
-    company: 'InternsForge',
+    company: 'InternsLoom',
     department: 'Cloud & DevOps',
     location: 'Remote / Work From Home',
     workType: 'Remote',
@@ -428,13 +428,13 @@ export const MOCK_INTERNSHIPS: Internship[] = [
     ],
     benefits: [
       'ISO 9001:2015 Certified Cloud & DevOps Engineer Certificate.',
-      'InternsForge Cloud Internship Experience Certificate.',
+      'InternsLoom Cloud Internship Experience Certificate.',
       'AWS Certified Cloud Practitioner & Solutions Architect interview prep.',
       'Placement support with cloud consultancies and tech enterprises.'
     ],
     certifications: [
       'ISO Certified Cloud Computing & DevOps Specialist',
-      'InternsForge Cloud Engineering Internship Certificate',
+      'InternsLoom Cloud Engineering Internship Certificate',
       'Lead DevOps Engineer Letter of Recommendation'
     ],
     toolsCovered: ['AWS (EC2, S3, IAM, VPC, Lambda)', 'Docker', 'Kubernetes', 'GitHub Actions', 'Linux (Ubuntu)', 'Nginx', 'Terraform'],
@@ -477,7 +477,7 @@ export const MOCK_INTERNSHIPS: Internship[] = [
   {
     id: 'int-7',
     title: 'Java Enterprise & Spring Boot Development Program',
-    company: 'InternsForge',
+    company: 'InternsLoom',
     department: 'Backend Engineering',
     location: 'Remote / Work From Home',
     workType: 'Remote',
@@ -501,13 +501,13 @@ export const MOCK_INTERNSHIPS: Internship[] = [
     ],
     benefits: [
       'ISO 9001:2015 Certified Java Enterprise Developer Certificate.',
-      'InternsForge Java Internship Completion Certificate.',
+      'InternsLoom Java Internship Completion Certificate.',
       'Letter of Recommendation signed by Senior Backend Leads.',
       'Direct placement assistance with product development firms.'
     ],
     certifications: [
       'ISO Certified Java & Spring Boot Developer',
-      'InternsForge Java Internship Experience Certificate',
+      'InternsLoom Java Internship Experience Certificate',
       'Backend Lead Letter of Recommendation'
     ],
     toolsCovered: ['Java 17/21', 'Spring Boot', 'Spring Security', 'Hibernate ORM', 'MySQL', 'Maven', 'Postman', 'Git'],
@@ -550,7 +550,7 @@ export const MOCK_INTERNSHIPS: Internship[] = [
   {
     id: 'int-8',
     title: 'Campus Engagement & Recruitment Internship',
-    company: 'InternsForge',
+    company: 'InternsLoom',
     department: 'Talent Acquisition & Marketing',
     location: 'Remote / Work From Home',
     workType: 'Remote',
@@ -562,12 +562,12 @@ export const MOCK_INTERNSHIPS: Internship[] = [
     batchDate: 'Upcoming Batch: Immediate Onboarding',
     scholarshipFee: '100% Free Program (No Fee)',
     tags: ['HR Recruitment', 'Campus Outreach', 'Public Relations', 'Event Management', 'Communication', 'Marketing'],
-    description: 'Gain real-world experience in corporate talent recruitment, campus leadership, and marketing outreach. Act as the primary brand liaison between InternsForge and your university campus, organizing student workshops and referral drives.',
+    description: 'Gain real-world experience in corporate talent recruitment, campus leadership, and marketing outreach. Act as the primary brand liaison between InternsLoom and your university campus, organizing student workshops and referral drives.',
     responsibilities: [
       'Lead student engagement activities and promote tech training programs across campus networks.',
       'Coordinate with college societies, placement cells, and student groups for tech webinars.',
       'Assist the HR recruitment team in screening student applicants for tech internship cohorts.',
-      'Represent InternsForge in campus ambassador campaigns and community channels.'
+      'Represent InternsLoom in campus ambassador campaigns and community channels.'
     ],
     requirements: [
       'Currently enrolled college student in any year or degree program.',
@@ -581,7 +581,7 @@ export const MOCK_INTERNSHIPS: Internship[] = [
       'Leadership & event management experience for your resume.'
     ],
     certifications: [
-      'InternsForge Campus Ambassador Internship Certificate',
+      'InternsLoom Campus Ambassador Internship Certificate',
       'HR & Marketing Leadership Certificate',
       'Letter of Recommendation signed by Managing Director'
     ],
@@ -591,7 +591,7 @@ export const MOCK_INTERNSHIPS: Internship[] = [
         moduleNumber: 1,
         title: 'Corporate Onboarding & Outreach Strategy',
         duration: 'Week 1',
-        topics: ['Introduction to InternsForge mission and training offerings', 'Campus branding strategies and social media presence', 'Communication etiquette and outreach techniques']
+        topics: ['Introduction to InternsLoom mission and training offerings', 'Campus branding strategies and social media presence', 'Communication etiquette and outreach techniques']
       },
       {
         moduleNumber: 2,
@@ -609,7 +609,7 @@ export const MOCK_INTERNSHIPS: Internship[] = [
     liveProjects: [
       {
         title: 'University Tech Career Fair & Student Drive',
-        description: 'Organize a campus-wide online tech career drive connecting 200+ students with InternsForge training bootcamps.',
+        description: 'Organize a campus-wide online tech career drive connecting 200+ students with InternsLoom training bootcamps.',
         techStack: ['LinkedIn', 'Canva', 'Google Sheets', 'Community Outreach']
       }
     ],

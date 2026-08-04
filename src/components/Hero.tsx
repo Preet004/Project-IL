@@ -43,7 +43,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-xl md:text-2xl font-normal text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto mb-10 leading-relaxed"
         >
-          Learn in-demand industry skills through expert-led training, then build guaranteed live projects with ISO 9001:2015 certification.
+          The bridge between student ambition and professional excellence.
         </motion.p>
 
         {/* Hero Actions */}
