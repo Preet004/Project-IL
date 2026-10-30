@@ -1,6 +1,6 @@
 {
   "name": "InternsLoom - Career Platform",
-  "description": "The bridge between student ambition and professional excellence with AI internship matching, mentorship portal, and resource vault.",
+  "description": "The bridge between student ambition and professional excellence with expert training, live capstone internships, and ISO 9001:2015 certification.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -9,9 +9,8 @@ import { CtaSection } from './components/CtaSection';
 import { Footer } from './components/Footer';
 import { InternshipModal } from './components/InternshipModal';
 import { MentorshipModal } from './components/MentorshipModal';
-import { ResourceVaultModal } from './components/ResourceVaultModal';
-import { AiAssistantModal } from './components/AiAssistantModal';
-import { ApplicationsTrackerModal } from './components/ApplicationsTrackerModal';
+import { VerifyCertificateModal } from './components/VerifyCertificateModal';
+import { ContactModal } from './components/ContactModal';
 import { Toast } from './components/Toast';
 
 export function AppContent() {
@@ -26,12 +25,11 @@ export function AppContent() {
       </main>
       <Footer />
 
-      {/* Interactive Drawers & Overlays */}
+      {/* Interactive Modals */}
       <InternshipModal />
       <MentorshipModal />
-      <ResourceVaultModal />
-      <AiAssistantModal />
-      <ApplicationsTrackerModal />
+      <VerifyCertificateModal />
+      <ContactModal />
 
       {/* Toast Notification */}
       <Toast />

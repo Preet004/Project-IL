@@ -2,21 +2,22 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTheme } from '../context/ThemeContext';
 import { useUser } from '../context/UserContext';
-import { Sun, Moon, Sparkles, Briefcase, Users, BookOpen, Menu, X, User, Bookmark } from 'lucide-react';
+import { Sun, Moon, Briefcase, Users, ShieldCheck, Phone, HelpCircle, Menu, X, ArrowUpRight } from 'lucide-react';
+import { DepartmentCategory } from '../types';
 
 export const Navbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
-  const { user, setActiveModal, setSelectedCategoryId } = useUser();
+  const { setActiveModal, setSelectedCategoryId } = useUser();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleOpenCategory = (cat?: string) => {
+  const handleOpenCategory = (cat?: DepartmentCategory | null) => {
     setSelectedCategoryId(cat || null);
     setActiveModal('internships');
     setMobileMenuOpen(false);
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-2xl bg-white/75 dark:bg-neutral-950/75 border-b border-neutral-200/80 dark:border-neutral-800/80 transition-colors duration-300">
+    <header className="sticky top-0 z-40 w-full backdrop-blur-2xl bg-white/80 dark:bg-neutral-950/80 border-b border-neutral-200/80 dark:border-neutral-800/80 transition-colors duration-300">
       <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
         
         {/* Brand Logo */}
@@ -27,43 +28,57 @@ export const Navbar: React.FC = () => {
           <div className="w-8 h-8 rounded-lg bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-105 transition-transform duration-200">
             IL
           </div>
-          <span className="font-bold text-lg tracking-tight text-neutral-900 dark:text-white">
-            InternsLoom
-          </span>
+          <div>
+            <span className="font-extrabold text-lg tracking-tight text-neutral-900 dark:text-white">
+              InternsLoom
+            </span>
+            <span className="hidden sm:inline-block ml-2 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+              ISO 9001:2015
+            </span>
+          </div>
         </button>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-7 text-sm font-medium">
+        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           <button
-            onClick={() => handleOpenCategory()}
+            onClick={() => handleOpenCategory(null)}
             className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
             Programs & Bootcamps
           </button>
+          
           <button
             onClick={() => setActiveModal('mentors')}
             className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
             Mentorship
           </button>
+
           <button
-            onClick={() => setActiveModal('resources')}
+            onClick={() => setActiveModal('verify')}
+            className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1.5"
+          >
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+            <span>Verify Certificate</span>
+          </button>
+
+          <a
+            href="#faqs"
             className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
-            Resources
-          </button>
+            FAQs
+          </a>
+
           <button
-            onClick={() => setActiveModal('ai-assistant')}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-semibold border border-blue-500/20 hover:bg-blue-500/20 transition-all text-xs"
+            onClick={() => setActiveModal('contact')}
+            className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            AI Skill Match
+            Contact
           </button>
         </nav>
 
         {/* Desktop Controls */}
         <div className="hidden md:flex items-center gap-3">
-          
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
@@ -73,19 +88,14 @@ export const Navbar: React.FC = () => {
             {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
 
-          {/* Applications & Saved Tracker */}
+          {/* Quick Apply CTA */}
           <button
-            onClick={() => setActiveModal('applications')}
-            className="relative p-2 rounded-full text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-            title="My Applications & Saved"
+            onClick={() => handleOpenCategory(null)}
+            className="px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5"
           >
-            <Bookmark className="w-4 h-4" />
-            {(user.applications.length > 0 || user.savedInternships.length > 0) && (
-              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            )}
+            <span>Apply Now</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
-
-
         </div>
 
         {/* Mobile Hamburger Toggle */}
@@ -117,41 +127,49 @@ export const Navbar: React.FC = () => {
             className="md:hidden border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 px-6 py-5 space-y-3"
           >
             <button
-              onClick={() => handleOpenCategory()}
-              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2"
+              onClick={() => handleOpenCategory(null)}
+              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5"
             >
               <Briefcase className="w-4 h-4 text-blue-500" />
-              Programs & Curriculum
+              Programs & Bootcamps
             </button>
             <button
               onClick={() => { setActiveModal('mentors'); setMobileMenuOpen(false); }}
-              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2"
+              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5"
             >
               <Users className="w-4 h-4 text-indigo-500" />
               Mentorship
             </button>
             <button
-              onClick={() => { setActiveModal('resources'); setMobileMenuOpen(false); }}
-              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2"
+              onClick={() => { setActiveModal('verify'); setMobileMenuOpen(false); }}
+              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5"
             >
-              <BookOpen className="w-4 h-4 text-emerald-500" />
-              Resources
+              <ShieldCheck className="w-4 h-4 text-emerald-500" />
+              Verify Certificate
             </button>
+            <a
+              href="#faqs"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5 block"
+            >
+              <HelpCircle className="w-4 h-4 text-amber-500" />
+              FAQs
+            </a>
             <button
-              onClick={() => { setActiveModal('ai-assistant'); setMobileMenuOpen(false); }}
-              className="w-full text-left py-2 text-blue-600 dark:text-blue-400 font-semibold flex items-center gap-2"
+              onClick={() => { setActiveModal('contact'); setMobileMenuOpen(false); }}
+              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5"
             >
-              <Sparkles className="w-4 h-4" />
-              AI Resume Match & Cold Email
+              <Phone className="w-4 h-4 text-purple-500" />
+              Contact Us
             </button>
-            <button
-              onClick={() => { setActiveModal('applications'); setMobileMenuOpen(false); }}
-              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2"
-            >
-              <Bookmark className="w-4 h-4 text-amber-500" />
-              My Applications & Saved ({user.applications.length + user.savedInternships.length})
-            </button>
-
+            <div className="pt-2">
+              <button
+                onClick={() => handleOpenCategory(null)}
+                className="w-full py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs text-center"
+              >
+                Apply for Batch
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

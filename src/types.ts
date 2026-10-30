@@ -1,17 +1,24 @@
-export type DepartmentCategory = 
-  | 'Engineering & Dev' 
-  | 'Creative & Design' 
-  | 'Business Strategy' 
-  | 'Startups' 
-  | 'Data & AI'
-  | 'Web Engineering'
-  | 'Cyber Security & Forensics'
-  | 'Artificial Intelligence & ML'
-  | 'Network Engineering'
-  | 'Data & Business Intelligence'
+export type MainCategory = 
+  | 'Tech & Data'
   | 'Cloud & DevOps'
-  | 'Backend Engineering'
-  | 'Talent Acquisition & Marketing';
+  | 'AI & Emerging Tech'
+  | 'Security & Networking'
+  | 'Business, Finance & Management'
+  | 'Engineering & Core Tech'
+  | 'Life Sciences & Healthcare'
+  | 'Software Tools & Platforms'
+  | 'Design & Creative'
+  | 'Specialized & Others';
+
+export type BranchDomain =
+  | 'IT / Computer Science & Engineering'
+  | 'Electronics & Communication / EEE'
+  | 'Mechanical / Civil Engineering'
+  | 'Bio Technology'
+  | 'Management'
+  | 'Health Information Management / Life Science';
+
+export type DepartmentCategory = string;
 
 export interface CurriculumModule {
   moduleNumber: number;
@@ -31,14 +38,15 @@ export interface Internship {
   title: string;
   company: string;
   companyLogo?: string;
-  department: DepartmentCategory;
+  department: string;
+  category: MainCategory;
+  branch?: BranchDomain;
   location: string;
-  workType: 'Remote' | 'Hybrid' | 'Onsite';
   stipend: string;
   duration: string;
   trainingDuration: string;
   internshipDuration: string;
-  mode: 'Live Interactive' | 'Self-Paced + Live Doubt Clearance' | 'Hybrid Bootcamp' | 'Live Interactive & Mentored' | 'Flexible WFH';
+  mode: string;
   batchDate: string;
   scholarshipFee: string;
   tags: string[];
@@ -55,17 +63,16 @@ export interface Internship {
   featured?: boolean;
 }
 
-export interface Mentor {
+export interface MentorshipDomain {
   id: string;
-  name: string;
-  role: string;
-  company: string;
-  avatar: string;
-  bio: string;
-  expertise: string[];
-  rating: number;
-  reviewsCount: number;
-  availability: string;
+  domain: string;
+  category: MainCategory;
+  branch?: BranchDomain;
+  tagline: string;
+  description: string;
+  topics: string[];
+  duration: string;
+  icon: string;
 }
 
 export interface Application {
@@ -86,17 +93,33 @@ export interface UserProfile {
   gradYear: string;
   bio: string;
   skills: string[];
-  savedInternships: string[]; // internship IDs
+  savedInternships: string[];
   applications: Application[];
   theme: 'dark' | 'light';
 }
 
-export interface ResourceItem {
+export interface TestimonialItem {
   id: string;
-  title: string;
-  category: 'Interview Prep' | 'Resume Vault' | 'Cold Outreach' | 'Career Playbook';
-  description: string;
-  readTime: string;
-  icon: string;
-  featured?: boolean;
+  name: string;
+  role: string;
+  program: string;
+  review: string;
+  rating: number;
+  avatar?: string;
+}
+
+export interface FaqItem {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+export interface CertificateRecord {
+  id: string;
+  studentName: string;
+  program: string;
+  issueDate: string;
+  status: 'Verified & Authentic' | 'Pending Verification';
+  grade: string;
+  credentialUrl?: string;
 }

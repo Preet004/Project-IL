@@ -1,21 +1,14 @@
 import React from 'react';
 import { useUser } from '../context/UserContext';
-import { Globe, Share2 } from 'lucide-react';
+import { Globe, Phone, Mail, ShieldCheck, MapPin } from 'lucide-react';
+import { DepartmentCategory } from '../types';
 
 export const Footer: React.FC = () => {
-  const { setActiveModal, showToast } = useUser();
+  const { setActiveModal, setSelectedCategoryId, showToast } = useUser();
 
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: 'InternsLoom',
-        text: 'The bridge between student ambition and professional excellence.',
-        url: window.location.href,
-      }).catch(() => {});
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      showToast('Link copied to clipboard!');
-    }
+  const handleOpenDomain = (dom: DepartmentCategory) => {
+    setSelectedCategoryId(dom);
+    setActiveModal('internships');
   };
 
   return (
@@ -26,125 +19,132 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
           
           {/* Brand Info */}
-          <div className="md:col-span-1 space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 flex items-center justify-center font-bold text-xs">
+          <div className="md:col-span-2 space-y-4">
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-lg bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 flex items-center justify-center font-bold text-xs">
                 IL
               </div>
-              <p className="text-sm font-bold text-neutral-900 dark:text-white">InternsLoom</p>
+              <p className="text-base font-extrabold text-neutral-900 dark:text-white">InternsLoom</p>
             </div>
-            <p className="leading-relaxed text-neutral-500 dark:text-neutral-400">
-              Elevating the internship experience through precision matching and elite resources.
+            
+            <p className="leading-relaxed text-neutral-500 dark:text-neutral-400 max-w-sm">
+              The premier bridge between academic classroom learning and live industry engineering excellence. Offering mentor-led technical training, production capstone internships, and ISO 9001:2015 accredited certifications.
             </p>
+
+            <div className="space-y-1.5 text-[11px] text-neutral-500 dark:text-neutral-400 pt-2">
+              <p className="flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5 text-blue-500" />
+                <span>Student Support: +91 7019680860 / +91 6361187682</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-indigo-500" />
+                <span>Helpdesk: support@internsloom.com</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                <span>Recognized by MSME, MCA & Startup India</span>
+              </p>
+            </div>
           </div>
 
-          {/* Discover */}
+          {/* Popular Domains */}
           <div className="space-y-3">
-            <p className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-[11px]">Discover</p>
+            <p className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-[11px]">Popular Domains</p>
             <ul className="space-y-2">
               <li>
-                <button onClick={() => setActiveModal('internships')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  Internships
+                <button onClick={() => handleOpenDomain('Web Development')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left">
+                  Web Development
                 </button>
               </li>
               <li>
-                <button onClick={() => setActiveModal('internships')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  Fellowships
+                <button onClick={() => handleOpenDomain('Artificial Intelligence & ML')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left">
+                  Artificial Intelligence & ML
                 </button>
               </li>
               <li>
-                <button onClick={() => setActiveModal('resources')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  Programs
+                <button onClick={() => handleOpenDomain('Data Science & Analytics')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left">
+                  Data Science & Analytics
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleOpenDomain('Cyber Security & Ethical Hacking')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left">
+                  Cyber Security & Forensics
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleOpenDomain('Cloud Computing & DevOps')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left">
+                  Cloud Computing & DevOps
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Company */}
+          {/* Quick Navigation */}
           <div className="space-y-3">
-            <p className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-[11px]">Company</p>
+            <p className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-[11px]">Platform</p>
             <ul className="space-y-2">
               <li>
-                <button onClick={() => showToast('InternsLoom connects students with elite tech teams.')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  About Us
+                <button onClick={() => { setSelectedCategoryId(null); setActiveModal('internships'); }} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
+                  All Bootcamps
                 </button>
               </li>
               <li>
-                <button onClick={() => showToast('Partner with InternsLoom for university skill & training programs.')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  Partner With Us
+                <button onClick={() => setActiveModal('mentors')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
+                  Domain Mentorship
                 </button>
               </li>
               <li>
-                <button onClick={() => setActiveModal('internships')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  Careers
+                <button onClick={() => setActiveModal('verify')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                  <span>Verify Certificate</span>
+                </button>
+              </li>
+              <li>
+                <a href="#faqs" className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors block">
+                  Frequently Asked Questions
+                </a>
+              </li>
+              <li>
+                <button onClick={() => setActiveModal('contact')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
+                  Contact Support
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Legal */}
+          {/* Accreditation & Quality */}
           <div className="space-y-3">
-            <p className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-[11px]">Legal</p>
-            <ul className="space-y-2">
-              <li>
-                <button onClick={() => showToast('Privacy Policy: All student data is end-to-end encrypted.')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  Privacy Policy
+            <p className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-[11px]">Accreditation</p>
+            <div className="space-y-2 text-neutral-500 dark:text-neutral-400">
+              <p className="font-medium text-neutral-800 dark:text-neutral-200">ISO 9001:2015 Certified</p>
+              <p className="text-[11px] leading-relaxed">
+                Quality Management System audited and accredited for technical education and vocational internship training.
+              </p>
+              <div className="pt-2">
+                <button
+                  onClick={() => setActiveModal('verify')}
+                  className="px-3 py-1.5 rounded-lg bg-emerald-600/10 text-emerald-600 dark:text-emerald-400 font-semibold text-[11px] border border-emerald-500/20 hover:bg-emerald-600/20 transition-colors"
+                >
+                  Verify Student Credential
                 </button>
-              </li>
-              <li>
-                <button onClick={() => showToast('Terms of Use: Free for verified university students.')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  Terms of Use
-                </button>
-              </li>
-              <li>
-                <button onClick={() => showToast('Legal Compliance Standard WCAG 2.1 AA.')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  Legal
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div className="space-y-3">
-            <p className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-[11px]">Support</p>
-            <ul className="space-y-2">
-              <li>
-                <button onClick={() => showToast('Contact: support@internsloom.com')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  Contact Us
-                </button>
-              </li>
-              <li>
-                <button onClick={() => setActiveModal('resources')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  Site Map
-                </button>
-              </li>
-              <li>
-                <button onClick={() => setActiveModal('resources')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  FAQ
-                </button>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
 
         </div>
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-neutral-200/60 dark:border-neutral-800/60 flex flex-col sm:flex-row justify-between items-center gap-4 text-neutral-500 dark:text-neutral-400">
-          <p>© 2026 InternsLoom Private Limited All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => showToast('Global Access Enabled')}
-              className="p-1.5 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors"
-              title="Global"
-            >
-              <Globe className="w-4 h-4" />
+          <p>© 2026 InternsLoom Private Limited. All rights reserved.</p>
+          <div className="flex items-center gap-6 text-[11px]">
+            <button onClick={() => showToast('All student records are end-to-end encrypted.')} className="hover:underline">
+              Privacy Policy
             </button>
-            <button
-              onClick={handleShare}
-              className="p-1.5 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors"
-              title="Share InternsLoom"
-            >
-              <Share2 className="w-4 h-4" />
+            <button onClick={() => showToast('Terms: Academic code of conduct applies to all batches.')} className="hover:underline">
+              Terms of Service
+            </button>
+            <button onClick={() => showToast('Operating under Ministry of Corporate Affairs (MCA) registration.')} className="hover:underline">
+              Compliance
             </button>
           </div>
         </div>
