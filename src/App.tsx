@@ -4,6 +4,7 @@ import { UserProvider } from './context/UserContext';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { BentoGrid } from './components/BentoGrid';
+import { MentorshipSection } from './components/MentorshipSection';
 import { ResourceSection } from './components/ResourceSection';
 import { CtaSection } from './components/CtaSection';
 import { Footer } from './components/Footer';
@@ -20,6 +21,7 @@ export function AppContent() {
       <main>
         <Hero />
         <BentoGrid />
+        <MentorshipSection />
         <ResourceSection />
         <CtaSection />
       </main>

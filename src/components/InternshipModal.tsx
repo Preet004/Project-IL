@@ -326,6 +326,28 @@ export const InternshipModal: React.FC = () => {
                         </p>
                       </div>
 
+                      {/* Mentorship Option */}
+                      <div className="p-3.5 rounded-2xl bg-orange-500/10 dark:bg-orange-500/15 border border-orange-500/20 flex items-center justify-between gap-3">
+                        <p className="text-xs md:text-sm font-semibold text-neutral-800 dark:text-neutral-200">
+                          This is the program, and if you want mentorship with this program, then{' '}
+                          <button
+                            type="button"
+                            onClick={() => setActiveModal('mentors')}
+                            className="font-bold text-orange-600 dark:text-orange-400 underline decoration-orange-500 underline-offset-4 hover:text-orange-700 dark:hover:text-orange-300 transition-colors cursor-pointer"
+                          >
+                            click here
+                          </button>
+                          .
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => setActiveModal('mentors')}
+                          className="px-3 py-1.5 rounded-xl bg-[#f26b1d] hover:bg-[#e05d12] text-white text-xs font-bold shrink-0 shadow-xs cursor-pointer"
+                        >
+                          View Plans
+                        </button>
+                      </div>
+
                       {/* Dual Phase Details */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-800">
                         <div className="space-y-1">

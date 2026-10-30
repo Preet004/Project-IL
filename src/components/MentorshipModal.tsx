@@ -1,68 +1,108 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useUser } from '../context/UserContext';
-import { MENTORSHIP_DOMAINS, CATEGORIES_LIST } from '../data/mockData';
-import { MentorshipDomain, MainCategory } from '../types';
-import { X, Users, CheckCircle, Code, Cpu, BarChart3, Shield, Cloud, Server, Radio, TrendingUp, Send, Search, Wrench, Dna, Layers, Palette, Compass } from 'lucide-react';
+import { MENTORSHIP_DOMAINS, MOCK_INTERNSHIPS } from '../data/mockData';
+import { MentorshipDomain } from '../types';
+import { X, Check, CheckCircle2, ChevronRight, Search, ShieldCheck, Sparkles, BookOpen, Clock, ArrowRight } from 'lucide-react';
+
+interface PricingPlan {
+  id: 'self-paced' | 'mentor-led';
+  name: string;
+  subtitle: string;
+  price: string;
+  paymentType: string;
+  isPopular?: boolean;
+  features: {
+    included: boolean;
+    text: string;
+  }[];
+}
+
+const PRICING_PLANS: PricingPlan[] = [
+  {
+    id: 'self-paced',
+    name: 'Self Paced',
+    subtitle: 'Learn with your speed',
+    price: '₹6,500',
+    paymentType: 'One Time Payment',
+    isPopular: false,
+    features: [
+      { included: true, text: 'RECORDED LECTURES' },
+      { included: true, text: 'REAL TIME PROJECTS' },
+      { included: true, text: '4+ HRS OF LIVE SESSIONS' },
+      { included: true, text: 'ONE ON ONE DOUBT SESSIONS' },
+      { included: true, text: 'CERTIFICATIONS' },
+      { included: false, text: 'MENTOR SUPPORT' },
+      { included: false, text: 'PLACEMENT GUIDANCE' },
+      { included: false, text: 'INTERVIEW ASSISTANCE' },
+    ]
+  },
+  {
+    id: 'mentor-led',
+    name: 'Mentor Led',
+    subtitle: 'Live Mentorship',
+    price: '₹9,000',
+    paymentType: 'One Time Payment',
+    isPopular: true,
+    features: [
+      { included: true, text: '4+ HRS OF LIVE SESSIONS' },
+      { included: true, text: 'RECORDED LECTURES' },
+      { included: true, text: 'REAL TIME PROJECTS' },
+      { included: true, text: 'ONE ON ONE DOUBT SESSIONS' },
+      { included: true, text: 'CERTIFICATIONS' },
+      { included: true, text: 'MENTOR SUPPORT' },
+      { included: true, text: 'PLACEMENT GUIDANCE' },
+      { included: true, text: 'INTERVIEW ASSISTANCE' },
+    ]
+  }
+];
 
 export const MentorshipModal: React.FC = () => {
   const { activeModal, setActiveModal, showToast } = useUser();
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedDomain, setSelectedDomain] = useState<MentorshipDomain | null>(MENTORSHIP_DOMAINS[0]);
-  const [showRequestForm, setShowRequestForm] = useState(false);
-  const [studentName, setStudentName] = useState('');
-  const [studentEmail, setStudentEmail] = useState('');
-  const [studentPhone, setStudentPhone] = useState('');
-  const [studentQuery, setStudentQuery] = useState('');
-  const [submittedState, setSubmittedState] = useState(false);
+  const [selectedDomainTitle, setSelectedDomainTitle] = useState<string>(
+    MENTORSHIP_DOMAINS[0]?.domain || 'Full Stack Web Development'
+  );
+  const [searchDomainQuery, setSearchDomainQuery] = useState('');
+  const [selectedPlan, setSelectedPlan] = useState<PricingPlan | null>(null);
+  const [showCheckoutForm, setShowCheckoutForm] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  // Form State
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [college, setCollege] = useState('');
 
   if (activeModal !== 'mentors') return null;
 
-  const getDomainIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'Code': return <Code className="w-5 h-5" />;
-      case 'Cpu': return <Cpu className="w-5 h-5" />;
-      case 'BarChart3': return <BarChart3 className="w-5 h-5" />;
-      case 'Shield': return <Shield className="w-5 h-5" />;
-      case 'Cloud': return <Cloud className="w-5 h-5" />;
-      case 'Server': return <Server className="w-5 h-5" />;
-      case 'Radio': return <Radio className="w-5 h-5" />;
-      case 'TrendingUp': return <TrendingUp className="w-5 h-5" />;
-      case 'Wrench': return <Wrench className="w-5 h-5" />;
-      case 'Dna': return <Dna className="w-5 h-5" />;
-      case 'Layers': return <Layers className="w-5 h-5" />;
-      case 'Palette': return <Palette className="w-5 h-5" />;
-      case 'Compass': return <Compass className="w-5 h-5" />;
-      default: return <Users className="w-5 h-5" />;
-    }
+  // Domain search filtering
+  const allDomainsList = Array.from(
+    new Set([
+      ...MENTORSHIP_DOMAINS.map(d => d.domain),
+      ...MOCK_INTERNSHIPS.map(i => i.title)
+    ])
+  );
+
+  const filteredDomainOptions = allDomainsList.filter(d =>
+    d.toLowerCase().includes(searchDomainQuery.toLowerCase())
+  );
+
+  const handleStartLearning = (plan: PricingPlan) => {
+    setSelectedPlan(plan);
+    setShowCheckoutForm(true);
+    setIsSuccess(false);
   };
 
-  const handleOpenMentorshipForm = (domain: MentorshipDomain) => {
-    setSelectedDomain(domain);
-    setShowRequestForm(true);
-    setSubmittedState(false);
-  };
-
-  const handleSubmitMentorshipRequest = (e: React.FormEvent) => {
+  const handleEnrollmentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmittedState(true);
-    showToast(`Mentorship request submitted for ${selectedDomain?.domain}! Our academic coordinator will contact you on WhatsApp.`);
+    setIsSuccess(true);
+    showToast(`Enrolled in ${selectedDomainTitle} (${selectedPlan?.name} - ${selectedPlan?.price})! Our coordinator will reach out.`);
     setTimeout(() => {
-      setSubmittedState(false);
-      setShowRequestForm(false);
+      setIsSuccess(false);
+      setShowCheckoutForm(false);
       setActiveModal(null);
-    }, 2500);
+    }, 2800);
   };
-
-  const filteredDomains = MENTORSHIP_DOMAINS.filter((item) => {
-    const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
-    const matchesQuery = searchQuery === '' ||
-      item.domain.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.topics.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesCategory && matchesQuery;
-  });
 
   return (
     <AnimatePresence>
@@ -76,23 +116,22 @@ export const MentorshipModal: React.FC = () => {
           className="fixed inset-0 bg-neutral-950/80 backdrop-blur-md"
         />
 
-        {/* Modal Window */}
+        {/* Modal Container */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-5xl bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-2xl overflow-hidden z-10 my-4 max-h-[92vh] flex flex-col"
+          className="relative w-full max-w-5xl bg-[#fbf9f5] dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-2xl overflow-hidden z-10 my-4 max-h-[92vh] flex flex-col"
         >
-          {/* Top Bar */}
-          <div className="px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between bg-neutral-50/80 dark:bg-neutral-900/80">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
-                <Users className="w-4 h-4" />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold text-neutral-900 dark:text-white">Program Mentorship</h2>
-                <p className="text-xs text-neutral-500 dark:text-neutral-400">1-on-1 personalized guidance across all technology and engineering domains</p>
-              </div>
+          {/* Header Bar */}
+          <div className="px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm shrink-0">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">
+                InternsLoom Learning Plans
+              </span>
+              <h2 className="text-xl font-extrabold text-neutral-950 dark:text-white">
+                Domain Mentorship & Learning Tracks
+              </h2>
             </div>
 
             <button
@@ -104,213 +143,314 @@ export const MentorshipModal: React.FC = () => {
           </div>
 
           {/* Modal Body */}
-          <div className="flex-1 overflow-y-auto p-6">
-            {!showRequestForm ? (
+          <div className="flex-1 overflow-y-auto p-6 md:p-8">
+            {!showCheckoutForm ? (
               <div className="space-y-6">
-                {/* Search & Filter Bar */}
-                <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
-                  <div className="relative flex-1 max-w-md">
-                    <Search className="w-4 h-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="text"
-                      placeholder="Search domains (e.g. Python, VLSI, Bioinformatics, Azure)..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-9 pr-4 py-2 bg-neutral-100 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-700/80 rounded-xl text-xs text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                
+                {/* Domain Selector & Required Prompt Text */}
+                <div className="p-5 rounded-2xl bg-white dark:bg-neutral-800/80 border border-neutral-200/80 dark:border-neutral-700 shadow-xs">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="space-y-1">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">
+                        Selected Domain
+                      </span>
+                      {/* Required specific prompt text */}
+                      <p className="text-sm md:text-base font-semibold text-neutral-900 dark:text-white leading-relaxed">
+                        This is the program, and if you want mentorship with this program, then click here.
+                      </p>
+                    </div>
+
+                    {/* Domain Picker Dropdown */}
+                    <div className="shrink-0">
+                      <label className="block text-[11px] font-bold text-neutral-500 dark:text-neutral-400 mb-1">
+                        Choose Domain Program:
+                      </label>
+                      <select
+                        value={selectedDomainTitle}
+                        onChange={(e) => setSelectedDomainTitle(e.target.value)}
+                        className="w-full md:w-72 px-3.5 py-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer"
+                      >
+                        {allDomainsList.map((domain) => (
+                          <option key={domain} value={domain}>
+                            {domain}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
-                  <div className="text-xs text-neutral-500 dark:text-neutral-400 font-medium">
-                    Showing <span className="font-bold text-blue-600 dark:text-blue-400">{filteredDomains.length}</span> programs
+                  {/* Active Domain Highlight Banner */}
+                  <div className="mt-3 pt-3 border-t border-neutral-100 dark:border-neutral-700/60 flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-0.5 rounded-md bg-orange-100 dark:bg-orange-950/50 text-orange-700 dark:text-orange-400 font-bold">
+                        Active Track
+                      </span>
+                      <span className="font-extrabold text-neutral-900 dark:text-white text-sm">
+                        {selectedDomainTitle}
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-neutral-500 dark:text-neutral-400 hidden sm:inline">
+                      Includes 1-on-1 Guidance & Live Capstone Internship
+                    </span>
                   </div>
                 </div>
 
-                {/* Category Pills */}
-                <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-                  <button
-                    onClick={() => setSelectedCategory('All')}
-                    className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
-                      selectedCategory === 'All'
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-                    }`}
-                  >
-                    All Domains ({MENTORSHIP_DOMAINS.length})
-                  </button>
-                  {CATEGORIES_LIST.map((cat) => (
-                    <button
-                      key={cat.id}
-                      onClick={() => setSelectedCategory(cat.id)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
-                        selectedCategory === cat.id
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-                      }`}
-                    >
-                      {cat.name}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Domain Grid - Strictly NO mentor names, only domain + required text */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {filteredDomains.map((item) => (
-                    <div
-                      key={item.id}
-                      className="p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/40 hover:border-blue-500 dark:hover:border-blue-500 transition-all flex flex-col justify-between group shadow-sm hover:shadow-md"
-                    >
-                      <div>
-                        {/* Domain Title & Icon */}
-                        <div className="flex items-center gap-3 mb-2.5">
-                          <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
-                            {getDomainIcon(item.icon)}
-                          </div>
-                          <div>
-                            <span className="text-[10px] font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider block">
-                              {item.category}
-                            </span>
-                            <h3 className="text-base font-bold text-neutral-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                              {item.domain}
-                            </h3>
-                          </div>
-                        </div>
-
-                        <p className="text-xs text-neutral-500 dark:text-neutral-400 font-medium mb-3">
-                          {item.tagline}
+                {/* EXACT 2 PRICING CARDS FROM THE SCREENSHOT */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto pt-2">
+                  
+                  {/* CARD 1: Self Paced (₹6,500) */}
+                  <div className="relative rounded-3xl bg-white dark:bg-neutral-800/95 border border-neutral-200 dark:border-neutral-700/80 p-8 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                      {/* Header */}
+                      <div className="text-center mb-6">
+                        <h3 className="text-3xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
+                          Self Paced
+                        </h3>
+                        <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mt-1">
+                          Learn with your speed
                         </p>
-
-                        {/* Domain Mentorship Text as specifically requested */}
-                        <div className="p-3.5 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xs">
-                          <p className="text-sm font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed">
-                            This is the program, and if you want mentorship with this program, then{' '}
-                            <button
-                              onClick={() => handleOpenMentorshipForm(item)}
-                              className="inline-flex items-center font-bold text-blue-600 dark:text-blue-400 underline decoration-blue-500 underline-offset-4 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-pointer"
-                            >
-                              click here
-                            </button>
-                            .
+                        
+                        <div className="mt-5">
+                          <span className="text-4xl md:text-5xl font-black text-neutral-950 dark:text-white tracking-tight">
+                            ₹6,500
+                          </span>
+                          <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 mt-1">
+                            One Time Payment
                           </p>
                         </div>
                       </div>
 
-                      {/* Mentorship Focus Topics */}
-                      <div className="mt-4 pt-3 border-t border-neutral-200/60 dark:border-neutral-800/60 flex flex-wrap gap-1.5">
-                        {item.topics.map((t) => (
-                          <span key={t} className="text-[10px] px-2 py-0.5 rounded-md bg-neutral-200/60 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300">
-                            {t}
-                          </span>
+                      {/* Checklist */}
+                      <div className="space-y-3 pt-2 pb-8 border-t border-neutral-100 dark:border-neutral-700/60">
+                        {PRICING_PLANS[0].features.map((feature, idx) => (
+                          <div key={idx} className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
+                            {feature.included ? (
+                              <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">
+                                +
+                              </span>
+                            ) : (
+                              <span className="text-red-500 font-black text-base w-4 text-center">
+                                ✕
+                              </span>
+                            )}
+                            <span className={feature.included ? 'text-neutral-800 dark:text-neutral-200' : 'text-neutral-500 dark:text-neutral-400 font-medium'}>
+                              {feature.text}
+                            </span>
+                          </div>
                         ))}
                       </div>
                     </div>
-                  ))}
+
+                    {/* Action Button */}
+                    <button
+                      onClick={() => handleStartLearning(PRICING_PLANS[0])}
+                      className="w-full py-4 px-6 rounded-full bg-[#f26b1d] hover:bg-[#e05d12] text-white font-extrabold text-base shadow-md hover:shadow-lg transition-all text-center cursor-pointer transform active:scale-[0.98]"
+                    >
+                      Start Learning
+                    </button>
+                  </div>
+
+                  {/* CARD 2: Mentor Led (₹9,000 - POPULAR) */}
+                  <div className="relative rounded-3xl bg-white dark:bg-neutral-800/95 border-2 border-orange-500/80 dark:border-orange-500 p-8 shadow-md hover:shadow-xl transition-all flex flex-col justify-between">
+                    
+                    {/* Tilted POPULAR Ribbon Badge */}
+                    <div className="absolute -top-3.5 left-6 bg-[#f26b1d] text-white text-[11px] font-black uppercase px-3.5 py-1 rounded-md shadow-md transform -rotate-3 tracking-wider select-none">
+                      POPULAR
+                    </div>
+
+                    <div>
+                      {/* Header */}
+                      <div className="text-center mb-6 pt-1">
+                        <h3 className="text-3xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
+                          Mentor Led
+                        </h3>
+                        <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mt-1">
+                          Live Mentorship
+                        </p>
+                        
+                        <div className="mt-5">
+                          <span className="text-4xl md:text-5xl font-black text-neutral-950 dark:text-white tracking-tight">
+                            ₹9,000
+                          </span>
+                          <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 mt-1">
+                            One Time Payment
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Checklist */}
+                      <div className="space-y-3 pt-2 pb-8 border-t border-neutral-100 dark:border-neutral-700/60">
+                        {PRICING_PLANS[1].features.map((feature, idx) => (
+                          <div key={idx} className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
+                            <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">
+                              +
+                            </span>
+                            <span className="text-neutral-800 dark:text-neutral-200">
+                              {feature.text}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Action Button */}
+                    <button
+                      onClick={() => handleStartLearning(PRICING_PLANS[1])}
+                      className="w-full py-4 px-6 rounded-full bg-[#f26b1d] hover:bg-[#e05d12] text-white font-extrabold text-base shadow-md hover:shadow-lg transition-all text-center cursor-pointer transform active:scale-[0.98]"
+                    >
+                      Start Learning
+                    </button>
+                  </div>
+
                 </div>
 
-                {filteredDomains.length === 0 && (
-                  <div className="text-center py-12 text-neutral-500 dark:text-neutral-400 text-sm">
-                    No domains found matching "{searchQuery}". Try a different keyword or reset filters.
-                  </div>
-                )}
+                {/* Additional Trust Indicators */}
+                <div className="text-center pt-2 text-xs text-neutral-500 dark:text-neutral-400 font-medium flex flex-wrap items-center justify-center gap-6">
+                  <span className="flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-emerald-500" /> ISO 9001:2015 Verified Certificate
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <BookOpen className="w-4 h-4 text-blue-500" /> Real-Time Industry Capstone Projects
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="w-4 h-4 text-orange-500" /> Flexible Timings for College Students
+                  </span>
+                </div>
+
               </div>
             ) : (
-              /* Mentorship Request Form */
+              /* Enrollment / Checkout Step */
               <div className="max-w-xl mx-auto py-4">
-                {submittedState ? (
+                {isSuccess ? (
                   <div className="text-center py-12 space-y-4">
                     <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto">
-                      <CheckCircle className="w-8 h-8" />
+                      <CheckCircle2 className="w-10 h-10" />
                     </div>
-                    <h3 className="text-xl font-bold text-neutral-900 dark:text-white">Mentorship Request Received!</h3>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-md mx-auto">
-                      You have successfully requested mentorship for <span className="font-bold text-blue-600">{selectedDomain?.domain}</span>. Our faculty coordinator will connect with you shortly on WhatsApp to schedule your session.
+                    <h3 className="text-2xl font-extrabold text-neutral-900 dark:text-white">
+                      Enrollment Request Confirmed!
+                    </h3>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-md mx-auto leading-relaxed">
+                      You have selected <span className="font-bold text-orange-600">{selectedPlan?.name} ({selectedPlan?.price})</span> for <span className="font-bold text-neutral-900 dark:text-white">{selectedDomainTitle}</span>.
+                    </p>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                      Our academic counselor will reach out on your WhatsApp number within 15 minutes to share batch schedules and LMS onboarding credentials.
                     </p>
                   </div>
                 ) : (
                   <div className="space-y-6">
                     <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-4">
                       <div>
-                        <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
-                          Domain Mentorship Request
+                        <span className="text-[10px] font-bold text-orange-600 uppercase tracking-wider">
+                          Program Enrollment & Mentorship
                         </span>
-                        <h3 className="text-xl font-bold text-neutral-900 dark:text-white mt-1">
-                          {selectedDomain?.domain}
+                        <h3 className="text-xl font-bold text-neutral-900 dark:text-white mt-0.5">
+                          {selectedDomainTitle}
                         </h3>
                       </div>
                       <button
-                        onClick={() => setShowRequestForm(false)}
-                        className="text-xs font-medium text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200"
+                        onClick={() => setShowCheckoutForm(false)}
+                        className="text-xs font-semibold text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200"
                       >
-                        ← Back to all domains
+                        ← Back to plans
                       </button>
                     </div>
 
-                    <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                      This is the program, and if you want mentorship with this program, please provide your details below to schedule your personalized 1-on-1 doubt clearing, code review, and career guidance session.
-                    </p>
-
-                    <form onSubmit={handleSubmitMentorshipRequest} className="space-y-4 text-xs">
+                    {/* Selected Plan Summary Banner */}
+                    <div className="p-4 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-between">
                       <div>
-                        <label className="block font-semibold text-neutral-700 dark:text-neutral-300 mb-1">Your Full Name</label>
+                        <span className="text-xs font-bold text-orange-600 dark:text-orange-400 uppercase">
+                          Selected Track
+                        </span>
+                        <h4 className="text-base font-extrabold text-neutral-900 dark:text-white">
+                          {selectedPlan?.name} Plan
+                        </h4>
+                        <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                          {selectedPlan?.subtitle}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-2xl font-black text-neutral-950 dark:text-white">
+                          {selectedPlan?.price}
+                        </span>
+                        <p className="text-[10px] text-neutral-500 font-semibold">
+                          {selectedPlan?.paymentType}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Enrollment Form */}
+                    <form onSubmit={handleEnrollmentSubmit} className="space-y-4 text-xs">
+                      <div>
+                        <label className="block font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
+                          Full Name *
+                        </label>
                         <input
                           type="text"
                           required
-                          value={studentName}
-                          onChange={(e) => setStudentName(e.target.value)}
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
                           placeholder="e.g. Babalu Bharti"
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                         />
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block font-semibold text-neutral-700 dark:text-neutral-300 mb-1">Email Address</label>
+                          <label className="block font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
+                            Email Address *
+                          </label>
                           <input
                             type="email"
                             required
-                            value={studentEmail}
-                            onChange={(e) => setStudentEmail(e.target.value)}
-                            placeholder="student@example.com"
-                            className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="student@university.edu"
+                            className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                           />
                         </div>
 
                         <div>
-                          <label className="block font-semibold text-neutral-700 dark:text-neutral-300 mb-1">WhatsApp / Phone Number</label>
+                          <label className="block font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
+                            WhatsApp / Phone Number *
+                          </label>
                           <input
                             type="tel"
                             required
-                            value={studentPhone}
-                            onChange={(e) => setStudentPhone(e.target.value)}
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
                             placeholder="+91 7019680860"
-                            className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block font-semibold text-neutral-700 dark:text-neutral-300 mb-1">What would you like mentorship guidance with?</label>
-                        <textarea
-                          rows={3}
-                          value={studentQuery}
-                          onChange={(e) => setStudentQuery(e.target.value)}
-                          placeholder="e.g. Project architecture, doubt clearing, capstone implementation, interview preparation..."
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        <label className="block font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
+                          College / University & Graduation Year
+                        </label>
+                        <input
+                          type="text"
+                          value={college}
+                          onChange={(e) => setCollege(e.target.value)}
+                          placeholder="e.g. VTU / 2026 Batch"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                         />
                       </div>
 
-                      <div className="flex items-center justify-end gap-3 pt-2">
+                      <div className="flex items-center justify-end gap-3 pt-3">
                         <button
                           type="button"
-                          onClick={() => setShowRequestForm(false)}
-                          className="px-4 py-2.5 rounded-xl text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors font-medium"
+                          onClick={() => setShowCheckoutForm(false)}
+                          className="px-4 py-2.5 rounded-xl text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors font-semibold"
                         >
                           Cancel
                         </button>
                         <button
                           type="submit"
-                          className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all shadow-md flex items-center gap-2"
+                          className="px-6 py-3 rounded-full bg-[#f26b1d] hover:bg-[#e05d12] text-white font-extrabold text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer"
                         >
-                          <Send className="w-4 h-4" /> Request Mentorship Session
+                          <span>Confirm Enrollment ({selectedPlan?.price})</span>
+                          <ArrowRight className="w-4 h-4" />
                         </button>
                       </div>
                     </form>
