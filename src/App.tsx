@@ -10,6 +10,7 @@ import { ContactSection } from './components/ContactSection';
 import { CtaSection } from './components/CtaSection';
 import { Footer } from './components/Footer';
 import { ProgramDetailPage } from './components/ProgramDetailPage';
+import { ProgramsCatalogPage } from './components/ProgramsCatalogPage';
 import { CareersPage } from './components/CareersPage';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { InternshipModal } from './components/InternshipModal';
@@ -37,6 +38,8 @@ export function AppContent() {
               <CtaSection />
             </>
           )}
+
+          {currentView === 'programs' && <ProgramsCatalogPage />}
 
           {currentView === 'program-detail' && <ProgramDetailPage />}
 

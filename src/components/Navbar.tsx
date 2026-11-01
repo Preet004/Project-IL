@@ -42,10 +42,10 @@ export const Navbar: React.FC = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           <button
-            onClick={() => handleOpenCategory(null)}
+            onClick={() => navigateToView('programs')}
             className={`transition-colors cursor-pointer ${
-              currentView === 'home'
-                ? 'text-neutral-900 dark:text-white font-bold'
+              currentView === 'programs'
+                ? 'text-blue-600 dark:text-blue-400 font-bold'
                 : 'text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400'
             }`}
           >
@@ -119,8 +119,8 @@ export const Navbar: React.FC = () => {
 
           {/* Quick Apply CTA */}
           <button
-            onClick={() => handleOpenCategory(null)}
-            className="px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5"
+            onClick={() => navigateToView('programs')}
+            className="px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <span>Apply Now</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
@@ -156,29 +156,29 @@ export const Navbar: React.FC = () => {
             className="md:hidden border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 px-6 py-5 space-y-3"
           >
             <button
-              onClick={() => handleOpenCategory(null)}
-              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5"
+              onClick={() => { navigateToView('programs'); setMobileMenuOpen(false); }}
+              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5 cursor-pointer"
             >
               <Briefcase className="w-4 h-4 text-blue-500" />
               Programs & Bootcamps
             </button>
             <button
               onClick={() => { setActiveModal('mentors'); setMobileMenuOpen(false); }}
-              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5"
+              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5 cursor-pointer"
             >
               <Users className="w-4 h-4 text-indigo-500" />
               Mentorship
             </button>
             <button
               onClick={() => { navigateToView('careers'); setMobileMenuOpen(false); }}
-              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5"
+              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5 cursor-pointer"
             >
               <Briefcase className="w-4 h-4 text-emerald-500" />
               Careers & Vacancies
             </button>
             <button
               onClick={() => { setActiveModal('verify'); setMobileMenuOpen(false); }}
-              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5"
+              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5 cursor-pointer"
             >
               <ShieldCheck className="w-4 h-4 text-emerald-500" />
               Verify Certificate
@@ -186,22 +186,22 @@ export const Navbar: React.FC = () => {
             <a
               href="#faqs"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5 block"
+              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5 block cursor-pointer"
             >
               <HelpCircle className="w-4 h-4 text-amber-500" />
               FAQs
             </a>
             <button
               onClick={() => { setActiveModal('contact'); setMobileMenuOpen(false); }}
-              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5"
+              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5 cursor-pointer"
             >
               <Phone className="w-4 h-4 text-purple-500" />
               Contact Us
             </button>
             <div className="pt-2">
               <button
-                onClick={() => handleOpenCategory(null)}
-                className="w-full py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs text-center"
+                onClick={() => { navigateToView('programs'); setMobileMenuOpen(false); }}
+                className="w-full py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs text-center cursor-pointer"
               >
                 Apply for Batch
               </button>

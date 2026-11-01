@@ -8,12 +8,9 @@ import {
   Clock, 
   Award, 
   CheckCircle2, 
-  Check, 
-  X, 
   BookOpen, 
   Layers, 
   ShieldCheck, 
-  MessageCircle, 
   Download, 
   ChevronDown, 
   ChevronUp, 
@@ -21,8 +18,12 @@ import {
   Star,
   Users,
   Sparkles,
-  ExternalLink
+  Check,
+  X,
+  FileCheck2,
+  HelpCircle
 } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 interface PricingPlan {
   id: 'self-paced' | 'mentor-led';
@@ -82,12 +83,12 @@ export const ProgramDetailPage: React.FC = () => {
     navigateToView, 
     navigateToProgram, 
     showToast,
-    applyToInternship,
-    setActiveModal
+    applyToInternship 
   } = useUser();
 
   const program = MOCK_INTERNSHIPS.find((p) => p.id === selectedInternshipId) || MOCK_INTERNSHIPS[0];
   const [expandedModule, setExpandedModule] = useState<number | null>(1);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [selectedPlanForEnroll, setSelectedPlanForEnroll] = useState<PricingPlan | null>(null);
   const [enrollModalOpen, setEnrollModalOpen] = useState(false);
   const [studentName, setStudentName] = useState('');
@@ -98,6 +99,10 @@ export const ProgramDetailPage: React.FC = () => {
 
   const toggleModule = (modNumber: number) => {
     setExpandedModule(expandedModule === modNumber ? null : modNumber);
+  };
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
 
   const handleStartLearning = (plan: PricingPlan) => {
@@ -117,7 +122,7 @@ export const ProgramDetailPage: React.FC = () => {
   };
 
   const handleDownloadSyllabus = () => {
-    showToast(`Downloading detailed curriculum PDF for ${program.title}...`);
+    showToast(`Downloading complete curriculum PDF for ${program.title}...`);
   };
 
   const handleShare = () => {
@@ -133,13 +138,36 @@ export const ProgramDetailPage: React.FC = () => {
     }
   };
 
-  // WhatsApp redirection for this specific program
   const handleWhatsAppInquiry = () => {
     const text = encodeURIComponent(
       `Hi InternsLoom, I want details regarding the "${program.title}" training & internship program. Could you share batch dates and curriculum details?`
     );
     window.open(`https://wa.me/917019680860?text=${text}`, '_blank', 'noopener,noreferrer');
   };
+
+  // Program-specific FAQs
+  const programFaqs = [
+    {
+      q: `What is the difference between Self-Paced (₹6,500) and Mentor-Led (₹9,000) for ${program.title}?`,
+      a: `Both tracks provide full access to recorded lectures, real-time industry projects, 4+ hours of live masterclasses, one-on-one doubt resolution, and authentic ISO certifications. The Mentor-Led track adds dedicated personalized 1-on-1 industry mentor sessions, weekly code reviews, resume building, mock interviews, and priority hiring partner placement guidance.`
+    },
+    {
+      q: `What certificates will I receive upon completing ${program.title}?`,
+      a: `You receive dual verified credentials: (1) An ISO 9001:2015 Accredited Training Certificate recognizing your technical mastery, and (2) A Live Industry Capstone Project Internship Experience Certificate. Exemplary learners additionally qualify for an Academic & Corporate Letter of Recommendation (LOR).`
+    },
+    {
+      q: `Can I take this program alongside my college classes and exams?`,
+      a: `Yes! Our curriculum is designed specifically for university students and early professionals. The Self-Paced option offers complete scheduling freedom, while the Mentor-Led track conducts live interactive sessions on weekends and evenings with flexible assignment submission windows.`
+    },
+    {
+      q: `How do one-on-one doubt sessions and live projects work?`,
+      a: `Whenever you get stuck while coding or executing modules, you can schedule a 1-on-1 screen-sharing doubt clearing session with our technical mentors. For the 2-month live capstone project, you will build and deploy a production-grade application following standard industry Git workflows.`
+    },
+    {
+      q: `How do I verify the authenticity of my certificate?`,
+      a: `Every certificate issued by InternsLoom includes a unique verification credential ID and QR code. Anyone (recruiters, college authorities, or background checkers) can verify it 24/7 on our online portal under the "Verify Certificate" tab.`
+    }
+  ];
 
   // Other related programs in the same category
   const relatedPrograms = MOCK_INTERNSHIPS
@@ -148,15 +176,16 @@ export const ProgramDetailPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors duration-300 pb-24">
-      {/* Top Breadcrumb & Navigation Bar */}
+      
+      {/* Top Sticky Breadcrumb / Action Bar */}
       <div className="bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 sticky top-16 z-30 shadow-xs">
         <div className="max-w-[1240px] mx-auto px-6 py-3.5 flex items-center justify-between">
           <button
-            onClick={() => navigateToView('home')}
+            onClick={() => navigateToView('programs')}
             className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Back to All Programs</span>
+            <span>All Programs & Bootcamps</span>
           </button>
 
           <div className="flex items-center gap-2.5">
@@ -171,17 +200,20 @@ export const ProgramDetailPage: React.FC = () => {
               onClick={handleWhatsAppInquiry}
               className="px-3.5 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
             >
-              <MessageCircle className="w-4 h-4" />
+              <WhatsAppIcon className="w-4 h-4 text-white" />
               <span>Ask on WhatsApp</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Hero Header */}
+      {/* ============================================================== */}
+      {/* STEP 1: PROGRAM DETAILS & OVERVIEW */}
+      {/* ============================================================== */}
       <div className="bg-gradient-to-b from-blue-50/50 via-white to-neutral-50 dark:from-neutral-900 dark:via-neutral-900/80 dark:to-neutral-950 border-b border-neutral-200 dark:border-neutral-800 py-12 md:py-16">
         <div className="max-w-[1240px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
             <div className="lg:col-span-8 space-y-4">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-600 text-white shadow-xs">
@@ -205,6 +237,7 @@ export const ProgramDetailPage: React.FC = () => {
                 {program.description}
               </p>
 
+              {/* Badges / Highlights */}
               <div className="flex flex-wrap items-center gap-6 pt-2 text-xs md:text-sm text-neutral-600 dark:text-neutral-400">
                 <div className="flex items-center gap-1.5">
                   <Calendar className="w-4 h-4 text-blue-500" />
@@ -226,7 +259,7 @@ export const ProgramDetailPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Quick Action Box */}
+            {/* Quick Summary Action Card */}
             <div className="lg:col-span-4 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 shadow-xl space-y-4">
               <div className="flex items-center justify-between pb-3 border-b border-neutral-100 dark:border-neutral-800">
                 <span className="text-xs uppercase font-bold text-neutral-400 tracking-wider">Learning Track</span>
@@ -247,10 +280,10 @@ export const ProgramDetailPage: React.FC = () => {
 
               <div className="space-y-2 pt-2">
                 <a
-                  href="#learning-plans"
+                  href="#learning-options"
                   className="w-full py-3 px-4 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm text-center block shadow-md shadow-orange-500/20 transition-all cursor-pointer"
                 >
-                  Choose Learning Plan
+                  Choose Learning Option
                 </a>
 
                 <button
@@ -264,7 +297,7 @@ export const ProgramDetailPage: React.FC = () => {
 
               <div className="pt-2 text-center">
                 <p className="text-[11px] text-neutral-400">
-                  Instant certificate verification & 100+ hiring partner placement drive access.
+                  Dual certifications: ISO 9001:2015 Training + 2-Month Live Capstone Internship.
                 </p>
               </div>
             </div>
@@ -272,11 +305,11 @@ export const ProgramDetailPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Content Area */}
+      {/* Main Flow Content Container */}
       <div className="max-w-[1240px] mx-auto px-6 py-12 space-y-16">
         
-        {/* Mentorship text callout */}
-        <div className="p-5 md:p-6 rounded-3xl bg-orange-50 dark:bg-orange-950/20 border-2 border-orange-200 dark:border-orange-800/60 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Mentorship continuity notice */}
+        <div className="p-5 md:p-6 rounded-3xl bg-orange-50 dark:bg-orange-950/20 border-2 border-orange-200 dark:border-orange-800/60 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="space-y-1 text-center md:text-left">
             <h3 className="text-base md:text-lg font-bold text-neutral-900 dark:text-white">
               Looking for dedicated personal guidance?
@@ -284,7 +317,7 @@ export const ProgramDetailPage: React.FC = () => {
             <p className="text-sm md:text-base font-semibold text-neutral-800 dark:text-neutral-200">
               This is the program, and if you want mentorship with this program, then{' '}
               <a
-                href="#learning-plans"
+                href="#learning-options"
                 className="font-bold text-orange-600 dark:text-orange-400 underline decoration-orange-500 underline-offset-4 hover:text-orange-700 dark:hover:text-orange-300 transition-colors cursor-pointer"
               >
                 click here
@@ -293,28 +326,309 @@ export const ProgramDetailPage: React.FC = () => {
             </p>
           </div>
           <a
-            href="#learning-plans"
+            href="#learning-options"
             className="px-5 py-2.5 rounded-xl bg-[#f26b1d] hover:bg-[#e05d12] text-white text-sm font-bold shrink-0 shadow-md transition-all cursor-pointer"
           >
             Compare Plans Below
           </a>
         </div>
 
+        {/* Dual Phase Structure Overview */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-6 rounded-3xl bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200/80 dark:border-blue-900/40 space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600 text-white text-xs font-bold">
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Phase 1: Foundation Technical Training</span>
+            </div>
+            <h4 className="text-lg font-bold text-neutral-900 dark:text-white">
+              {program.trainingDuration}
+            </h4>
+            <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
+              Intensive live masterclasses and structured hands-on modules covering engineering fundamentals, best practices, frameworks, and architecture.
+            </p>
+            <ul className="space-y-1.5 text-xs text-neutral-700 dark:text-neutral-300 pt-2">
+              <li className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                <span>Hands-on weekly code evaluations & problem sets</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                <span>One-on-one doubt resolution with domain mentors</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="p-6 rounded-3xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/80 dark:border-emerald-900/40 space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-bold">
+              <Award className="w-3.5 h-3.5" />
+              <span>Phase 2: Live Industry Capstone Internship</span>
+            </div>
+            <h4 className="text-lg font-bold text-neutral-900 dark:text-white">
+              {program.internshipDuration}
+            </h4>
+            <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
+              Deploy actual client-grade code to production, work in agile sprints, submit Git pull requests, and gain verifiable project credentials.
+            </p>
+            <ul className="space-y-1.5 text-xs text-neutral-700 dark:text-neutral-300 pt-2">
+              <li className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Verified Capstone Project completion credentials</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Letter of Recommendation (LOR) for top performers</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
         {/* ============================================================== */}
-        {/* SECTION: Self Paced vs Mentor Led Learning Plans */}
+        {/* STEP 2: TOPICS TO BE COVERED (Syllabus, Modules, Tools) */}
+        {/* ============================================================== */}
+        <div id="topics-covered" className="space-y-8 scroll-mt-24">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+            <div>
+              <div className="inline-flex items-center gap-1.5 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider mb-1">
+                <BookOpen className="w-4 h-4" />
+                <span>Curriculum Roadmap</span>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
+                Topics to be Covered
+              </h2>
+              <p className="text-sm text-neutral-500 mt-1">
+                Comprehensive step-by-step syllabus designed to take you from foundational syntax to enterprise system architecture.
+              </p>
+            </div>
+            <button
+              onClick={handleDownloadSyllabus}
+              className="px-4 py-2 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs font-bold flex items-center gap-1.5 hover:opacity-90 transition-opacity cursor-pointer self-start sm:self-auto shadow-xs"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Full Syllabus PDF</span>
+            </button>
+          </div>
+
+          {/* Module Accordions */}
+          <div className="space-y-3.5">
+            {program.curriculum.map((module) => {
+              const isOpen = expandedModule === module.moduleNumber;
+              return (
+                <div
+                  key={module.moduleNumber}
+                  className="rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden bg-white dark:bg-neutral-900 transition-all shadow-xs"
+                >
+                  <button
+                    onClick={() => toggleModule(module.moduleNumber)}
+                    className="w-full p-4 md:p-5 flex items-center justify-between text-left hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors cursor-pointer"
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 font-extrabold flex items-center justify-center text-xs shrink-0">
+                        M{module.moduleNumber}
+                      </div>
+                      <div>
+                        <h4 className="text-sm md:text-base font-bold text-neutral-900 dark:text-white">
+                          {module.title}
+                        </h4>
+                        <span className="text-xs text-neutral-400 font-medium">
+                          {module.duration}
+                        </span>
+                      </div>
+                    </div>
+                    {isOpen ? (
+                      <ChevronUp className="w-5 h-5 text-neutral-400 shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-neutral-400 shrink-0" />
+                    )}
+                  </button>
+
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="px-5 pb-5 pt-1 border-t border-neutral-100 dark:border-neutral-800"
+                      >
+                        <p className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2.5">
+                          Topics Covered in this Module:
+                        </p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                          {module.topics.map((topic, tIdx) => (
+                            <div key={tIdx} className="flex items-start gap-2.5 text-xs text-neutral-700 dark:text-neutral-300">
+                              <CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5 shrink-0" />
+                              <span className="leading-snug">{topic}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Tools & Technologies Covered */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 space-y-3">
+            <div className="flex items-center gap-2">
+              <Layers className="w-4 h-4 text-indigo-500" />
+              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-400">
+                Software Tools & Platforms Covered
+              </h3>
+            </div>
+            <div className="flex flex-wrap gap-2 pt-1">
+              {program.toolsCovered.map((tool) => (
+                <span
+                  key={tool}
+                  className="px-3.5 py-1.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-xs font-semibold border border-neutral-200/80 dark:border-neutral-700"
+                >
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Featured Live Capstone Project */}
+          {program.liveProjects.length > 0 && (
+            <div className="p-6 md:p-8 rounded-3xl bg-neutral-900 text-white space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-800 pb-3">
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
+                  Live Capstone Project Immersion
+                </span>
+                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  Production Deployment
+                </span>
+              </div>
+              <h4 className="text-lg md:text-xl font-bold text-white">
+                {program.liveProjects[0].title}
+              </h4>
+              <p className="text-xs md:text-sm text-neutral-300 leading-relaxed max-w-3xl">
+                {program.liveProjects[0].description}
+              </p>
+              <div>
+                <p className="text-xs font-semibold text-neutral-400 mb-2">Applied Project Tech Stack:</p>
+                <div className="flex flex-wrap gap-2">
+                  {program.liveProjects[0].techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 rounded-lg bg-neutral-800 text-neutral-200 text-xs font-medium border border-neutral-700"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* ============================================================== */}
+        {/* STEP 3: REQUIREMENTS (Eligibility, Prerequisites, Criteria) */}
+        {/* ============================================================== */}
+        <div id="requirements" className="space-y-6 scroll-mt-24">
+          <div className="border-b border-neutral-200 dark:border-neutral-800 pb-4">
+            <div className="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">
+              <FileCheck2 className="w-4 h-4" />
+              <span>Eligibility & Preparation</span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
+              Program Requirements & Prerequisites
+            </h2>
+            <p className="text-sm text-neutral-500 mt-1">
+              Review candidate criteria, technical prerequisites, and required weekly engagement.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Eligibility */}
+            <div className="p-6 rounded-3xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 space-y-3">
+              <div className="w-10 h-10 rounded-2xl bg-blue-500/10 text-blue-600 flex items-center justify-center font-bold">
+                1
+              </div>
+              <h4 className="text-base font-bold text-neutral-900 dark:text-white">
+                Who Can Apply
+              </h4>
+              <ul className="space-y-2 text-xs text-neutral-600 dark:text-neutral-400">
+                {program.requirements.map((req, rIdx) => (
+                  <li key={rIdx} className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                    <span>{req}</span>
+                  </li>
+                ))}
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>Freshers, university students (1st - 4th year), and career transitioners welcome.</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Hardware & Setup */}
+            <div className="p-6 rounded-3xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 space-y-3">
+              <div className="w-10 h-10 rounded-2xl bg-purple-500/10 text-purple-600 flex items-center justify-center font-bold">
+                2
+              </div>
+              <h4 className="text-base font-bold text-neutral-900 dark:text-white">
+                Hardware & Connectivity
+              </h4>
+              <ul className="space-y-2 text-xs text-neutral-600 dark:text-neutral-400">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>A laptop or desktop PC (Windows, macOS, or Linux).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>Minimum 4GB RAM (8GB recommended for modern SDKs and tools).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>Stable broadband internet connection for video streaming & live mentor calls.</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Time Commitment */}
+            <div className="p-6 rounded-3xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 space-y-3">
+              <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center font-bold">
+                3
+              </div>
+              <h4 className="text-base font-bold text-neutral-900 dark:text-white">
+                Commitment & Ethics
+              </h4>
+              <ul className="space-y-2 text-xs text-neutral-600 dark:text-neutral-400">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>Dedicate 6 to 8 hours per week to code exercises, quizzes, and live project deliverables.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>Adherence to academic integrity and collaborative sprint communication.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>Active participation in capstone milestone reviews.</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        {/* ============================================================== */}
+        {/* STEP 4: DO YOU WANT THIS PROGRAM TO BE SELF-PACED OR MENTOR-LED? */}
         {/* Exact Replica of image_0e9da4bf.png */}
         {/* ============================================================== */}
-        <div id="learning-plans" className="scroll-mt-28">
-          <div className="text-center mb-10">
+        <div id="learning-options" className="scroll-mt-24 space-y-8">
+          <div className="text-center max-w-2xl mx-auto">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 text-xs font-semibold mb-2">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Transparent Pricing & Plans</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
-              Select Your Learning Plan
+              Do you want this program to be self-paced or mentor-led?
             </h2>
-            <p className="text-sm md:text-base text-neutral-600 dark:text-neutral-400 max-w-xl mx-auto mt-2">
-              Whether you prefer self-directed flexibility or direct mentor guidance, choose the structure that best fits your career goals.
+            <p className="text-sm md:text-base text-neutral-600 dark:text-neutral-400 mt-2">
+              Select the learning format that matches your personal speed and career goals. Both tracks include full project evaluations and ISO certification.
             </p>
           </div>
 
@@ -402,111 +716,38 @@ export const ProgramDetailPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Dual Phase Details */}
-        <div className="space-y-6">
+        {/* ============================================================== */}
+        {/* STEP 5: FREQUENTLY ASKED QUESTIONS (FAQs) */}
+        {/* ============================================================== */}
+        <div id="faqs" className="space-y-6 scroll-mt-24">
           <div className="border-b border-neutral-200 dark:border-neutral-800 pb-4">
-            <h3 className="text-2xl font-bold text-neutral-950 dark:text-white">
-              Program Architecture: Two-Phase Industry Immersion
-            </h3>
-            <p className="text-sm text-neutral-500">
-              Structured to move you from theoretical fundamentals to deploying live client-grade code.
+            <div className="inline-flex items-center gap-1.5 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider mb-1">
+              <HelpCircle className="w-4 h-4" />
+              <span>Clear Answers</span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-sm text-neutral-500 mt-1">
+              Have questions about batch schedules, doubt resolution, or career placement assistance?
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-3xl bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200/80 dark:border-blue-900/40 space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600 text-white text-xs font-bold">
-                <BookOpen className="w-3.5 h-3.5" />
-                <span>Phase 1: Foundation Technical Training</span>
-              </div>
-              <h4 className="text-lg font-bold text-neutral-900 dark:text-white">
-                {program.trainingDuration}
-              </h4>
-              <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                Intensive live sessions and structured assignments covering data structures, design principles, modern workflows, and best industry practices.
-              </p>
-              <ul className="space-y-1.5 text-xs text-neutral-700 dark:text-neutral-300 pt-2">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
-                  <span>Hands-on weekly code evaluations</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
-                  <span>Doubt resolution forums with dedicated teaching assistants</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="p-6 rounded-3xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/80 dark:border-emerald-900/40 space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-bold">
-                <Award className="w-3.5 h-3.5" />
-                <span>Phase 2: Live Industry Capstone Internship</span>
-              </div>
-              <h4 className="text-lg font-bold text-neutral-900 dark:text-white">
-                {program.internshipDuration}
-              </h4>
-              <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                Work in an agile scrum environment on an enterprise-grade capstone project. Deploy code to production, write unit tests, and submit PRs.
-              </p>
-              <ul className="space-y-1.5 text-xs text-neutral-700 dark:text-neutral-300 pt-2">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Verified Capstone Project completion credentials</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Letter of Recommendation (LOR) for top performers</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Detailed Curriculum Syllabus */}
-        <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-200 dark:border-neutral-800 pb-4">
-            <div>
-              <h3 className="text-2xl font-bold text-neutral-950 dark:text-white">
-                Curriculum Syllabus & Learning Roadmap
-              </h3>
-              <p className="text-sm text-neutral-500">
-                Industry-aligned syllabus designed by experienced senior engineers.
-              </p>
-            </div>
-            <button
-              onClick={handleDownloadSyllabus}
-              className="px-4 py-2 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs font-bold flex items-center gap-1.5 hover:opacity-90 transition-opacity cursor-pointer self-start sm:self-auto"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Full Syllabus PDF</span>
-            </button>
-          </div>
-
           <div className="space-y-3">
-            {program.curriculum.map((module) => {
-              const isOpen = expandedModule === module.moduleNumber;
+            {programFaqs.map((faq, index) => {
+              const isOpen = openFaqIndex === index;
               return (
                 <div
-                  key={module.moduleNumber}
-                  className="rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden bg-white dark:bg-neutral-900 transition-all"
+                  key={index}
+                  className="rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden bg-white dark:bg-neutral-900 transition-all shadow-xs"
                 >
                   <button
-                    onClick={() => toggleModule(module.moduleNumber)}
-                    className="w-full p-4 md:p-5 flex items-center justify-between text-left hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors cursor-pointer"
+                    onClick={() => toggleFaq(index)}
+                    className="w-full p-4 md:p-5 flex items-center justify-between text-left hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors cursor-pointer gap-4"
                   >
-                    <div className="flex items-center gap-3.5">
-                      <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold flex items-center justify-center text-xs shrink-0">
-                        M{module.moduleNumber}
-                      </div>
-                      <div>
-                        <h4 className="text-sm md:text-base font-bold text-neutral-900 dark:text-white">
-                          {module.title}
-                        </h4>
-                        <span className="text-xs text-neutral-400 font-medium">
-                          {module.duration}
-                        </span>
-                      </div>
-                    </div>
+                    <span className="text-sm md:text-base font-bold text-neutral-900 dark:text-white">
+                      {faq.q}
+                    </span>
                     {isOpen ? (
                       <ChevronUp className="w-5 h-5 text-neutral-400 shrink-0" />
                     ) : (
@@ -520,19 +761,9 @@ export const ProgramDetailPage: React.FC = () => {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="px-5 pb-5 pt-1 border-t border-neutral-100 dark:border-neutral-800"
+                        className="px-5 pb-5 pt-1 border-t border-neutral-100 dark:border-neutral-800 text-xs md:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed"
                       >
-                        <p className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2.5">
-                          Topics Covered in this Module:
-                        </p>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          {module.topics.map((topic, tIdx) => (
-                            <div key={tIdx} className="flex items-start gap-2 text-xs text-neutral-700 dark:text-neutral-300">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 mt-0.5 shrink-0" />
-                              <span>{topic}</span>
-                            </div>
-                          ))}
-                        </div>
+                        {faq.a}
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -542,69 +773,11 @@ export const ProgramDetailPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Live Industry Capstone Project */}
-        <div className="p-6 md:p-8 rounded-3xl bg-neutral-900 text-white space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-neutral-800 pb-4">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-                Capstone Spotlight
-              </span>
-              <h3 className="text-2xl font-bold text-white mt-1">
-                Featured Industry Project
-              </h3>
-            </div>
-            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-              Production Deployment Guaranteed
-            </span>
-          </div>
-
-          {program.liveProjects.length > 0 && (
-            <div className="space-y-4">
-              <h4 className="text-lg md:text-xl font-bold text-white">
-                {program.liveProjects[0].title}
-              </h4>
-              <p className="text-sm text-neutral-300 leading-relaxed max-w-3xl">
-                {program.liveProjects[0].description}
-              </p>
-              <div>
-                <p className="text-xs font-semibold text-neutral-400 mb-2">Applied Technologies:</p>
-                <div className="flex flex-wrap gap-2">
-                  {program.liveProjects[0].techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 rounded-lg bg-neutral-800 text-neutral-200 text-xs font-medium border border-neutral-700"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Tools Covered */}
-        <div className="space-y-4">
-          <h3 className="text-xl font-bold text-neutral-950 dark:text-white">
-            Software Tools & Tech Stacks Mastered
-          </h3>
-          <div className="flex flex-wrap gap-2.5">
-            {program.toolsCovered.map((tool) => (
-              <span
-                key={tool}
-                className="px-4 py-2 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-sm font-semibold text-neutral-800 dark:text-neutral-200 shadow-xs"
-              >
-                {tool}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Related Programs */}
+        {/* Related Programs in the same Category */}
         {relatedPrograms.length > 0 && (
           <div className="space-y-6 pt-6 border-t border-neutral-200 dark:border-neutral-800">
-            <h3 className="text-2xl font-bold text-neutral-950 dark:text-white">
-              Related Programs in {program.category}
+            <h3 className="text-xl font-bold text-neutral-950 dark:text-white">
+              Explore Other Programs in {program.category}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {relatedPrograms.map((rel) => (
@@ -633,6 +806,7 @@ export const ProgramDetailPage: React.FC = () => {
             </div>
           </div>
         )}
+
       </div>
 
       {/* Enrollment Modal */}
@@ -664,7 +838,7 @@ export const ProgramDetailPage: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setEnrollModalOpen(false)}
-                  className="p-1 rounded-full text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200"
+                  className="p-1 rounded-full text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>

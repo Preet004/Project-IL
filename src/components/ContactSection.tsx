@@ -6,13 +6,13 @@ import {
   Mail, 
   Clock, 
   MapPin, 
-  MessageCircle, 
   Send, 
   CheckCircle2, 
   ShieldCheck, 
   HelpCircle,
   Headphones
 } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 export const ContactSection: React.FC = () => {
   const { showToast } = useUser();
@@ -69,7 +69,7 @@ export const ContactSection: React.FC = () => {
             <div className="p-6 rounded-3xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/80 dark:border-neutral-800 space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-[#25D366]/10 text-[#25D366] flex items-center justify-center">
-                  <MessageCircle className="w-5 h-5 fill-current" />
+                  <WhatsAppIcon className="w-5 h-5 text-[#25D366]" />
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-neutral-900 dark:text-white">
@@ -106,7 +106,7 @@ export const ContactSection: React.FC = () => {
                 onClick={handleWhatsAppDirect}
                 className="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
               >
-                <MessageCircle className="w-4 h-4" />
+                <WhatsAppIcon className="w-4 h-4 text-white" />
                 <span>Chat Instantly on WhatsApp (+91 7019680860)</span>
               </button>
             </div>
@@ -189,7 +189,7 @@ export const ContactSection: React.FC = () => {
                     onClick={handleWhatsAppDirect}
                     className="px-5 py-2.5 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold flex items-center gap-1.5 shadow-xs cursor-pointer"
                   >
-                    <MessageCircle className="w-3.5 h-3.5" />
+                    <WhatsAppIcon className="w-3.5 h-3.5 text-white" />
                     <span>Chat on WhatsApp</span>
                   </button>
                 </div>
@@ -327,7 +327,7 @@ export const ContactSection: React.FC = () => {
                     onClick={handleWhatsAppDirect}
                     className="py-3 px-5 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-sm shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
                   >
-                    <MessageCircle className="w-4 h-4" />
+                    <WhatsAppIcon className="w-4 h-4 text-white" />
                     <span>WhatsApp</span>
                   </button>
                 </div>

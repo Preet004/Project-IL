@@ -124,7 +124,7 @@ export interface CertificateRecord {
   credentialUrl?: string;
 }
 
-export type PageView = 'home' | 'program-detail' | 'careers' | 'contact';
+export type PageView = 'home' | 'programs' | 'program-detail' | 'careers' | 'contact';
 
 export interface JobVacancy {
   id: string;

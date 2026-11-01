@@ -1,6 +1,7 @@
 import React from 'react';
 import { useUser } from '../context/UserContext';
-import { Globe, Phone, Mail, ShieldCheck, MapPin, MessageCircle, Briefcase } from 'lucide-react';
+import { Globe, Phone, Mail, ShieldCheck, MapPin, Briefcase } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { DepartmentCategory } from '../types';
 
 export const Footer: React.FC = () => {
@@ -56,7 +57,7 @@ export const Footer: React.FC = () => {
                 onClick={handleWhatsApp}
                 className="px-3 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-[11px] flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
               >
-                <MessageCircle className="w-3.5 h-3.5" />
+                <WhatsAppIcon className="w-3.5 h-3.5 text-white" />
                 <span>Chat on WhatsApp: +91 7019680860</span>
               </button>
             </div>
@@ -67,27 +68,27 @@ export const Footer: React.FC = () => {
             <p className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-[11px]">Popular Domains</p>
             <ul className="space-y-2">
               <li>
-                <button onClick={() => handleOpenDomain('Web Development')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left">
+                <button onClick={() => handleOpenDomain('Web Development')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left cursor-pointer">
                   Web Development
                 </button>
               </li>
               <li>
-                <button onClick={() => handleOpenDomain('Artificial Intelligence & ML')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left">
+                <button onClick={() => handleOpenDomain('Artificial Intelligence & ML')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left cursor-pointer">
                   Artificial Intelligence & ML
                 </button>
               </li>
               <li>
-                <button onClick={() => handleOpenDomain('Data Science & Analytics')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left">
+                <button onClick={() => handleOpenDomain('Data Science & Analytics')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left cursor-pointer">
                   Data Science & Analytics
                 </button>
               </li>
               <li>
-                <button onClick={() => handleOpenDomain('Cyber Security & Ethical Hacking')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left">
+                <button onClick={() => handleOpenDomain('Cyber Security & Ethical Hacking')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left cursor-pointer">
                   Cyber Security & Forensics
                 </button>
               </li>
               <li>
-                <button onClick={() => handleOpenDomain('Cloud Computing & DevOps')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left">
+                <button onClick={() => handleOpenDomain('Cloud Computing & DevOps')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors text-left cursor-pointer">
                   Cloud Computing & DevOps
                 </button>
               </li>
@@ -99,8 +100,8 @@ export const Footer: React.FC = () => {
             <p className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-[11px]">Platform</p>
             <ul className="space-y-2">
               <li>
-                <button onClick={() => { setSelectedCategoryId(null); setActiveModal('internships'); }} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  All Bootcamps
+                <button onClick={() => navigateToView('programs')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer">
+                  All 79 Programs & Bootcamps
                 </button>
               </li>
               <li>

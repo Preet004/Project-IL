@@ -56,16 +56,61 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [currentView, setCurrentView] = useState<PageView>('home');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Sync state with URL hash
+  const parseHash = () => {
+    const hash = window.location.hash.replace(/^#\/?/, '');
+    if (hash.startsWith('program/')) {
+      const progId = hash.replace('program/', '');
+      setSelectedInternshipId(progId);
+      setCurrentView('program-detail');
+      setActiveModal(null);
+    } else if (hash === 'programs' || hash === 'bootcamps') {
+      setCurrentView('programs');
+      setActiveModal(null);
+    } else if (hash === 'careers' || hash === 'jobs') {
+      setCurrentView('careers');
+      setActiveModal(null);
+    } else if (hash === 'contact') {
+      setCurrentView('contact');
+      setActiveModal(null);
+    } else if (!hash || hash === 'home') {
+      setCurrentView('home');
+    }
+  };
+
+  useEffect(() => {
+    // Initial parse on load
+    parseHash();
+
+    // Listen to hash changes (e.g. browser back/forward buttons)
+    const handleHashChange = () => {
+      parseHash();
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   const navigateToProgram = (programId: string) => {
     setSelectedInternshipId(programId);
     setCurrentView('program-detail');
     setActiveModal(null);
+    window.location.hash = `#/program/${programId}`;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const navigateToView = (view: PageView) => {
     setCurrentView(view);
     setActiveModal(null);
+    if (view === 'programs') {
+      window.location.hash = '#/programs';
+    } else if (view === 'careers') {
+      window.location.hash = '#/careers';
+    } else if (view === 'contact') {
+      window.location.hash = '#/contact';
+    } else if (view === 'home') {
+      window.location.hash = '#/';
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MessageCircle, X } from 'lucide-react';
+import { X } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 interface FloatingWhatsAppProps {
   phoneNumber?: string;
@@ -37,7 +38,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
                 e.stopPropagation();
                 setBubbleDismissed(true);
               }}
-              className="absolute top-2 right-2 p-1 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 rounded-full"
+              className="absolute top-2 right-2 p-1 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 rounded-full cursor-pointer"
               aria-label="Close message"
             >
               <X className="w-3.5 h-3.5" />
@@ -52,9 +53,9 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
             </p>
             <button
               onClick={handleClick}
-              className="w-full py-1.5 px-3 rounded-lg bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-colors cursor-pointer"
+              className="w-full py-2 px-3 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-[11px] flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
             >
-              <MessageCircle className="w-3.5 h-3.5" />
+              <WhatsAppIcon className="w-4 h-4 text-white" />
               <span>Chat on WhatsApp (+91 7019680860)</span>
             </button>
           </motion.div>
@@ -75,7 +76,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
           {/* Subtle pulse ring */}
           <span className="absolute -inset-1 rounded-full bg-[#25D366]/30 animate-ping -z-10" />
           
-          <MessageCircle className="w-7 h-7 fill-white stroke-white" />
+          <WhatsAppIcon className="w-7 h-7 text-white" />
         </motion.button>
 
         {/* Hover Tooltip */}
@@ -89,3 +90,4 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
     </div>
   );
 };
+

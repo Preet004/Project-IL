@@ -4,7 +4,7 @@ import { useUser } from '../context/UserContext';
 import { ChevronRight, ArrowUpRight, Award, ShieldCheck, Users, CheckCircle2, BookOpen } from 'lucide-react';
 
 export const Hero: React.FC = () => {
-  const { setActiveModal, setSelectedCategoryId, navigateToProgram } = useUser();
+  const { setActiveModal, setSelectedCategoryId, navigateToProgram, navigateToView } = useUser();
 
   const quickPrograms = [
     { id: 'prog-web-dev', title: 'Full Stack Web Dev' },
@@ -62,10 +62,7 @@ export const Hero: React.FC = () => {
           className="flex flex-wrap justify-center items-center gap-4 mb-6"
         >
           <button
-            onClick={() => {
-              setSelectedCategoryId(null);
-              setActiveModal('internships');
-            }}
+            onClick={() => navigateToView('programs')}
             className="px-8 py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-base shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2 cursor-pointer"
           >
             <span>Explore Programs</span>
@@ -153,11 +150,8 @@ export const Hero: React.FC = () => {
                 <p className="text-xs text-neutral-500 dark:text-neutral-400">ISO Certified Training + Verified Experience Letter + Merit LOR</p>
               </div>
               <button
-                onClick={() => {
-                  setSelectedCategoryId(null);
-                  setActiveModal('internships');
-                }}
-                className="ml-auto text-xs font-semibold px-3 py-1.5 rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 flex items-center gap-1 hover:opacity-90"
+                onClick={() => navigateToView('programs')}
+                className="ml-auto text-xs font-semibold px-3 py-1.5 rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 flex items-center gap-1 hover:opacity-90 cursor-pointer"
               >
                 Browse Programs <ArrowUpRight className="w-3.5 h-3.5" />
               </button>

@@ -21,7 +21,7 @@ import { CATEGORIES_LIST, BRANCH_DOMAINS, MOCK_INTERNSHIPS } from '../data/mockD
 import { MainCategory } from '../types';
 
 export const BentoGrid: React.FC = () => {
-  const { setActiveModal, setSelectedCategoryId, navigateToProgram } = useUser();
+  const { setActiveModal, setSelectedCategoryId, navigateToProgram, navigateToView } = useUser();
   const [activeCategoryFilter, setActiveCategoryFilter] = useState<string>('All');
 
   const getCategoryIcon = (iconName: string) => {
@@ -125,13 +125,10 @@ export const BentoGrid: React.FC = () => {
               </p>
             </div>
             <button
-              onClick={() => {
-                setSelectedCategoryId(null);
-                setActiveModal('internships');
-              }}
-              className="text-xs font-bold text-blue-600 dark:text-blue-400 flex items-center gap-1 hover:underline self-start md:self-auto"
+              onClick={() => navigateToView('programs')}
+              className="text-xs font-bold text-blue-600 dark:text-blue-400 flex items-center gap-1 hover:underline self-start md:self-auto cursor-pointer"
             >
-              <span>View All 60+ Programs</span>
+              <span>View All 79 Programs</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>

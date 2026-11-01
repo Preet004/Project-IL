@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useUser } from '../context/UserContext';
 import { X, Phone, Mail, MessageSquare, Clock, MapPin, Send, CheckCircle } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 export const ContactModal: React.FC = () => {
   const { activeModal, setActiveModal, showToast } = useUser();
@@ -172,6 +173,7 @@ export const ContactModal: React.FC = () => {
                       }}
                       className="px-4 py-2 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
                     >
+                      <WhatsAppIcon className="w-4 h-4 text-white" />
                       <span>Chat on WhatsApp</span>
                     </button>
 
