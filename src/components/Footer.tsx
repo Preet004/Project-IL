@@ -1,14 +1,19 @@
 import React from 'react';
 import { useUser } from '../context/UserContext';
-import { Globe, Phone, Mail, ShieldCheck, MapPin } from 'lucide-react';
+import { Globe, Phone, Mail, ShieldCheck, MapPin, MessageCircle, Briefcase } from 'lucide-react';
 import { DepartmentCategory } from '../types';
 
 export const Footer: React.FC = () => {
-  const { setActiveModal, setSelectedCategoryId, showToast } = useUser();
+  const { setActiveModal, setSelectedCategoryId, navigateToView, showToast } = useUser();
 
   const handleOpenDomain = (dom: DepartmentCategory) => {
+    navigateToView('home');
     setSelectedCategoryId(dom);
     setActiveModal('internships');
+  };
+
+  const handleWhatsApp = () => {
+    window.open('https://wa.me/917019680860?text=Hi%20InternsLoom,%20I%20have%20an%20inquiry%20regarding%20your%20training%20and%20internship%20programs.', '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -44,6 +49,16 @@ export const Footer: React.FC = () => {
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
                 <span>Recognized by MSME, MCA & Startup India</span>
               </p>
+            </div>
+
+            <div className="pt-2">
+              <button
+                onClick={handleWhatsApp}
+                className="px-3 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-[11px] flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+              >
+                <MessageCircle className="w-3.5 h-3.5" />
+                <span>Chat on WhatsApp: +91 7019680860</span>
+              </button>
             </div>
           </div>
 
@@ -100,13 +115,23 @@ export const Footer: React.FC = () => {
                 </button>
               </li>
               <li>
+                <button onClick={() => navigateToView('careers')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
+                  <Briefcase className="w-3.5 h-3.5 text-blue-500" />
+                  <span>Careers & Job Openings</span>
+                </button>
+              </li>
+              <li>
                 <a href="#faqs" className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors block">
                   Frequently Asked Questions
                 </a>
               </li>
               <li>
-                <button onClick={() => setActiveModal('contact')} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
-                  Contact Support
+                <button onClick={() => {
+                  const el = document.getElementById('contact-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  else navigateToView('contact');
+                }} className="hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors">
+                  Contact Support (+91 7019680860)
                 </button>
               </li>
             </ul>

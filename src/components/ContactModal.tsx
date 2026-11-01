@@ -164,20 +164,32 @@ export const ContactModal: React.FC = () => {
                     />
                   </div>
 
-                  <div className="flex justify-end gap-2 pt-1">
+                  <div className="flex flex-col sm:flex-row justify-between gap-2 pt-1">
                     <button
                       type="button"
-                      onClick={() => setActiveModal(null)}
-                      className="px-4 py-2 rounded-xl text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                      onClick={() => {
+                        window.open('https://wa.me/917019680860?text=Hi%20InternsLoom,%20I%20have%20an%20inquiry%20regarding%20the%20training%20and%20internship%20programs.', '_blank', 'noopener,noreferrer');
+                      }}
+                      className="px-4 py-2 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
                     >
-                      Cancel
+                      <span>Chat on WhatsApp</span>
                     </button>
-                    <button
-                      type="submit"
-                      className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all shadow-md flex items-center gap-1.5"
-                    >
-                      <Send className="w-3.5 h-3.5" /> Send Inquiry
-                    </button>
+
+                    <div className="flex justify-end gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setActiveModal(null)}
+                        className="px-4 py-2 rounded-xl text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
+                      >
+                        <Send className="w-3.5 h-3.5" /> Send Inquiry
+                      </button>
+                    </div>
                   </div>
                 </form>
               </>

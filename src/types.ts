@@ -123,3 +123,23 @@ export interface CertificateRecord {
   grade: string;
   credentialUrl?: string;
 }
+
+export type PageView = 'home' | 'program-detail' | 'careers' | 'contact';
+
+export interface JobVacancy {
+  id: string;
+  title: string;
+  department: string;
+  location: string;
+  type: 'Full-time' | 'Part-time' | 'Contract' | 'Internship';
+  workplaceType: 'Remote' | 'Hybrid' | 'On-site';
+  experience: string;
+  salaryRange: string;
+  description: string;
+  responsibilities: string[];
+  requirements: string[];
+  perks: string[];
+  postedDate: string;
+  status: 'Open' | 'Closed';
+}
+

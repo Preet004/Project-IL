@@ -21,7 +21,7 @@ import { CATEGORIES_LIST, BRANCH_DOMAINS, MOCK_INTERNSHIPS } from '../data/mockD
 import { MainCategory } from '../types';
 
 export const BentoGrid: React.FC = () => {
-  const { setActiveModal, setSelectedCategoryId } = useUser();
+  const { setActiveModal, setSelectedCategoryId, navigateToProgram } = useUser();
   const [activeCategoryFilter, setActiveCategoryFilter] = useState<string>('All');
 
   const getCategoryIcon = (iconName: string) => {
@@ -190,7 +190,7 @@ export const BentoGrid: React.FC = () => {
               key={course.id}
               whileHover={{ y: -4 }}
               transition={{ duration: 0.2 }}
-              onClick={() => handleDomainCardClick(course.department)}
+              onClick={() => navigateToProgram(course.id)}
               className="group cursor-pointer rounded-2xl bg-white dark:bg-neutral-900/90 border border-neutral-200/80 dark:border-neutral-800 p-5 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-blue-500/50 transition-all"
             >
               <div>

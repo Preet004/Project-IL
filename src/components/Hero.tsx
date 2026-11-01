@@ -4,7 +4,15 @@ import { useUser } from '../context/UserContext';
 import { ChevronRight, ArrowUpRight, Award, ShieldCheck, Users, CheckCircle2, BookOpen } from 'lucide-react';
 
 export const Hero: React.FC = () => {
-  const { setActiveModal, setSelectedCategoryId } = useUser();
+  const { setActiveModal, setSelectedCategoryId, navigateToProgram } = useUser();
+
+  const quickPrograms = [
+    { id: 'prog-web-dev', title: 'Full Stack Web Dev' },
+    { id: 'prog-artificial-intelligence', title: 'Artificial Intelligence (AI)' },
+    { id: 'prog-machine-learning', title: 'Machine Learning (ML)' },
+    { id: 'prog-data-science', title: 'Data Science' },
+    { id: 'prog-genai-agentic', title: 'Generative AI' },
+  ];
 
   return (
     <section className="relative pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden bg-gradient-to-b from-white via-neutral-50 to-neutral-100/60 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950 transition-colors duration-300">
@@ -41,7 +49,7 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-xl md:text-2xl font-normal text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto mb-10 leading-relaxed"
+          className="text-xl md:text-2xl font-normal text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto mb-8 leading-relaxed"
         >
           The bridge between student ambition and professional excellence.
         </motion.p>
@@ -51,14 +59,14 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-wrap justify-center items-center gap-4 mb-16"
+          className="flex flex-wrap justify-center items-center gap-4 mb-6"
         >
           <button
             onClick={() => {
               setSelectedCategoryId(null);
               setActiveModal('internships');
             }}
-            className="px-8 py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-base shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2"
+            className="px-8 py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-base shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2 cursor-pointer"
           >
             <span>Explore Programs</span>
             <ArrowUpRight className="w-5 h-5" />
@@ -68,11 +76,30 @@ export const Hero: React.FC = () => {
             onClick={() => {
               setActiveModal('mentors');
             }}
-            className="inline-flex items-center gap-1.5 text-neutral-700 dark:text-neutral-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold text-base px-6 py-3.5 rounded-full border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all group"
+            className="inline-flex items-center gap-1.5 text-neutral-700 dark:text-neutral-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold text-base px-6 py-3.5 rounded-full border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all group cursor-pointer"
           >
             <span>Domain Mentorship</span>
             <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
           </button>
+        </motion.div>
+
+        {/* Quick Direct Program Links */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+          className="flex flex-wrap justify-center items-center gap-2 mb-14"
+        >
+          <span className="text-xs text-neutral-400 font-medium mr-1">Popular Programs:</span>
+          {quickPrograms.map((qp) => (
+            <button
+              key={qp.id}
+              onClick={() => navigateToProgram(qp.id)}
+              className="text-xs font-semibold px-3 py-1 rounded-full bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all shadow-2xs cursor-pointer"
+            >
+              {qp.title} →
+            </button>
+          ))}
         </motion.div>
 
         {/* Stats Grid matching internsforge.com */}

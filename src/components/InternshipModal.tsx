@@ -17,6 +17,7 @@ export const InternshipModal: React.FC = () => {
     toggleSaveInternship,
     applyToInternship,
     isApplied,
+    navigateToProgram,
     showToast
   } = useUser();
 
@@ -278,9 +279,19 @@ export const InternshipModal: React.FC = () => {
                       </span>
                     </div>
 
-                    <h3 className="text-xl md:text-2xl font-extrabold text-neutral-900 dark:text-white mb-2 leading-tight">
-                      {selectedInternship.title}
-                    </h3>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
+                      <h3 className="text-xl md:text-2xl font-extrabold text-neutral-900 dark:text-white leading-tight">
+                        {selectedInternship.title}
+                      </h3>
+                      <button
+                        type="button"
+                        onClick={() => navigateToProgram(selectedInternship.id)}
+                        className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shrink-0 shadow-sm flex items-center gap-1.5 cursor-pointer self-start sm:self-auto"
+                      >
+                        <span>Open Program Details Page</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
 
                     <p className="text-xs text-neutral-500 dark:text-neutral-400 flex items-center gap-2">
                       <ShieldCheck className="w-4 h-4 text-emerald-500" />

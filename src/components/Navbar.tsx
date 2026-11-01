@@ -7,10 +7,11 @@ import { DepartmentCategory } from '../types';
 
 export const Navbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
-  const { setActiveModal, setSelectedCategoryId } = useUser();
+  const { setActiveModal, setSelectedCategoryId, navigateToView, currentView } = useUser();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleOpenCategory = (cat?: DepartmentCategory | null) => {
+    navigateToView('home');
     setSelectedCategoryId(cat || null);
     setActiveModal('internships');
     setMobileMenuOpen(false);
@@ -22,8 +23,8 @@ export const Navbar: React.FC = () => {
         
         {/* Brand Logo */}
         <button 
-          onClick={() => { setActiveModal(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
-          className="flex items-center gap-2.5 text-left group focus:outline-none"
+          onClick={() => { navigateToView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
+          className="flex items-center gap-2.5 text-left group focus:outline-none cursor-pointer"
         >
           <div className="w-8 h-8 rounded-lg bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-105 transition-transform duration-200">
             IL
@@ -42,21 +43,36 @@ export const Navbar: React.FC = () => {
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           <button
             onClick={() => handleOpenCategory(null)}
-            className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            className={`transition-colors cursor-pointer ${
+              currentView === 'home'
+                ? 'text-neutral-900 dark:text-white font-bold'
+                : 'text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400'
+            }`}
           >
             Programs & Bootcamps
           </button>
           
           <button
             onClick={() => setActiveModal('mentors')}
-            className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
           >
             Mentorship
           </button>
 
           <button
+            onClick={() => navigateToView('careers')}
+            className={`transition-colors cursor-pointer ${
+              currentView === 'careers'
+                ? 'text-blue-600 dark:text-blue-400 font-bold'
+                : 'text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400'
+            }`}
+          >
+            Careers
+          </button>
+
+          <button
             onClick={() => setActiveModal('verify')}
-            className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1.5"
+            className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1.5 cursor-pointer"
           >
             <ShieldCheck className="w-4 h-4 text-emerald-500" />
             <span>Verify Certificate</span>
@@ -64,14 +80,27 @@ export const Navbar: React.FC = () => {
 
           <a
             href="#faqs"
+            onClick={() => { if (currentView !== 'home') navigateToView('home'); }}
             className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
             FAQs
           </a>
 
           <button
-            onClick={() => setActiveModal('contact')}
-            className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            onClick={() => {
+              if (currentView === 'home') {
+                const el = document.getElementById('contact-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                else setActiveModal('contact');
+              } else {
+                navigateToView('contact');
+              }
+            }}
+            className={`transition-colors cursor-pointer ${
+              currentView === 'contact'
+                ? 'text-blue-600 dark:text-blue-400 font-bold'
+                : 'text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400'
+            }`}
           >
             Contact
           </button>
@@ -139,6 +168,13 @@ export const Navbar: React.FC = () => {
             >
               <Users className="w-4 h-4 text-indigo-500" />
               Mentorship
+            </button>
+            <button
+              onClick={() => { navigateToView('careers'); setMobileMenuOpen(false); }}
+              className="w-full text-left py-2 text-neutral-800 dark:text-neutral-200 font-medium flex items-center gap-2.5"
+            >
+              <Briefcase className="w-4 h-4 text-emerald-500" />
+              Careers & Vacancies
             </button>
             <button
               onClick={() => { setActiveModal('verify'); setMobileMenuOpen(false); }}

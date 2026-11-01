@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { UserProfile, Application } from '../types';
+import { UserProfile, Application, PageView } from '../types';
 
 interface UserContextType {
   user: UserProfile;
@@ -14,6 +14,10 @@ interface UserContextType {
   setSelectedCategoryId: (cat: string | null) => void;
   selectedInternshipId: string | null;
   setSelectedInternshipId: (id: string | null) => void;
+  currentView: PageView;
+  setCurrentView: (view: PageView) => void;
+  navigateToProgram: (programId: string) => void;
+  navigateToView: (view: PageView) => void;
   toastMessage: string | null;
   showToast: (msg: string) => void;
 }
@@ -49,7 +53,21 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [activeModal, setActiveModal] = useState<'internships' | 'mentors' | 'verify' | 'contact' | 'applications' | null>(null);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
   const [selectedInternshipId, setSelectedInternshipId] = useState<string | null>(null);
+  const [currentView, setCurrentView] = useState<PageView>('home');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const navigateToProgram = (programId: string) => {
+    setSelectedInternshipId(programId);
+    setCurrentView('program-detail');
+    setActiveModal(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navigateToView = (view: PageView) => {
+    setCurrentView(view);
+    setActiveModal(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     localStorage.setItem('internsloom_user', JSON.stringify(user));
@@ -126,6 +144,10 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setSelectedCategoryId,
         selectedInternshipId,
         setSelectedInternshipId,
+        currentView,
+        setCurrentView,
+        navigateToProgram,
+        navigateToView,
         toastMessage,
         showToast,
       }}
