@@ -45,15 +45,16 @@ export const MentorshipSection: React.FC = () => {
             Choose Your Learning & Mentorship Track
           </h2>
           
-          {/* Required specific prompt text */}
-          <div className="inline-block p-3 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-xs mt-1">
-            <p className="text-sm md:text-base font-semibold text-neutral-800 dark:text-neutral-200">
-              This is the program, and if you want mentorship with this program, then{' '}
+          {/* Sophisticated program & mentorship callout */}
+          <div className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-orange-50/80 via-white to-amber-50/80 dark:from-neutral-900/90 dark:via-neutral-900/70 dark:to-neutral-900/90 border border-orange-200/80 dark:border-neutral-800 shadow-sm shadow-orange-500/5 mt-2 transition-all duration-300 hover:border-orange-300 dark:hover:border-neutral-700">
+            <p className="text-sm md:text-[15px] font-medium text-neutral-700 dark:text-neutral-300 leading-relaxed tracking-normal">
+              Accelerate your professional growth with our structured curriculum — to complement your program with personalized, one-on-one industry mentorship,{' '}
               <button
                 onClick={handleStartLearning}
-                className="font-extrabold text-[#f26b1d] hover:underline underline-offset-4 cursor-pointer"
+                className="inline-flex items-center gap-0.5 font-bold text-[#f26b1d] dark:text-orange-400 hover:text-[#d95a12] dark:hover:text-orange-300 underline underline-offset-4 decoration-orange-400/60 hover:decoration-orange-500 transition-colors cursor-pointer"
               >
                 click here
+                <ArrowUpRight className="w-3.5 h-3.5 inline ml-0.5" />
               </button>
               .
             </p>

@@ -34,15 +34,25 @@ export const Hero: React.FC = () => {
           <span>Dual-Phase Training Model: 4 Weeks Live Training + 2 Months Live Capstone Project</span>
         </motion.div>
 
-        {/* Brand Main Title */}
-        <motion.h1
+        {/* Brand Main Title with Official Logo */}
+        <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-5xl md:text-7xl font-extrabold text-neutral-950 dark:text-white tracking-tight mb-4 font-sans"
+          className="flex flex-col items-center justify-center mb-4"
         >
-          InternsLoom
-        </motion.h1>
+          <div className="mb-3 p-2.5 rounded-2xl bg-white/80 dark:bg-neutral-900/80 border border-neutral-200/80 dark:border-neutral-800 shadow-sm backdrop-blur-xs inline-flex items-center justify-center">
+            <img
+              src="/assets/internsloom_emblem.png"
+              alt="InternsLoom Emblem"
+              className="h-16 md:h-20 w-auto object-contain"
+            />
+          </div>
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight font-sans">
+            <span className="text-[#0c2b47] dark:text-white">INTERNS</span>
+            <span className="text-[#1fa2a6] dark:text-[#2dd4bf]">LOOM</span>
+          </h1>
+        </motion.div>
 
         {/* Subtitle */}
         <motion.p

@@ -125,13 +125,22 @@ export const MentorshipModal: React.FC = () => {
         >
           {/* Header Bar */}
           <div className="px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm shrink-0">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">
-                InternsLoom Learning Plans
-              </span>
-              <h2 className="text-xl font-extrabold text-neutral-950 dark:text-white">
-                Domain Mentorship & Learning Tracks
-              </h2>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 p-1 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shadow-xs shrink-0">
+                <img
+                  src="/assets/internsloom_emblem.png"
+                  alt="InternsLoom Emblem"
+                  className="h-full w-full object-contain"
+                />
+              </div>
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">
+                  InternsLoom Learning Plans
+                </span>
+                <h2 className="text-xl font-extrabold text-neutral-950 dark:text-white">
+                  Domain Mentorship & Learning Tracks
+                </h2>
+              </div>
             </div>
 
             <button
@@ -154,9 +163,9 @@ export const MentorshipModal: React.FC = () => {
                       <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">
                         Selected Domain
                       </span>
-                      {/* Required specific prompt text */}
-                      <p className="text-sm md:text-base font-semibold text-neutral-900 dark:text-white leading-relaxed">
-                        This is the program, and if you want mentorship with this program, then click here.
+                      {/* Sophisticated prompt text */}
+                      <p className="text-sm md:text-base font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed">
+                        Accelerate your professional growth with our structured curriculum — to complement your program with personalized, one-on-one industry mentorship, select your plan below.
                       </p>
                     </div>
 

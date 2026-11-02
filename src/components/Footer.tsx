@@ -3,6 +3,7 @@ import { useUser } from '../context/UserContext';
 import { Globe, Phone, Mail, ShieldCheck, MapPin, Briefcase } from 'lucide-react';
 import { WhatsAppIcon } from './WhatsAppIcon';
 import { DepartmentCategory } from '../types';
+import { BrandLogo } from './BrandLogo';
 
 export const Footer: React.FC = () => {
   const { setActiveModal, setSelectedCategoryId, navigateToView, showToast } = useUser();
@@ -26,12 +27,7 @@ export const Footer: React.FC = () => {
           
           {/* Brand Info */}
           <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-lg bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 flex items-center justify-center font-bold text-xs">
-                IL
-              </div>
-              <p className="text-base font-extrabold text-neutral-900 dark:text-white">InternsLoom</p>
-            </div>
+            <BrandLogo variant="footer" />
             
             <p className="leading-relaxed text-neutral-500 dark:text-neutral-400 max-w-sm">
               The premier bridge between academic classroom learning and live industry engineering excellence. Offering mentor-led technical training, production capstone internships, and ISO 9001:2015 accredited certifications.

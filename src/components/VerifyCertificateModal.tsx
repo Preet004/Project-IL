@@ -124,12 +124,16 @@ export const VerifyCertificateModal: React.FC = () => {
                 {searchResult ? (
                   <div className="p-5 rounded-2xl border-2 border-emerald-500/30 bg-emerald-50/40 dark:bg-emerald-950/20 space-y-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
-                        <CheckCircle className="w-6 h-6" />
+                      <div className="w-12 h-12 rounded-xl bg-white dark:bg-neutral-800 p-1.5 border border-emerald-500/30 flex items-center justify-center shrink-0 shadow-xs">
+                        <img
+                          src="/assets/internsloom_emblem.png"
+                          alt="InternsLoom Emblem"
+                          className="h-full w-full object-contain"
+                        />
                       </div>
                       <div>
                         <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-                          Official Authentic Credential
+                          Official Authentic Credential • InternsLoom
                         </span>
                         <h4 className="text-base font-bold text-neutral-900 dark:text-white">
                           Certificate Verified

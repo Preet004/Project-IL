@@ -92,8 +92,12 @@ export const InternshipModal: React.FC = () => {
           {/* Top Bar */}
           <div className="px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between bg-neutral-50/80 dark:bg-neutral-900/80">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
-                IL
+              <div className="w-9 h-9 rounded-xl bg-white dark:bg-neutral-800 p-1 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shadow-xs shrink-0">
+                <img
+                  src="/assets/internsloom_emblem.png"
+                  alt="InternsLoom Emblem"
+                  className="h-full w-full object-contain"
+                />
               </div>
               <div>
                 <h2 className="text-lg font-bold text-neutral-900 dark:text-white flex items-center gap-2">
@@ -339,14 +343,14 @@ export const InternshipModal: React.FC = () => {
 
                       {/* Mentorship Option */}
                       <div className="p-3.5 rounded-2xl bg-orange-500/10 dark:bg-orange-500/15 border border-orange-500/20 flex items-center justify-between gap-3">
-                        <p className="text-xs md:text-sm font-semibold text-neutral-800 dark:text-neutral-200">
-                          This is the program, and if you want mentorship with this program, then{' '}
+                        <p className="text-xs md:text-sm font-medium text-neutral-800 dark:text-neutral-200">
+                          Accelerate your professional growth with our structured curriculum — to complement your program with personalized, one-on-one industry mentorship,{' '}
                           <button
                             type="button"
                             onClick={() => setActiveModal('mentors')}
                             className="font-bold text-orange-600 dark:text-orange-400 underline decoration-orange-500 underline-offset-4 hover:text-orange-700 dark:hover:text-orange-300 transition-colors cursor-pointer"
                           >
-                            click here
+                            click here ↗
                           </button>
                           .
                         </p>

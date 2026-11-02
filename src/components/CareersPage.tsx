@@ -324,9 +324,9 @@ export const CareersPage: React.FC = () => {
       {/* Hero Header */}
       <div className="bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 py-16">
         <div className="max-w-[1240px] mx-auto px-6 text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-bold">
-            <Building2 className="w-3.5 h-3.5" />
-            <span>Join the InternsLoom Team</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 text-xs font-bold shadow-xs">
+            <img src="/assets/internsloom_emblem.png" alt="InternsLoom Emblem" className="h-4 w-auto object-contain" />
+            <span>Careers at InternsLoom</span>
           </div>
           <h1 className="text-3xl md:text-5xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
             Careers & Open Vacancies

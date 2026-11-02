@@ -314,13 +314,13 @@ export const ProgramDetailPage: React.FC = () => {
             <h3 className="text-base md:text-lg font-bold text-neutral-900 dark:text-white">
               Looking for dedicated personal guidance?
             </h3>
-            <p className="text-sm md:text-base font-semibold text-neutral-800 dark:text-neutral-200">
-              This is the program, and if you want mentorship with this program, then{' '}
+            <p className="text-sm md:text-base font-medium text-neutral-700 dark:text-neutral-300 leading-relaxed">
+              Accelerate your professional growth with our structured curriculum — to complement your program with personalized, one-on-one industry mentorship,{' '}
               <a
                 href="#learning-options"
                 className="font-bold text-orange-600 dark:text-orange-400 underline decoration-orange-500 underline-offset-4 hover:text-orange-700 dark:hover:text-orange-300 transition-colors cursor-pointer"
               >
-                click here
+                click here ↗
               </a>
               .
             </p>

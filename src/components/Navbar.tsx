@@ -4,6 +4,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useUser } from '../context/UserContext';
 import { Sun, Moon, Briefcase, Users, ShieldCheck, Phone, HelpCircle, Menu, X, ArrowUpRight } from 'lucide-react';
 import { DepartmentCategory } from '../types';
+import { BrandLogo } from './BrandLogo';
 
 export const Navbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
@@ -24,19 +25,10 @@ export const Navbar: React.FC = () => {
         {/* Brand Logo */}
         <button 
           onClick={() => { navigateToView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
-          className="flex items-center gap-2.5 text-left group focus:outline-none cursor-pointer"
+          className="focus:outline-none cursor-pointer"
+          aria-label="InternsLoom Home"
         >
-          <div className="w-8 h-8 rounded-lg bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-105 transition-transform duration-200">
-            IL
-          </div>
-          <div>
-            <span className="font-extrabold text-lg tracking-tight text-neutral-900 dark:text-white">
-              InternsLoom
-            </span>
-            <span className="hidden sm:inline-block ml-2 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
-              ISO 9001:2015
-            </span>
-          </div>
+          <BrandLogo variant="navbar" />
         </button>
 
         {/* Desktop Navigation */}
