@@ -14,7 +14,7 @@ import { ProgramDetailPage } from './components/ProgramDetailPage';
 import { ProgramsCatalogPage } from './components/ProgramsCatalogPage';
 import { CareersPage } from './components/CareersPage';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
-import { InternshipModal } from './components/InternshipModal';
+import { ApplicationsTrackerModal } from './components/ApplicationsTrackerModal';
 import { MentorshipModal } from './components/MentorshipModal';
 import { VerifyCertificateModal } from './components/VerifyCertificateModal';
 import { ContactModal } from './components/ContactModal';
@@ -61,7 +61,7 @@ export function AppContent() {
       <FloatingWhatsApp phoneNumber="917019680860" />
 
       {/* Interactive Modals */}
-      <InternshipModal />
+      <ApplicationsTrackerModal />
       <MentorshipModal />
       <VerifyCertificateModal />
       <ContactModal />

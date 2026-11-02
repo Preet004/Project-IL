@@ -41,7 +41,7 @@ export const BentoGrid: React.FC = () => {
 
   const handleBranchClick = (branchName: string) => {
     setSelectedCategoryId(branchName);
-    setActiveModal('internships');
+    navigateToView('programs');
   };
 
   const displayCourses = MOCK_INTERNSHIPS.filter(c => {

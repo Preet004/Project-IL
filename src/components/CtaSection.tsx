@@ -3,7 +3,7 @@ import { useUser } from '../context/UserContext';
 import { ArrowRight, ShieldCheck, Zap, CheckCircle2 } from 'lucide-react';
 
 export const CtaSection: React.FC = () => {
-  const { setActiveModal, setSelectedCategoryId } = useUser();
+  const { setActiveModal, setSelectedCategoryId, navigateToView } = useUser();
 
   return (
     <section className="relative py-28 bg-[#fafbfc] dark:bg-[#070b12] transition-colors duration-300 overflow-hidden">
@@ -73,7 +73,7 @@ export const CtaSection: React.FC = () => {
               <button
                 onClick={() => {
                   setSelectedCategoryId(null);
-                  setActiveModal('internships');
+                  navigateToView('programs');
                 }}
                 className="px-8 py-4 rounded-2xl bg-brand-gradient text-white font-bold text-sm transition-all shadow-glow flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
               >
