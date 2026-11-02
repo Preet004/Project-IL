@@ -213,11 +213,14 @@ export const MentorshipModal: React.FC = () => {
                     <div>
                       {/* Header */}
                       <div className="text-center mb-6">
+                        <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 mb-2">
+                          🌱 Great for 1st & 2nd Year Freshers
+                        </span>
                         <h3 className="text-3xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
                           Self Paced
                         </h3>
                         <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mt-1">
-                          Learn with your speed
+                          Learn with your speed & college schedule
                         </p>
                         
                         <div className="mt-5">
@@ -271,11 +274,14 @@ export const MentorshipModal: React.FC = () => {
                     <div>
                       {/* Header */}
                       <div className="text-center mb-6 pt-1">
+                        <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 mb-2">
+                          🎯 Recommended for Final Year Placements
+                        </span>
                         <h3 className="text-3xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
                           Mentor Led
                         </h3>
                         <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mt-1">
-                          Live Mentorship
+                          Live Mentorship & Placement Capstone
                         </p>
                         
                         <div className="mt-5">

@@ -8,8 +8,8 @@ interface UserContextType {
   isSaved: (internshipId: string) => boolean;
   applyToInternship: (internshipId: string, companyName: string, roleTitle: string, note?: string) => void;
   isApplied: (internshipId: string) => boolean;
-  activeModal: 'internships' | 'mentors' | 'verify' | 'contact' | 'applications' | null;
-  setActiveModal: (modal: 'internships' | 'mentors' | 'verify' | 'contact' | 'applications' | null) => void;
+  activeModal: 'mentors' | 'verify' | 'contact' | null;
+  setActiveModal: (modal: 'mentors' | 'verify' | 'contact' | null) => void;
   selectedCategoryId: string | null;
   setSelectedCategoryId: (cat: string | null) => void;
   selectedInternshipId: string | null;
@@ -50,7 +50,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return DEFAULT_USER;
   });
 
-  const [activeModal, setActiveModal] = useState<'internships' | 'mentors' | 'verify' | 'contact' | 'applications' | null>(null);
+  const [activeModal, setActiveModal] = useState<'mentors' | 'verify' | 'contact' | null>(null);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
   const [selectedInternshipId, setSelectedInternshipId] = useState<string | null>(null);
   const [currentView, setCurrentView] = useState<PageView>('home');

@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { useUser } from '../context/UserContext';
-import { MENTORSHIP_DOMAINS, MOCK_INTERNSHIPS } from '../data/mockData';
-import { ShieldCheck, BookOpen, Clock, Users, ArrowUpRight } from 'lucide-react';
+import { 
+  ShieldCheck, 
+  BookOpen, 
+  Clock, 
+  Users, 
+  ArrowUpRight, 
+  Check, 
+  X, 
+  Sparkles, 
+  Zap, 
+  Award,
+  HelpCircle
+} from 'lucide-react';
 
 export const MentorshipSection: React.FC = () => {
   const { setActiveModal } = useUser();
@@ -31,40 +42,38 @@ export const MentorshipSection: React.FC = () => {
   };
 
   return (
-    <section id="mentorship" className="py-24 bg-[#faf8f5] dark:bg-neutral-950/60 border-t border-neutral-200/80 dark:border-neutral-800/80 transition-colors duration-300">
-      <div className="max-w-[1200px] mx-auto px-6">
+    <section id="mentorship" className="relative py-28 bg-[#fafbfc] dark:bg-[#070b12] border-t border-neutral-200/80 dark:border-neutral-800/80 transition-colors duration-300">
+      
+      {/* Background Cyber Ambient */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute inset-0 cyber-grid pointer-events-none opacity-40" />
+
+      <div className="max-w-[1240px] mx-auto px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 text-xs font-bold mb-3 border border-orange-500/20">
-            <Users className="w-3.5 h-3.5" />
-            <span>Learning Tracks & Mentorship</span>
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 text-xs font-bold mb-3 border border-orange-500/20">
+            <Zap className="w-4 h-4 text-orange-500" />
+            <span>High-Value Mentorship & Transparent Plans</span>
           </div>
           
-          <h2 className="text-3xl md:text-4xl font-extrabold text-neutral-950 dark:text-white tracking-tight mb-3">
-            Choose Your Learning & Mentorship Track
+          <h2 className="text-3xl md:text-5xl font-extrabold text-neutral-950 dark:text-white tracking-tight mb-4">
+            Invest in High-Yield Career Mentorship
           </h2>
           
-          {/* Sophisticated program & mentorship callout */}
-          <div className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-orange-50/80 via-white to-amber-50/80 dark:from-neutral-900/90 dark:via-neutral-900/70 dark:to-neutral-900/90 border border-orange-200/80 dark:border-neutral-800 shadow-sm shadow-orange-500/5 mt-2 transition-all duration-300 hover:border-orange-300 dark:hover:border-neutral-700">
-            <p className="text-sm md:text-[15px] font-medium text-neutral-700 dark:text-neutral-300 leading-relaxed tracking-normal">
-              Accelerate your professional growth with our structured curriculum — to complement your program with personalized, one-on-one industry mentorship,{' '}
-              <button
-                onClick={handleStartLearning}
-                className="inline-flex items-center gap-0.5 font-bold text-[#f26b1d] dark:text-orange-400 hover:text-[#d95a12] dark:hover:text-orange-300 underline underline-offset-4 decoration-orange-400/60 hover:decoration-orange-500 transition-colors cursor-pointer"
-              >
-                click here
-                <ArrowUpRight className="w-3.5 h-3.5 inline ml-0.5" />
-              </button>
-              .
-            </p>
+          <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-400 font-normal leading-relaxed">
+            No overpriced ₹1,50,000 bootcamps. Transparent one-time pricing with dedicated senior engineer guidance, live production capstones, and verified ISO 9001:2015 certification.
+          </p>
+
+          <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-50/80 dark:bg-orange-950/30 border border-orange-200/80 dark:border-orange-800 text-xs font-semibold text-orange-700 dark:text-orange-300">
+            <span>Average salary ROI realized within the first 14 working days of your new role.</span>
           </div>
         </div>
 
         {/* Domain Selector Bar */}
-        <div className="max-w-xl mx-auto mb-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <div className="max-w-xl mx-auto mb-12 flex flex-col sm:flex-row items-center justify-center gap-3">
           <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-            Select Domain:
+            Select Track:
           </span>
           <select
             value={selectedDomain}
@@ -79,64 +88,86 @@ export const MentorshipSection: React.FC = () => {
           </select>
         </div>
 
-        {/* EXACT 2 CARDS FROM THE SCREENSHOT */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
+        {/* 2 VALUE-MAXIMIZING PRICING CARDS */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch mb-16">
           
           {/* CARD 1: Self Paced (₹6,500) */}
-          <div className="relative rounded-3xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 p-8 md:p-10 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+          <div className="relative rounded-3xl bg-white dark:bg-neutral-900/90 border border-neutral-200/90 dark:border-neutral-800 p-8 md:p-10 shadow-lg hover:shadow-2xl transition-all flex flex-col justify-between group">
             <div>
               {/* Header */}
               <div className="text-center mb-6">
-                <h3 className="text-3xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-400 font-semibold">
+                  Independent Track
+                </span>
+                <h3 className="text-3xl font-extrabold text-neutral-950 dark:text-white tracking-tight mt-1">
                   Self Paced
                 </h3>
-                <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mt-1">
-                  Learn with your speed
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 font-medium">
+                  Complete on your own schedule with verified deliverables
                 </p>
                 
                 <div className="mt-6">
-                  <span className="text-4xl md:text-5xl font-black text-neutral-950 dark:text-white tracking-tight">
-                    ₹6,500
-                  </span>
-                  <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 mt-1">
-                    One Time Payment
+                  <div className="flex items-baseline justify-center gap-1">
+                    <span className="text-4xl md:text-5xl font-black text-neutral-950 dark:text-white font-mono tracking-tight">
+                      ₹6,500
+                    </span>
+                    <span className="text-xs text-neutral-400 font-sans">/ one-time</span>
+                  </div>
+                  <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mt-1">
+                    Zero hidden fees · Full lifetime access
                   </p>
                 </div>
               </div>
 
-              {/* Checklist matching image */}
-              <div className="space-y-3.5 pt-4 pb-8 border-t border-neutral-100 dark:border-neutral-800">
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">+</span>
-                  <span className="text-neutral-800 dark:text-neutral-200">RECORDED LECTURES</span>
+              {/* Checklist */}
+              <div className="space-y-3.5 pt-6 pb-8 border-t border-neutral-100 dark:border-neutral-800">
+                <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-neutral-800 dark:text-neutral-200">Full Access to Recorded Video Architecture Modules</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">+</span>
-                  <span className="text-neutral-800 dark:text-neutral-200">REAL TIME PROJECTS</span>
+                <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-neutral-800 dark:text-neutral-200">Real-Time Industry Capstone Project</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">+</span>
-                  <span className="text-neutral-800 dark:text-neutral-200">4+ HRS OF LIVE SESSIONS</span>
+                <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-neutral-800 dark:text-neutral-200">4+ Hours of Live Group Masterclasses</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">+</span>
-                  <span className="text-neutral-800 dark:text-neutral-200">ONE ON ONE DOUBT SESSIONS</span>
+                <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-neutral-800 dark:text-neutral-200">One-on-One Doubt Clearing Sessions</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">+</span>
-                  <span className="text-neutral-800 dark:text-neutral-200">CERTIFICATIONS</span>
+                <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-neutral-800 dark:text-neutral-200">ISO 9001:2015 Verified Digital Certificate</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-red-500 font-black text-base w-4 text-center">✕</span>
-                  <span className="text-neutral-500 dark:text-neutral-400 font-medium">MENTOR SUPPORT</span>
+                <div className="flex items-center gap-3 text-xs md:text-sm text-neutral-400">
+                  <div className="w-5 h-5 rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-400 flex items-center justify-center shrink-0">
+                    <X className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="line-through">Dedicated 1-on-1 Senior Tech Mentor Support</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-red-500 font-black text-base w-4 text-center">✕</span>
-                  <span className="text-neutral-500 dark:text-neutral-400 font-medium">PLACEMENT GUIDANCE</span>
+                <div className="flex items-center gap-3 text-xs md:text-sm text-neutral-400">
+                  <div className="w-5 h-5 rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-400 flex items-center justify-center shrink-0">
+                    <X className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="line-through">Direct Placement Guidance & Corporate Referrals</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-red-500 font-black text-base w-4 text-center">✕</span>
-                  <span className="text-neutral-500 dark:text-neutral-400 font-medium">INTERVIEW ASSISTANCE</span>
+                <div className="flex items-center gap-3 text-xs md:text-sm text-neutral-400">
+                  <div className="w-5 h-5 rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-400 flex items-center justify-center shrink-0">
+                    <X className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="line-through">Mock Technical Interviews & Resume Polishing</span>
                 </div>
               </div>
             </div>
@@ -144,73 +175,90 @@ export const MentorshipSection: React.FC = () => {
             {/* Action Button */}
             <button
               onClick={handleStartLearning}
-              className="w-full py-4 px-6 rounded-full bg-[#f26b1d] hover:bg-[#e05d12] text-white font-extrabold text-base shadow-md hover:shadow-lg transition-all text-center cursor-pointer transform active:scale-[0.98]"
+              className="w-full py-4 px-6 rounded-2xl bg-neutral-900 dark:bg-neutral-800 hover:bg-neutral-800 dark:hover:bg-neutral-700 text-white font-extrabold text-sm transition-all text-center cursor-pointer shadow-md"
             >
-              Start Learning
+              Start Self-Paced Learning
             </button>
           </div>
 
-          {/* CARD 2: Mentor Led (₹9,000 - POPULAR) */}
-          <div className="relative rounded-3xl bg-white dark:bg-neutral-900 border-2 border-orange-500/80 dark:border-orange-500 p-8 md:p-10 shadow-md hover:shadow-xl transition-all flex flex-col justify-between">
+          {/* CARD 2: Mentor Led (₹11,500 - HIGHEST VALUE & MOST POPULAR) */}
+          <div className="relative rounded-3xl bg-white dark:bg-neutral-900/90 border-2 border-orange-500 shadow-2xl p-8 md:p-10 flex flex-col justify-between ring-2 ring-orange-500/20 glow-border group">
             
-            {/* Tilted POPULAR Ribbon Badge */}
-            <div className="absolute -top-3.5 left-6 bg-[#f26b1d] text-white text-[11px] font-black uppercase px-3.5 py-1 rounded-md shadow-md transform -rotate-3 tracking-wider select-none">
-              POPULAR
+            {/* High-Converting Glow Ribbon */}
+            <div className="absolute -top-3.5 left-8 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[11px] font-black uppercase px-4 py-1 rounded-full shadow-lg tracking-wider flex items-center gap-1">
+              <Sparkles className="w-3 h-3" />
+              <span>MOST POPULAR · 10X CAREER VALUE</span>
             </div>
 
             <div>
               {/* Header */}
-              <div className="text-center mb-6 pt-1">
-                <h3 className="text-3xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
+              <div className="text-center mb-6 pt-2">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-orange-600 dark:text-orange-400 font-semibold">
+                  Elite Practitioner Track
+                </span>
+                <h3 className="text-3xl font-extrabold text-neutral-950 dark:text-white tracking-tight mt-1">
                   Mentor Led
                 </h3>
-                <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mt-1">
-                  Live Mentorship
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 font-medium">
+                  Direct personal mentorship with Senior Industry Engineers
                 </p>
                 
                 <div className="mt-6">
-                  <span className="text-4xl md:text-5xl font-black text-neutral-950 dark:text-white tracking-tight">
-                    ₹9,000
-                  </span>
-                  <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 mt-1">
-                    One Time Payment
+                  <div className="flex items-baseline justify-center gap-1">
+                    <span className="text-4xl md:text-5xl font-black text-neutral-950 dark:text-white font-mono tracking-tight text-orange-600 dark:text-orange-400">
+                      ₹11,500
+                    </span>
+                    <span className="text-xs text-neutral-400 font-sans">/ one-time</span>
+                  </div>
+                  <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mt-1">
+                    Everything in Self-Paced + Complete Placement Accelerator
                   </p>
                 </div>
               </div>
 
-              {/* Checklist matching image */}
-              <div className="space-y-3.5 pt-4 pb-8 border-t border-neutral-100 dark:border-neutral-800">
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">+</span>
-                  <span className="text-neutral-800 dark:text-neutral-200">4+ HRS OF LIVE SESSIONS</span>
+              {/* Checklist */}
+              <div className="space-y-3.5 pt-6 pb-8 border-t border-neutral-100 dark:border-neutral-800">
+                <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-neutral-800 dark:text-neutral-200">Live Weekly Architecture Sessions with Senior Tech Leads</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">+</span>
-                  <span className="text-neutral-800 dark:text-neutral-200">RECORDED LECTURES</span>
+                <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-neutral-800 dark:text-neutral-200">Guaranteed Production GitHub Capstone Deployment</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">+</span>
-                  <span className="text-neutral-800 dark:text-neutral-200">REAL TIME PROJECTS</span>
+                <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-neutral-800 dark:text-neutral-200">Unlimited 1-on-1 Code Reviews & Architecture Defense</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">+</span>
-                  <span className="text-neutral-800 dark:text-neutral-200">ONE ON ONE DOUBT SESSIONS</span>
+                <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-neutral-800 dark:text-neutral-200">ISO 9001:2015 Verified Certificate with Dynamic QR Code</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">+</span>
-                  <span className="text-neutral-800 dark:text-neutral-200">CERTIFICATIONS</span>
+                <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-orange-500/10 text-orange-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-neutral-900 dark:text-white font-bold">Official Signed Letter of Recommendation (LOR)</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">+</span>
-                  <span className="text-neutral-800 dark:text-neutral-200">MENTOR SUPPORT</span>
+                <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-orange-500/10 text-orange-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-neutral-900 dark:text-white font-bold">Direct Referral to 100+ Hiring Partner Companies</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">+</span>
-                  <span className="text-neutral-800 dark:text-neutral-200">PLACEMENT GUIDANCE</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-wide">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-black text-base w-4 text-center">+</span>
-                  <span className="text-neutral-800 dark:text-neutral-200">INTERVIEW ASSISTANCE</span>
+                <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-orange-500/10 text-orange-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-neutral-900 dark:text-white font-bold">1-on-1 Technical Mock Interviews & Resume Polishing</span>
                 </div>
               </div>
             </div>
@@ -218,24 +266,31 @@ export const MentorshipSection: React.FC = () => {
             {/* Action Button */}
             <button
               onClick={handleStartLearning}
-              className="w-full py-4 px-6 rounded-full bg-[#f26b1d] hover:bg-[#e05d12] text-white font-extrabold text-base shadow-md hover:shadow-lg transition-all text-center cursor-pointer transform active:scale-[0.98]"
+              className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 hover:from-orange-600 hover:to-amber-600 text-white font-extrabold text-sm shadow-xl shadow-orange-500/30 transition-all text-center cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
             >
-              Start Learning
+              Enroll in Mentor-Led Program
             </button>
           </div>
 
         </div>
 
-        {/* Feature Badges */}
-        <div className="mt-12 text-center text-xs text-neutral-500 dark:text-neutral-400 font-medium flex flex-wrap items-center justify-center gap-6">
-          <span className="flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-emerald-500" /> ISO 9001:2015 Verified Certificate
+        {/* Value Trust Markers */}
+        <div className="p-6 rounded-3xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-center max-w-4xl mx-auto flex flex-wrap items-center justify-around gap-6 text-xs text-neutral-600 dark:text-neutral-300 font-semibold">
+          <span className="flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+            <span>ISO 9001:2015 Accredited</span>
           </span>
-          <span className="flex items-center gap-1.5">
-            <BookOpen className="w-4 h-4 text-blue-500" /> Real-Time Industry Capstone Projects
+          <span className="flex items-center gap-2">
+            <Award className="w-4 h-4 text-cyan-500" />
+            <span>Verifiable LinkedIn Badge</span>
           </span>
-          <span className="flex items-center gap-1.5">
-            <Clock className="w-4 h-4 text-orange-500" /> Flexible Timings for College Students
+          <span className="flex items-center gap-2">
+            <Users className="w-4 h-4 text-indigo-500" />
+            <span>50,000+ Alumni Network</span>
+          </span>
+          <span className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-amber-500" />
+            <span>Flexible Weekend Batches</span>
           </span>
         </div>
 

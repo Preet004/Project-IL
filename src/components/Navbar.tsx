@@ -19,44 +19,44 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-2xl bg-white/80 dark:bg-neutral-950/80 border-b border-neutral-200/80 dark:border-neutral-800/80 transition-colors duration-300">
-      <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-40 w-full backdrop-blur-2xl bg-white/85 dark:bg-[#070b12]/85 border-b border-neutral-200/80 dark:border-neutral-800/80 transition-colors duration-300">
+      <div className="max-w-[1240px] mx-auto px-6 h-16 flex items-center justify-between">
         
         {/* Brand Logo */}
         <button 
           onClick={() => { navigateToView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
-          className="focus:outline-none cursor-pointer"
+          className="focus:outline-none cursor-pointer flex items-center gap-2 group"
           aria-label="InternsLoom Home"
         >
           <BrandLogo variant="navbar" />
         </button>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+        <nav className="hidden md:flex items-center gap-6 text-sm font-semibold">
           <button
             onClick={() => navigateToView('programs')}
-            className={`transition-colors cursor-pointer ${
+            className={`transition-all cursor-pointer ${
               currentView === 'programs'
-                ? 'text-blue-600 dark:text-blue-400 font-bold'
-                : 'text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400'
+                ? 'text-cyan-600 dark:text-cyan-400 font-bold'
+                : 'text-neutral-600 dark:text-neutral-300 hover:text-cyan-600 dark:hover:text-cyan-400'
             }`}
           >
-            Programs & Bootcamps
+            Programs & Tracks
           </button>
           
           <button
             onClick={() => setActiveModal('mentors')}
-            className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
+            className="text-neutral-600 dark:text-neutral-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all cursor-pointer"
           >
             Mentorship
           </button>
 
           <button
             onClick={() => navigateToView('careers')}
-            className={`transition-colors cursor-pointer ${
+            className={`transition-all cursor-pointer ${
               currentView === 'careers'
-                ? 'text-blue-600 dark:text-blue-400 font-bold'
-                : 'text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400'
+                ? 'text-cyan-600 dark:text-cyan-400 font-bold'
+                : 'text-neutral-600 dark:text-neutral-300 hover:text-cyan-600 dark:hover:text-cyan-400'
             }`}
           >
             Careers
@@ -64,16 +64,16 @@ export const Navbar: React.FC = () => {
 
           <button
             onClick={() => setActiveModal('verify')}
-            className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1.5 cursor-pointer"
+            className="text-neutral-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <ShieldCheck className="w-4 h-4 text-emerald-500" />
-            <span>Verify Certificate</span>
+            <span>Verify Credential</span>
           </button>
 
           <a
             href="#faqs"
             onClick={() => { if (currentView !== 'home') navigateToView('home'); }}
-            className="text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            className="text-neutral-600 dark:text-neutral-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all"
           >
             FAQs
           </a>
@@ -88,10 +88,10 @@ export const Navbar: React.FC = () => {
                 navigateToView('contact');
               }
             }}
-            className={`transition-colors cursor-pointer ${
+            className={`transition-all cursor-pointer ${
               currentView === 'contact'
-                ? 'text-blue-600 dark:text-blue-400 font-bold'
-                : 'text-neutral-600 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400'
+                ? 'text-cyan-600 dark:text-cyan-400 font-bold'
+                : 'text-neutral-600 dark:text-neutral-300 hover:text-cyan-600 dark:hover:text-cyan-400'
             }`}
           >
             Contact
@@ -104,15 +104,15 @@ export const Navbar: React.FC = () => {
           <button
             onClick={toggleTheme}
             title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            className="p-2 rounded-full text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+            className="p-2 rounded-xl text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
           >
-            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-neutral-700" />}
           </button>
 
           {/* Quick Apply CTA */}
           <button
             onClick={() => navigateToView('programs')}
-            className="px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5 cursor-pointer"
+            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-bold text-xs shadow-md shadow-cyan-500/25 transition-all flex items-center gap-1.5 cursor-pointer hover:shadow-cyan-500/40"
           >
             <span>Apply Now</span>
             <ArrowUpRight className="w-3.5 h-3.5" />

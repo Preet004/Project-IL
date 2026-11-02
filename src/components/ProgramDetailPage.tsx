@@ -210,26 +210,29 @@ export const ProgramDetailPage: React.FC = () => {
       {/* ============================================================== */}
       {/* STEP 1: PROGRAM DETAILS & OVERVIEW */}
       {/* ============================================================== */}
-      <div className="bg-gradient-to-b from-blue-50/50 via-white to-neutral-50 dark:from-neutral-900 dark:via-neutral-900/80 dark:to-neutral-950 border-b border-neutral-200 dark:border-neutral-800 py-12 md:py-16">
-        <div className="max-w-[1240px] mx-auto px-6">
+      <div className="relative overflow-hidden bg-gradient-to-b from-cyan-50/40 via-white to-[#fafbfc] dark:from-[#0a0f1d] dark:via-[#070b12] dark:to-[#070b12] border-b border-neutral-200/80 dark:border-neutral-800/80 py-14 md:py-20">
+        <div className="absolute top-0 right-10 w-[500px] h-[300px] bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-[130px] pointer-events-none" />
+        <div className="absolute inset-0 cyber-grid pointer-events-none opacity-40" />
+
+        <div className="max-w-[1240px] mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             <div className="lg:col-span-8 space-y-4">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-600 text-white shadow-xs">
-                  {program.department}
-                </span>
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300">
-                  {program.category}
-                </span>
+              <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-neutral-500 dark:text-neutral-400">
+                <span className="text-cyan-600 dark:text-cyan-400 font-bold">{program.department}</span>
+                <span aria-hidden="true">·</span>
+                <span>{program.category}</span>
                 {program.branch && (
-                  <span className="text-xs font-medium px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                    {program.branch}
-                  </span>
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span className="text-emerald-600 dark:text-emerald-400">{program.branch}</span>
+                  </>
                 )}
+                <span aria-hidden="true">·</span>
+                <span className="font-mono text-cyan-600 dark:text-cyan-400">ISO 9001:2015</span>
               </div>
 
-              <h1 className="text-3xl md:text-5xl font-extrabold text-neutral-950 dark:text-white tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-neutral-950 dark:text-white tracking-tight leading-tight">
                 {program.title}
               </h1>
 
@@ -238,14 +241,14 @@ export const ProgramDetailPage: React.FC = () => {
               </p>
 
               {/* Badges / Highlights */}
-              <div className="flex flex-wrap items-center gap-6 pt-2 text-xs md:text-sm text-neutral-600 dark:text-neutral-400">
+              <div className="flex flex-wrap items-center gap-6 pt-3 text-xs md:text-sm text-neutral-600 dark:text-neutral-400">
                 <div className="flex items-center gap-1.5">
-                  <Calendar className="w-4 h-4 text-blue-500" />
+                  <Calendar className="w-4 h-4 text-cyan-500" />
                   <span className="font-semibold text-neutral-900 dark:text-white">{program.batchDate}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Clock className="w-4 h-4 text-indigo-500" />
-                  <span>{program.duration}</span>
+                  <span className="font-mono">{program.duration}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Star className="w-4 h-4 text-amber-500 fill-amber-500" />

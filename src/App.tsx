@@ -4,6 +4,7 @@ import { UserProvider, useUser } from './context/UserContext';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { BentoGrid } from './components/BentoGrid';
+import { InteractiveValueEngine } from './components/InteractiveValueEngine';
 import { MentorshipSection } from './components/MentorshipSection';
 import { ResourceSection } from './components/ResourceSection';
 import { ContactSection } from './components/ContactSection';
@@ -32,6 +33,7 @@ export function AppContent() {
             <>
               <Hero />
               <BentoGrid />
+              <InteractiveValueEngine />
               <MentorshipSection />
               <ResourceSection />
               <ContactSection />

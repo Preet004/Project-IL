@@ -9,9 +9,8 @@ export const Footer: React.FC = () => {
   const { setActiveModal, setSelectedCategoryId, navigateToView, showToast } = useUser();
 
   const handleOpenDomain = (dom: DepartmentCategory) => {
-    navigateToView('home');
     setSelectedCategoryId(dom);
-    setActiveModal('internships');
+    navigateToView('programs');
   };
 
   const handleWhatsApp = () => {

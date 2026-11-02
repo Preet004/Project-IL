@@ -2,20 +2,16 @@ import React, { useState, useMemo } from 'react';
 import { motion } from 'motion/react';
 import { useUser } from '../context/UserContext';
 import { MOCK_INTERNSHIPS, CATEGORIES_LIST, BRANCH_DOMAINS } from '../data/mockData';
-import { MainCategory, BranchDomain } from '../types';
+import { MainCategory } from '../types';
 import { 
   Search, 
-  Filter, 
-  BookOpen, 
-  Clock, 
-  Calendar, 
-  ArrowRight, 
-  Award, 
-  CheckCircle2, 
-  Sparkles, 
+  Layers, 
   GraduationCap, 
-  X,
-  Layers
+  X, 
+  CheckCircle2, 
+  ArrowRight, 
+  Zap, 
+  ShieldCheck 
 } from 'lucide-react';
 import { WhatsAppIcon } from './WhatsAppIcon';
 import { brandAssets } from '../assets/brandAssets';
@@ -25,7 +21,7 @@ interface ProgramsCatalogPageProps {
 }
 
 export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initialCategory }) => {
-  const { navigateToProgram, navigateToView } = useUser();
+  const { navigateToProgram } = useUser();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || 'All');
   const [selectedBranch, setSelectedBranch] = useState<string>('All');
@@ -66,22 +62,25 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors duration-300 pb-28">
+    <div className="min-h-screen bg-[#fafbfc] dark:bg-[#070b12] text-neutral-900 dark:text-neutral-100 transition-colors duration-300 pb-28">
       
-      {/* Header Banner */}
-      <div className="bg-gradient-to-b from-blue-50/60 via-white to-neutral-50 dark:from-neutral-900 dark:via-neutral-900/70 dark:to-neutral-950 border-b border-neutral-200 dark:border-neutral-800 py-12 md:py-16">
-        <div className="max-w-[1240px] mx-auto px-6">
+      {/* Header Banner with Cyber Aurora */}
+      <div className="relative overflow-hidden bg-gradient-to-b from-cyan-50/50 via-white to-[#fafbfc] dark:from-[#0a0f1d] dark:via-[#070b12] dark:to-[#070b12] border-b border-neutral-200/80 dark:border-neutral-800/80 py-16">
+        <div className="absolute top-0 right-1/4 w-[500px] h-[300px] bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute inset-0 cyber-grid pointer-events-none opacity-40" />
+
+        <div className="max-w-[1240px] mx-auto px-6 relative z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="space-y-3 max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 text-xs font-bold shadow-xs">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-neutral-800/90 border border-neutral-200 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 text-xs font-bold shadow-xs">
                 <img src={brandAssets.emblem} alt="InternsLoom Emblem" className="h-4 w-auto object-contain" />
-                <span>InternsLoom Official Training & Internship Catalog</span>
+                <span>InternsLoom Official Training & Capstone Catalog</span>
               </div>
-              <h1 className="text-3xl md:text-5xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
                 Programs & Bootcamps
               </h1>
-              <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                Explore all <strong>{MOCK_INTERNSHIPS.length} specialized domain tracks</strong>. Each program features 4 weeks of hands-on technical training, a 2-month live industry capstone project, ISO 9001:2015 certification, and self-paced or mentor-led options.
+              <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed text-balance">
+                Explore all <strong>{MOCK_INTERNSHIPS.length} technical and engineering tracks</strong>. Each program features 4 weeks of hands-on live training, a 2-month live production capstone internship, ISO 9001:2015 certification, and verified recruiter placement assistance.
               </p>
             </div>
 
@@ -89,15 +88,15 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
             <div className="shrink-0">
               <button
                 onClick={handleWhatsAppHelp}
-                className="px-4 py-2.5 rounded-2xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs shadow-md shadow-emerald-500/20 flex items-center gap-2 transition-all cursor-pointer"
+                className="px-5 py-3 rounded-2xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs shadow-md shadow-emerald-500/20 flex items-center gap-2 transition-all cursor-pointer transform hover:-translate-y-0.5"
               >
                 <WhatsAppIcon className="w-4 h-4 text-white" />
-                <span>Need Guidance? Ask on WhatsApp</span>
+                <span>Ask Program Advisor on WhatsApp</span>
               </button>
             </div>
           </div>
 
-          {/* Search Bar */}
+          {/* Search Bar with Cyber Glow */}
           <div className="mt-8 relative max-w-2xl">
             <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" />
             <input
@@ -105,12 +104,12 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by domain, technology, or keywords (e.g. Full Stack, AI, Revit, Python, VLSI)..."
-              className="w-full pl-12 pr-10 py-3.5 rounded-2xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-xs"
+              className="w-full pl-12 pr-10 py-3.5 rounded-2xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 shadow-sm"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 p-1"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 p-1 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -120,19 +119,19 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
       </div>
 
       {/* Main Catalog Section */}
-      <div className="max-w-[1240px] mx-auto px-6 pt-10">
+      <div className="max-w-[1240px] mx-auto px-6 pt-12">
 
         {/* Filter Controls Bar */}
-        <div className="space-y-5 mb-8">
+        <div className="space-y-6 mb-10">
           
           {/* Category Filter Tabs */}
           <div>
-            <div className="flex items-center justify-between mb-2.5">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5" />
-                <span>Filter by Domain Category</span>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-cyan-500" />
+                <span>Filter by Domain Track</span>
               </span>
-              <span className="text-xs font-medium text-neutral-500">
+              <span className="text-xs font-mono text-neutral-500">
                 Showing {filteredPrograms.length} of {MOCK_INTERNSHIPS.length} programs
               </span>
             </div>
@@ -140,10 +139,10 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setSelectedCategory('All')}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   selectedCategory === 'All'
-                    ? 'bg-blue-600 text-white shadow-xs'
-                    : 'bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-neutral-300'
+                    ? 'bg-cyan-600 text-white shadow-md shadow-cyan-600/20'
+                    : 'bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-cyan-400/50'
                 }`}
               >
                 All Categories ({MOCK_INTERNSHIPS.length})
@@ -153,10 +152,10 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                     selectedCategory === cat.id
-                      ? 'bg-blue-600 text-white shadow-xs font-bold'
-                      : 'bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-blue-400/50'
+                      ? 'bg-cyan-600 text-white shadow-md shadow-cyan-600/20 font-bold'
+                      : 'bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-cyan-400/50'
                   }`}
                 >
                   {cat.name} ({cat.count})
@@ -167,14 +166,14 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
 
           {/* Academic Branch / Discipline Filter */}
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 block mb-2 flex items-center gap-1.5">
-              <GraduationCap className="w-3.5 h-3.5" />
+            <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 block mb-2 flex items-center gap-1.5">
+              <GraduationCap className="w-3.5 h-3.5 text-indigo-500" />
               <span>Filter by Academic Discipline / Branch</span>
             </span>
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setSelectedBranch('All')}
-                className={`px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                   selectedBranch === 'All'
                     ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-bold'
                     : 'bg-neutral-100 dark:bg-neutral-800/60 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200'
@@ -186,7 +185,7 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
                 <button
                   key={branch.name}
                   onClick={() => setSelectedBranch(branch.name)}
-                  className={`px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                     selectedBranch === branch.name
                       ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-bold'
                       : 'bg-neutral-100 dark:bg-neutral-800/60 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200'
@@ -217,7 +216,7 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
                 setSelectedCategory('All');
                 setSelectedBranch('All');
               }}
-              className="px-5 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-500 transition-colors cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-cyan-600 text-white text-xs font-bold hover:bg-cyan-500 transition-colors cursor-pointer"
             >
               Reset Filters
             </button>
@@ -228,24 +227,21 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
               return (
                 <motion.div
                   key={program.id}
-                  whileHover={{ y: -4 }}
+                  whileHover={{ y: -5 }}
                   transition={{ duration: 0.2 }}
                   onClick={() => navigateToProgram(program.id)}
-                  className="rounded-3xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-6 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-blue-500/60 transition-all cursor-pointer group"
+                  className="rounded-3xl bg-white dark:bg-neutral-900/90 border border-neutral-200/90 dark:border-neutral-800 p-6 flex flex-col justify-between shadow-sm hover:shadow-2xl hover:border-cyan-500/60 transition-all cursor-pointer group relative overflow-hidden"
                 >
                   <div className="space-y-3.5">
                     {/* Header Badges */}
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800/60">
-                        {program.department}
-                      </span>
-                      <span className="text-[11px] font-medium text-neutral-400">
-                        {program.duration.split(' ')[0]} {program.duration.split(' ')[1]}
-                      </span>
+                    <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
+                      <span className="font-semibold text-cyan-600 dark:text-cyan-400">{program.department}</span>
+                      <span aria-hidden="true">·</span>
+                      <span className="font-mono">{program.duration}</span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-lg font-bold text-neutral-950 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
+                    <h3 className="text-lg font-bold text-neutral-950 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors leading-snug">
                       {program.title}
                     </h3>
 
@@ -255,7 +251,7 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
                     </p>
 
                     {/* Capstone Preview */}
-                    <div className="p-3 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-800 space-y-1">
+                    <div className="p-3 rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-100 dark:border-neutral-800 space-y-1">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
                         Live Industry Project:
                       </span>
@@ -273,13 +269,13 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
                         {program.toolsCovered.slice(0, 4).map((tool) => (
                           <span
                             key={tool}
-                            className="text-[10px] px-2 py-0.5 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 font-medium"
+                            className="text-[10px] font-mono px-2 py-0.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 font-medium"
                           >
                             {tool}
                           </span>
                         ))}
                         {program.toolsCovered.length > 4 && (
-                          <span className="text-[10px] px-1.5 py-0.5 rounded-md text-neutral-400">
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-lg text-neutral-400">
                             +{program.toolsCovered.length - 4} more
                           </span>
                         )}
@@ -291,13 +287,13 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
                   <div className="pt-5 mt-5 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
                     <div>
                       <span className="text-[10px] uppercase font-bold text-neutral-400 block">Tuition Starts At</span>
-                      <span className="text-sm font-extrabold text-neutral-900 dark:text-white">
-                        ₹6,500 <span className="text-[10px] font-normal text-neutral-400">(Self-Paced / Mentor-Led)</span>
+                      <span className="text-sm font-extrabold text-neutral-900 dark:text-white font-mono">
+                        ₹6,500 <span className="text-[10px] font-normal text-neutral-400 font-sans">(Self-Paced / Mentor-Led)</span>
                       </span>
                     </div>
 
-                    <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
-                      <span>View Details</span>
+                    <div className="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-600 dark:text-cyan-400 group-hover:translate-x-1 transition-transform">
+                      <span>View Syllabus & ROI</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </div>
                   </div>
