@@ -1,6 +1,6 @@
 import React from 'react';
 import { useUser } from '../context/UserContext';
-import { ArrowRight, ShieldCheck, Users, Zap, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Zap, CheckCircle2 } from 'lucide-react';
 
 export const CtaSection: React.FC = () => {
   const { setActiveModal, setSelectedCategoryId } = useUser();
@@ -9,7 +9,12 @@ export const CtaSection: React.FC = () => {
     <section className="relative py-28 bg-[#fafbfc] dark:bg-[#070b12] transition-colors duration-300 overflow-hidden">
       
       {/* Background Radial Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-gradient-to-r from-cyan-500/15 via-blue-600/15 to-indigo-600/15 rounded-full blur-[160px] pointer-events-none" />
+      <div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[820px] h-[480px] rounded-full blur-[160px] pointer-events-none transition-all duration-700" 
+        style={{
+          background: 'radial-gradient(circle, rgba(var(--primary-rgb), 0.18) 0%, rgba(var(--secondary-rgb), 0.15) 100%)'
+        }}
+      />
       <div className="absolute inset-0 cyber-grid pointer-events-none opacity-30" />
 
       <div className="max-w-[1100px] mx-auto px-6 relative z-10 text-center">
@@ -17,12 +22,26 @@ export const CtaSection: React.FC = () => {
         <div className="relative rounded-[2.5rem] bg-gradient-to-b from-neutral-900 via-neutral-900 to-slate-950 text-white p-10 md:p-20 overflow-hidden border border-neutral-800 shadow-2xl glow-border">
           
           {/* Subtle Ambient Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 via-indigo-600/10 to-transparent pointer-events-none" />
-          <div className="absolute -top-24 -right-24 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none" />
+          <div 
+            className="absolute inset-0 pointer-events-none transition-all duration-700" 
+            style={{
+              background: 'linear-gradient(135deg, rgba(var(--primary-rgb), 0.1) 0%, rgba(var(--secondary-rgb), 0.08) 100%)'
+            }}
+          />
 
           <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 text-xs font-semibold backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+            <div 
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md border"
+              style={{
+                backgroundColor: 'rgba(var(--primary-rgb), 0.1)',
+                borderColor: 'rgba(var(--primary-rgb), 0.3)',
+                color: 'var(--primary)'
+              }}
+            >
+              <span 
+                className="w-2 h-2 rounded-full animate-pulse" 
+                style={{ backgroundColor: 'var(--primary)' }}
+              />
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
               <span>Next Cohort Registration Active · Limited Mentorship Slots</span>
             </div>
@@ -56,7 +75,7 @@ export const CtaSection: React.FC = () => {
                   setSelectedCategoryId(null);
                   setActiveModal('internships');
                 }}
-                className="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold text-sm transition-all shadow-xl shadow-cyan-500/25 flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
+                className="px-8 py-4 rounded-2xl bg-brand-gradient text-white font-bold text-sm transition-all shadow-glow flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
               >
                 <span>Enroll in a Career Program</span>
                 <ArrowRight className="w-4 h-4" />
@@ -66,7 +85,7 @@ export const CtaSection: React.FC = () => {
                 onClick={() => setActiveModal('mentors')}
                 className="px-7 py-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm backdrop-blur-md border border-white/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Zap className="w-4 h-4 text-amber-400" />
+                <Zap className="w-4 h-4" style={{ color: 'var(--accent)' }} />
                 <span>Explore Mentorship Plans</span>
               </button>
             </div>

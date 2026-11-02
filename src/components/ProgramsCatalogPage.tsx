@@ -9,9 +9,7 @@ import {
   GraduationCap, 
   X, 
   CheckCircle2, 
-  ArrowRight, 
-  Zap, 
-  ShieldCheck 
+  ArrowRight
 } from 'lucide-react';
 import { WhatsAppIcon } from './WhatsAppIcon';
 import { brandAssets } from '../assets/brandAssets';
@@ -65,8 +63,11 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
     <div className="min-h-screen bg-[#fafbfc] dark:bg-[#070b12] text-neutral-900 dark:text-neutral-100 transition-colors duration-300 pb-28">
       
       {/* Header Banner with Cyber Aurora */}
-      <div className="relative overflow-hidden bg-gradient-to-b from-cyan-50/50 via-white to-[#fafbfc] dark:from-[#0a0f1d] dark:via-[#070b12] dark:to-[#070b12] border-b border-neutral-200/80 dark:border-neutral-800/80 py-16">
-        <div className="absolute top-0 right-1/4 w-[500px] h-[300px] bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-[120px] pointer-events-none" />
+      <div className="relative overflow-hidden bg-gradient-to-b from-neutral-100/50 via-white to-[#fafbfc] dark:from-[#0a0f1d] dark:via-[#070b12] dark:to-[#070b12] border-b border-neutral-200/80 dark:border-neutral-800/80 py-16">
+        <div 
+          className="absolute top-0 right-1/4 w-[520px] h-[320px] rounded-full blur-[130px] pointer-events-none transition-all duration-700" 
+          style={{ background: 'rgba(var(--primary-rgb), 0.15)' }}
+        />
         <div className="absolute inset-0 cyber-grid pointer-events-none opacity-40" />
 
         <div className="max-w-[1240px] mx-auto px-6 relative z-10">
@@ -96,7 +97,7 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
             </div>
           </div>
 
-          {/* Search Bar with Cyber Glow */}
+          {/* Search Bar with Focus Ring */}
           <div className="mt-8 relative max-w-2xl">
             <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" />
             <input
@@ -104,7 +105,10 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by domain, technology, or keywords (e.g. Full Stack, AI, Revit, Python, VLSI)..."
-              className="w-full pl-12 pr-10 py-3.5 rounded-2xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 shadow-sm"
+              className="w-full pl-12 pr-10 py-3.5 rounded-2xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm focus:outline-none focus:ring-2 shadow-sm"
+              style={{
+                outlineColor: 'var(--primary)'
+              }}
             />
             {searchQuery && (
               <button
@@ -128,7 +132,7 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5 text-cyan-500" />
+                <Layers className="w-3.5 h-3.5" style={{ color: 'var(--primary)' }} />
                 <span>Filter by Domain Track</span>
               </span>
               <span className="text-xs font-mono text-neutral-500">
@@ -141,8 +145,8 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
                 onClick={() => setSelectedCategory('All')}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   selectedCategory === 'All'
-                    ? 'bg-cyan-600 text-white shadow-md shadow-cyan-600/20'
-                    : 'bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-cyan-400/50'
+                    ? 'bg-brand-gradient text-white shadow-glow'
+                    : 'bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400'
                 }`}
               >
                 All Categories ({MOCK_INTERNSHIPS.length})
@@ -154,8 +158,8 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                     selectedCategory === cat.id
-                      ? 'bg-cyan-600 text-white shadow-md shadow-cyan-600/20 font-bold'
-                      : 'bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-cyan-400/50'
+                      ? 'bg-brand-gradient text-white shadow-glow font-bold'
+                      : 'bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400'
                   }`}
                 >
                   {cat.name} ({cat.count})
@@ -167,7 +171,7 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
           {/* Academic Branch / Discipline Filter */}
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 block mb-2 flex items-center gap-1.5">
-              <GraduationCap className="w-3.5 h-3.5 text-indigo-500" />
+              <GraduationCap className="w-3.5 h-3.5" style={{ color: 'var(--secondary)' }} />
               <span>Filter by Academic Discipline / Branch</span>
             </span>
             <div className="flex flex-wrap gap-2">
@@ -216,7 +220,7 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
                 setSelectedCategory('All');
                 setSelectedBranch('All');
               }}
-              className="px-5 py-2.5 rounded-xl bg-cyan-600 text-white text-xs font-bold hover:bg-cyan-500 transition-colors cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-brand-gradient text-white text-xs font-bold transition-all shadow-glow cursor-pointer"
             >
               Reset Filters
             </button>
@@ -230,18 +234,24 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
                   whileHover={{ y: -5 }}
                   transition={{ duration: 0.2 }}
                   onClick={() => navigateToProgram(program.id)}
-                  className="rounded-3xl bg-white dark:bg-neutral-900/90 border border-neutral-200/90 dark:border-neutral-800 p-6 flex flex-col justify-between shadow-sm hover:shadow-2xl hover:border-cyan-500/60 transition-all cursor-pointer group relative overflow-hidden"
+                  className="rounded-3xl bg-white dark:bg-neutral-900/90 border border-neutral-200/90 dark:border-neutral-800 p-6 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all cursor-pointer group relative overflow-hidden"
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--primary)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = '';
+                  }}
                 >
                   <div className="space-y-3.5">
                     {/* Header Badges */}
                     <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
-                      <span className="font-semibold text-cyan-600 dark:text-cyan-400">{program.department}</span>
+                      <span className="font-semibold" style={{ color: 'var(--primary)' }}>{program.department}</span>
                       <span aria-hidden="true">·</span>
                       <span className="font-mono">{program.duration}</span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-lg font-bold text-neutral-950 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors leading-snug">
+                    <h3 className="text-lg font-bold text-neutral-950 dark:text-white transition-colors leading-snug">
                       {program.title}
                     </h3>
 
@@ -292,7 +302,7 @@ export const ProgramsCatalogPage: React.FC<ProgramsCatalogPageProps> = ({ initia
                       </span>
                     </div>
 
-                    <div className="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-600 dark:text-cyan-400 group-hover:translate-x-1 transition-transform">
+                    <div className="inline-flex items-center gap-1.5 text-xs font-bold group-hover:translate-x-1 transition-transform" style={{ color: 'var(--primary)' }}>
                       <span>View Syllabus & ROI</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </div>

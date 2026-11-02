@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { useUser } from '../context/UserContext';
 import { 
   Calculator, 
   ShieldCheck, 
-  Sparkles, 
   Award, 
   ArrowRight, 
   CheckCircle2, 
-  TrendingUp, 
   Layers, 
   GitBranch, 
-  FileCode2, 
-  Briefcase, 
   Zap, 
-  ExternalLink,
-  ChevronRight
 } from 'lucide-react';
 import { brandAssets } from '../assets/brandAssets';
 
@@ -96,21 +90,34 @@ export const InteractiveValueEngine: React.FC = () => {
     <section className="relative py-28 overflow-hidden bg-[#fafbfc] dark:bg-[#070b12] border-t border-neutral-200/80 dark:border-neutral-800/80 transition-colors duration-300">
       
       {/* Background Cyber Ambient Glows */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[650px] h-[450px] bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-1/4 w-[500px] h-[350px] bg-indigo-500/10 dark:bg-indigo-500/15 rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute inset-0 cyber-grid pointer-events-none opacity-60" />
+      <div 
+        className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[650px] h-[450px] rounded-full blur-[140px] pointer-events-none transition-all duration-700" 
+        style={{ background: 'rgba(var(--primary-rgb), 0.12)' }}
+      />
+      <div 
+        className="absolute bottom-10 right-1/4 w-[500px] h-[350px] rounded-full blur-[130px] pointer-events-none transition-all duration-700" 
+        style={{ background: 'rgba(var(--secondary-rgb), 0.12)' }}
+      />
+      <div className="absolute inset-0 cyber-grid pointer-events-none opacity-50" />
 
       <div className="max-w-[1240px] mx-auto px-6 relative z-10">
         
         {/* Section Heading & Value Proposition */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 dark:bg-cyan-500/15 border border-cyan-500/20 text-cyan-700 dark:text-cyan-400 text-xs font-semibold mb-4">
-            <Zap className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+          <div 
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-4 border"
+            style={{
+              backgroundColor: 'rgba(var(--primary-rgb), 0.1)',
+              borderColor: 'rgba(var(--primary-rgb), 0.3)',
+              color: 'var(--primary)'
+            }}
+          >
+            <Zap className="w-4 h-4" />
             <span>Interactive Value & Verification Engine</span>
           </div>
 
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white mb-4">
-            Designed to Deliver <span className="bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">Exponential ROI</span>
+            Designed to Deliver <span className="text-brand-gradient">Exponential ROI</span>
           </h2>
           
           <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-400 font-normal leading-relaxed">
@@ -123,11 +130,11 @@ export const InteractiveValueEngine: React.FC = () => {
               onClick={() => setActiveTab('roi')}
               className={`px-5 py-2.5 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center gap-2 cursor-pointer ${
                 activeTab === 'roi'
-                  ? 'bg-white dark:bg-neutral-800 text-neutral-950 dark:text-white shadow-md ring-1 ring-neutral-200 dark:ring-neutral-700'
+                  ? 'bg-white dark:bg-neutral-800 text-neutral-950 dark:text-white shadow-md ring-1 ring-neutral-200 dark:ring-neutral-700 font-bold'
                   : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white'
               }`}
             >
-              <Calculator className="w-4 h-4 text-cyan-500" />
+              <Calculator className="w-4 h-4" style={{ color: 'var(--primary)' }} />
               <span>Career ROI Simulator</span>
             </button>
 
@@ -135,11 +142,11 @@ export const InteractiveValueEngine: React.FC = () => {
               onClick={() => setActiveTab('protocol')}
               className={`px-5 py-2.5 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center gap-2 cursor-pointer ${
                 activeTab === 'protocol'
-                  ? 'bg-white dark:bg-neutral-800 text-neutral-950 dark:text-white shadow-md ring-1 ring-neutral-200 dark:ring-neutral-700'
+                  ? 'bg-white dark:bg-neutral-800 text-neutral-950 dark:text-white shadow-md ring-1 ring-neutral-200 dark:ring-neutral-700 font-bold'
                   : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white'
               }`}
             >
-              <Layers className="w-4 h-4 text-indigo-500" />
+              <Layers className="w-4 h-4" style={{ color: 'var(--secondary)' }} />
               <span>Dual-Phase Execution Protocol</span>
             </button>
 
@@ -147,11 +154,11 @@ export const InteractiveValueEngine: React.FC = () => {
               onClick={() => setActiveTab('credential')}
               className={`px-5 py-2.5 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center gap-2 cursor-pointer ${
                 activeTab === 'credential'
-                  ? 'bg-white dark:bg-neutral-800 text-neutral-950 dark:text-white shadow-md ring-1 ring-neutral-200 dark:ring-neutral-700'
+                  ? 'bg-white dark:bg-neutral-800 text-neutral-950 dark:text-white shadow-md ring-1 ring-neutral-200 dark:ring-neutral-700 font-bold'
                   : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white'
               }`}
             >
-              <Award className="w-4 h-4 text-emerald-500" />
+              <Award className="w-4 h-4" style={{ color: 'var(--accent)' }} />
               <span>Verifiable Credential Vault</span>
             </button>
           </div>
@@ -169,7 +176,9 @@ export const InteractiveValueEngine: React.FC = () => {
             <div className="lg:col-span-5 p-8 rounded-3xl bg-white dark:bg-neutral-900/90 border border-neutral-200/90 dark:border-neutral-800/90 shadow-xl flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-2 mb-6">
-                  <div className="w-8 h-8 rounded-lg bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold">
+                  <div 
+                    className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs text-white bg-brand-gradient"
+                  >
                     1
                   </div>
                   <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
@@ -184,12 +193,15 @@ export const InteractiveValueEngine: React.FC = () => {
                       onClick={() => setSelectedDomainId(domain.id)}
                       className={`w-full p-3.5 rounded-xl border text-left text-xs font-semibold transition-all flex items-center justify-between cursor-pointer ${
                         selectedDomainId === domain.id
-                          ? 'border-cyan-500/80 bg-cyan-50/50 dark:bg-cyan-950/30 text-cyan-900 dark:text-cyan-100 shadow-sm ring-1 ring-cyan-500/30'
+                          ? 'border-[var(--primary)] bg-neutral-100 dark:bg-neutral-800 shadow-sm ring-1 ring-[var(--primary)] text-neutral-900 dark:text-white'
                           : 'border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 text-neutral-700 dark:text-neutral-300'
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
-                        <span className={`w-2 h-2 rounded-full ${selectedDomainId === domain.id ? 'bg-cyan-500' : 'bg-neutral-300 dark:bg-neutral-600'}`} />
+                        <span 
+                          className="w-2 h-2 rounded-full"
+                          style={{ backgroundColor: selectedDomainId === domain.id ? 'var(--primary)' : undefined }}
+                        />
                         <span>{domain.name}</span>
                       </div>
                       <span className="font-mono text-[11px] text-neutral-500 dark:text-neutral-400">
@@ -216,7 +228,8 @@ export const InteractiveValueEngine: React.FC = () => {
                     step="0.5"
                     value={currentCompensation}
                     onChange={(e) => setCurrentCompensation(parseFloat(e.target.value))}
-                    className="w-full accent-cyan-500 cursor-pointer"
+                    className="w-full cursor-pointer accent-emerald-500"
+                    style={{ accentColor: 'var(--primary)' }}
                   />
                   <div className="flex justify-between text-[10px] text-neutral-400 mt-1">
                     <span>Fresher / Non-tech (₹1.5 LPA)</span>
@@ -234,7 +247,7 @@ export const InteractiveValueEngine: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setActiveModal('mentors')}
-                  className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition-all shadow-md shadow-cyan-500/20 cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-brand-gradient text-white text-xs font-bold transition-all shadow-glow cursor-pointer"
                 >
                   Join Cohort
                 </button>
@@ -245,12 +258,15 @@ export const InteractiveValueEngine: React.FC = () => {
             <div className="lg:col-span-7 p-8 rounded-3xl bg-gradient-to-br from-neutral-900 via-neutral-900 to-slate-950 text-white border border-neutral-800 shadow-2xl flex flex-col justify-between relative overflow-hidden">
               
               {/* Background Glow */}
-              <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+              <div 
+                className="absolute top-0 right-0 w-80 h-80 rounded-full blur-3xl pointer-events-none" 
+                style={{ background: 'rgba(var(--primary-rgb), 0.15)' }}
+              />
 
               <div>
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-neutral-800">
                   <div>
-                    <span className="text-[10px] uppercase font-bold tracking-widest text-cyan-400">
+                    <span className="text-[10px] uppercase font-bold tracking-widest" style={{ color: 'var(--primary)' }}>
                       Projected Career Leap
                     </span>
                     <h3 className="text-2xl font-black text-white mt-0.5">
@@ -266,7 +282,7 @@ export const InteractiveValueEngine: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                   <div className="p-4 rounded-2xl bg-neutral-800/60 border border-neutral-700/60">
                     <p className="text-xs text-neutral-400 font-medium">Avg. Starting Package</p>
-                    <p className="text-3xl font-black text-cyan-400 mt-1 font-mono">
+                    <p className="text-3xl font-black mt-1 font-mono" style={{ color: 'var(--primary)' }}>
                       ₹{selectedDomain.avgStartingLPA} <span className="text-sm font-sans font-normal text-neutral-400">LPA</span>
                     </p>
                     <p className="text-[11px] text-neutral-400 mt-1">Verified graduate median</p>
@@ -274,7 +290,7 @@ export const InteractiveValueEngine: React.FC = () => {
 
                   <div className="p-4 rounded-2xl bg-neutral-800/60 border border-neutral-700/60">
                     <p className="text-xs text-neutral-400 font-medium">Senior Ceiling (3-5 Yrs)</p>
-                    <p className="text-3xl font-black text-indigo-400 mt-1 font-mono">
+                    <p className="text-3xl font-black mt-1 font-mono" style={{ color: 'var(--secondary)' }}>
                       ₹{selectedDomain.seniorLPA} <span className="text-sm font-sans font-normal text-neutral-400">LPA</span>
                     </p>
                     <p className="text-[11px] text-neutral-400 mt-1">Specialist Architect tier</p>
@@ -292,7 +308,7 @@ export const InteractiveValueEngine: React.FC = () => {
                 {/* Deliverables Breakdown */}
                 <div className="space-y-4 mb-8">
                   <h4 className="text-xs uppercase font-bold tracking-wider text-neutral-400 flex items-center gap-1.5">
-                    <GitBranch className="w-4 h-4 text-cyan-400" />
+                    <GitBranch className="w-4 h-4" style={{ color: 'var(--primary)' }} />
                     <span>Guaranteed Production Capstone You Will Build:</span>
                   </h4>
                   
@@ -302,7 +318,7 @@ export const InteractiveValueEngine: React.FC = () => {
                     </p>
                     <div className="flex flex-wrap gap-1.5">
                       {selectedDomain.keySkills.map((skill, idx) => (
-                        <span key={idx} className="text-[11px] font-mono px-2.5 py-0.5 rounded-lg bg-neutral-900 border border-neutral-700 text-cyan-300">
+                        <span key={idx} className="text-[11px] font-mono px-2.5 py-0.5 rounded-lg bg-neutral-900 border border-neutral-700" style={{ color: 'var(--primary)' }}>
                           {skill}
                         </span>
                       ))}
@@ -312,9 +328,21 @@ export const InteractiveValueEngine: React.FC = () => {
               </div>
 
               {/* Bottom Guarantee Banner */}
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-cyan-950/60 to-blue-950/60 border border-cyan-800/40 flex items-center justify-between gap-4">
+              <div 
+                className="p-4 rounded-2xl border flex items-center justify-between gap-4"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(var(--primary-rgb), 0.15) 0%, rgba(var(--secondary-rgb), 0.15) 100%)',
+                  borderColor: 'rgba(var(--primary-rgb), 0.3)'
+                }}
+              >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+                  <div 
+                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                    style={{
+                      backgroundColor: 'rgba(var(--primary-rgb), 0.2)',
+                      color: 'var(--primary)'
+                    }}
+                  >
                     <ShieldCheck className="w-6 h-6" />
                   </div>
                   <div>
@@ -349,10 +377,16 @@ export const InteractiveValueEngine: React.FC = () => {
               {/* Step 1 */}
               <div className="p-6 rounded-3xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-lg relative flex flex-col justify-between">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-lg mb-4">
+                  <div 
+                    className="w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-lg mb-4"
+                    style={{
+                      backgroundColor: 'rgba(var(--primary-rgb), 0.15)',
+                      color: 'var(--primary)'
+                    }}
+                  >
                     01
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                  <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'var(--primary)' }}>
                     Weeks 1 to 4
                   </span>
                   <h3 className="text-lg font-bold text-neutral-900 dark:text-white mt-1 mb-2">
@@ -382,12 +416,18 @@ export const InteractiveValueEngine: React.FC = () => {
               </div>
 
               {/* Step 2 */}
-              <div className="p-6 rounded-3xl bg-white dark:bg-neutral-900 border-2 border-indigo-500/40 shadow-xl relative flex flex-col justify-between ring-2 ring-indigo-500/20">
+              <div className="p-6 rounded-3xl bg-white dark:bg-neutral-900 border-2 shadow-xl relative flex flex-col justify-between glow-border">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-lg mb-4">
+                  <div 
+                    className="w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-lg mb-4"
+                    style={{
+                      backgroundColor: 'rgba(var(--secondary-rgb), 0.15)',
+                      color: 'var(--secondary)'
+                    }}
+                  >
                     02
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                  <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'var(--secondary)' }}>
                     Months 2 to 3
                   </span>
                   <h3 className="text-lg font-bold text-neutral-900 dark:text-white mt-1 mb-2">
@@ -419,10 +459,16 @@ export const InteractiveValueEngine: React.FC = () => {
               {/* Step 3 */}
               <div className="p-6 rounded-3xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-lg relative flex flex-col justify-between">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-lg mb-4">
+                  <div 
+                    className="w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-lg mb-4"
+                    style={{
+                      backgroundColor: 'rgba(var(--accent-rgb), 0.15)',
+                      color: 'var(--accent)'
+                    }}
+                  >
                     03
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                  <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>
                     Graduation & Placement
                   </span>
                   <h3 className="text-lg font-bold text-neutral-900 dark:text-white mt-1 mb-2">
@@ -456,7 +502,7 @@ export const InteractiveValueEngine: React.FC = () => {
             <div className="text-center pt-4">
               <button
                 onClick={() => setActiveModal('mentors')}
-                className="px-8 py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-blue-500/30 transition-all inline-flex items-center gap-2 cursor-pointer"
+                className="px-8 py-3.5 rounded-full bg-brand-gradient text-white font-bold text-xs uppercase tracking-wider shadow-glow transition-all inline-flex items-center gap-2 cursor-pointer"
               >
                 <span>Enroll In The Next Cohort</span>
                 <ArrowRight className="w-4 h-4" />
@@ -502,7 +548,7 @@ export const InteractiveValueEngine: React.FC = () => {
               {/* Sample Certificate Body */}
               <div className="py-8 space-y-4">
                 <p className="text-xs uppercase tracking-widest text-neutral-400">Awarded To</p>
-                <h4 className="text-3xl md:text-4xl font-extrabold text-cyan-300 tracking-tight">
+                <h4 className="text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: 'var(--primary)' }}>
                   Aditya Narayan Sharma
                 </h4>
                 <p className="text-sm text-neutral-300 leading-relaxed max-w-2xl">
@@ -520,11 +566,11 @@ export const InteractiveValueEngine: React.FC = () => {
                   </div>
                   <div className="p-3 rounded-xl bg-neutral-800/60 border border-neutral-700/60">
                     <p className="text-[10px] text-neutral-400 uppercase">Accreditation</p>
-                    <p className="text-xs font-mono font-bold text-white mt-0.5">ISO 9001:2015</p>
+                    <p className="text-xs font-mono font-bold text-white mt-0.5" style={{ color: 'var(--accent)' }}>ISO 9001:2015</p>
                   </div>
                   <div className="p-3 rounded-xl bg-neutral-800/60 border border-neutral-700/60">
                     <p className="text-[10px] text-neutral-400 uppercase">Verification Status</p>
-                    <p className="text-xs font-mono font-bold text-cyan-400 mt-0.5">Active & Public</p>
+                    <p className="text-xs font-mono font-bold mt-0.5" style={{ color: 'var(--primary)' }}>Active & Public</p>
                   </div>
                 </div>
               </div>
@@ -536,7 +582,7 @@ export const InteractiveValueEngine: React.FC = () => {
                 </p>
                 <button
                   onClick={() => setActiveModal('verify')}
-                  className="px-6 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-cyan-600/20"
+                  className="px-6 py-2.5 rounded-xl bg-brand-gradient text-white font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-glow"
                 >
                   <ShieldCheck className="w-4 h-4" />
                   <span>Test Certificate Verification Modal</span>

@@ -15,8 +15,6 @@ import {
   ArrowRight, 
   CheckCircle2, 
   GraduationCap, 
-  Sparkles,
-  Zap,
   Code2
 } from 'lucide-react';
 import { CATEGORIES_LIST, BRANCH_DOMAINS, MOCK_INTERNSHIPS } from '../data/mockData';
@@ -27,17 +25,17 @@ export const BentoGrid: React.FC = () => {
 
   const getCategoryIcon = (iconName: string) => {
     switch (iconName) {
-      case 'BarChart3': return <BarChart3 className="w-5 h-5 text-cyan-500" />;
+      case 'BarChart3': return <BarChart3 className="w-5 h-5 text-emerald-500" />;
       case 'Cloud': return <Cloud className="w-5 h-5 text-sky-500" />;
-      case 'Cpu': return <Cpu className="w-5 h-5 text-indigo-500" />;
+      case 'Cpu': return <Cpu className="w-5 h-5 text-violet-500" />;
       case 'Shield': return <Shield className="w-5 h-5 text-rose-500" />;
       case 'TrendingUp': return <TrendingUp className="w-5 h-5 text-emerald-500" />;
       case 'Wrench': return <Wrench className="w-5 h-5 text-amber-500" />;
       case 'Dna': return <Dna className="w-5 h-5 text-pink-500" />;
-      case 'Layers': return <Layers className="w-5 h-5 text-violet-500" />;
+      case 'Layers': return <Layers className="w-5 h-5 text-indigo-500" />;
       case 'Palette': return <Palette className="w-5 h-5 text-purple-500" />;
       case 'Compass': return <Compass className="w-5 h-5 text-teal-500" />;
-      default: return <GraduationCap className="w-5 h-5 text-cyan-500" />;
+      default: return <GraduationCap className="w-5 h-5 text-emerald-500" />;
     }
   };
 
@@ -61,8 +59,15 @@ export const BentoGrid: React.FC = () => {
         
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 text-xs font-semibold mb-3 border border-cyan-500/20">
-            <Code2 className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+          <div 
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-3 border"
+            style={{
+              backgroundColor: 'rgba(var(--primary-rgb), 0.1)',
+              borderColor: 'rgba(var(--primary-rgb), 0.3)',
+              color: 'var(--primary)'
+            }}
+          >
+            <Code2 className="w-4 h-4" />
             <span>Industrial Curriculum & Live Production Sprints</span>
           </div>
           <h2 className="text-3xl md:text-5xl font-extrabold text-neutral-950 dark:text-white tracking-tight mb-4">
@@ -82,7 +87,8 @@ export const BentoGrid: React.FC = () => {
             {activeCategoryFilter !== 'All' && (
               <button
                 onClick={() => setActiveCategoryFilter('All')}
-                className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline cursor-pointer"
+                className="text-xs font-bold hover:underline cursor-pointer"
+                style={{ color: 'var(--primary)' }}
               >
                 Show All Tracks
               </button>
@@ -98,9 +104,13 @@ export const BentoGrid: React.FC = () => {
                   onClick={() => setActiveCategoryFilter(cat.id)}
                   className={`p-4 rounded-2xl border text-left transition-all flex flex-col justify-between group cursor-pointer relative overflow-hidden ${
                     isActive
-                      ? 'border-cyan-500 bg-white dark:bg-neutral-800/95 shadow-lg shadow-cyan-500/10 ring-2 ring-cyan-500/30'
-                      : 'border-neutral-200/90 dark:border-neutral-800/90 bg-white/90 dark:bg-neutral-900/70 hover:border-cyan-400 dark:hover:border-cyan-500/50 hover:shadow-md'
+                      ? 'bg-white dark:bg-neutral-800/95 shadow-lg ring-2'
+                      : 'border-neutral-200/90 dark:border-neutral-800/90 bg-white/90 dark:bg-neutral-900/70 hover:shadow-md'
                   }`}
+                  style={{
+                    borderColor: isActive ? 'var(--primary)' : undefined,
+                    boxShadow: isActive ? '0 10px 25px -5px rgba(var(--primary-rgb), 0.2)' : undefined
+                  }}
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="p-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800/80 group-hover:scale-110 transition-transform">
@@ -111,7 +121,7 @@ export const BentoGrid: React.FC = () => {
                     </span>
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-neutral-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors leading-tight">
+                    <h3 className="text-xs font-bold text-neutral-900 dark:text-white transition-colors leading-tight">
                       {cat.name}
                     </h3>
                   </div>
@@ -133,7 +143,8 @@ export const BentoGrid: React.FC = () => {
           </div>
           <button
             onClick={() => navigateToView('programs')}
-            className="text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 flex items-center gap-1 cursor-pointer"
+            className="text-xs font-bold flex items-center gap-1 cursor-pointer hover:underline"
+            style={{ color: 'var(--primary)' }}
           >
             <span>Explore All 79 Programs</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -148,17 +159,23 @@ export const BentoGrid: React.FC = () => {
               whileHover={{ y: -5 }}
               transition={{ duration: 0.2 }}
               onClick={() => navigateToProgram(course.id)}
-              className="group cursor-pointer rounded-3xl bg-white dark:bg-neutral-900/90 border border-neutral-200/90 dark:border-neutral-800 p-6 flex flex-col justify-between shadow-sm hover:shadow-2xl hover:border-cyan-500/50 dark:hover:border-cyan-500/50 transition-all relative overflow-hidden"
+              className="group cursor-pointer rounded-3xl bg-white dark:bg-neutral-900/90 border border-neutral-200/90 dark:border-neutral-800 p-6 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all relative overflow-hidden"
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--primary)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = '';
+              }}
             >
               {/* Subtle Card Header */}
               <div>
                 <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 mb-3">
-                  <span className="font-semibold text-cyan-600 dark:text-cyan-400">{course.category}</span>
+                  <span className="font-semibold" style={{ color: 'var(--primary)' }}>{course.category}</span>
                   <span aria-hidden="true">·</span>
                   <span className="font-mono">{course.duration}</span>
                 </div>
 
-                <h3 className="text-base font-bold text-neutral-950 dark:text-white mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors leading-snug">
+                <h3 className="text-base font-bold text-neutral-950 dark:text-white mb-2 transition-colors leading-snug">
                   {course.title}
                 </h3>
 
@@ -199,7 +216,7 @@ export const BentoGrid: React.FC = () => {
                 <span className="font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-mono">
                   ISO 9001:2015
                 </span>
-                <span className="font-bold text-cyan-600 dark:text-cyan-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                <span className="font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform" style={{ color: 'var(--primary)' }}>
                   View Syllabus & ROI <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
@@ -212,7 +229,7 @@ export const BentoGrid: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-6 pb-4 border-b border-neutral-100 dark:border-neutral-800">
             <div>
               <h3 className="text-lg font-extrabold text-neutral-900 dark:text-white flex items-center gap-2">
-                <GraduationCap className="w-5 h-5 text-cyan-600" />
+                <GraduationCap className="w-5 h-5" style={{ color: 'var(--primary)' }} />
                 <span>Academic Branches & Engineering Disciplines</span>
               </h3>
               <p className="text-xs text-neutral-500 dark:text-neutral-400">
@@ -221,7 +238,8 @@ export const BentoGrid: React.FC = () => {
             </div>
             <button
               onClick={() => navigateToView('programs')}
-              className="text-xs font-bold text-cyan-600 dark:text-cyan-400 flex items-center gap-1 hover:underline self-start md:self-auto cursor-pointer"
+              className="text-xs font-bold flex items-center gap-1 hover:underline self-start md:self-auto cursor-pointer"
+              style={{ color: 'var(--primary)' }}
             >
               <span>View All Branches</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -233,20 +251,32 @@ export const BentoGrid: React.FC = () => {
               <div
                 key={branch.name}
                 onClick={() => handleBranchClick(branch.name)}
-                className="p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:border-cyan-500 dark:hover:border-cyan-500 bg-neutral-50/50 dark:bg-neutral-800/40 cursor-pointer transition-all hover:shadow-sm group"
+                className="p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/40 cursor-pointer transition-all hover:shadow-sm group"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--primary)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '';
+                }}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-xs font-bold text-neutral-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                  <h4 className="text-xs font-bold text-neutral-900 dark:text-white transition-colors">
                     {branch.name}
                   </h4>
-                  <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-700 dark:text-cyan-400">
+                  <span 
+                    className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-full"
+                    style={{
+                      backgroundColor: 'rgba(var(--primary-rgb), 0.1)',
+                      color: 'var(--primary)'
+                    }}
+                  >
                     {branch.count} Tracks
                   </span>
                 </div>
                 <p className="text-[11px] text-neutral-500 dark:text-neutral-400 leading-relaxed line-clamp-2">
                   {branch.description}
                 </p>
-                <div className="mt-3 text-[11px] font-semibold text-cyan-600 dark:text-cyan-400 flex items-center gap-1">
+                <div className="mt-3 text-[11px] font-semibold flex items-center gap-1" style={{ color: 'var(--primary)' }}>
                   <span>Explore Branch Tracks</span>
                   <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                 </div>

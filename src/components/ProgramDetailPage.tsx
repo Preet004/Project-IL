@@ -284,7 +284,7 @@ export const ProgramDetailPage: React.FC = () => {
               <div className="space-y-2 pt-2">
                 <a
                   href="#learning-options"
-                  className="w-full py-3 px-4 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm text-center block shadow-md shadow-orange-500/20 transition-all cursor-pointer"
+                  className="w-full py-3 px-4 rounded-xl bg-brand-gradient text-white font-bold text-sm text-center block shadow-glow transition-all cursor-pointer"
                 >
                   Choose Learning Option
                 </a>
@@ -312,7 +312,13 @@ export const ProgramDetailPage: React.FC = () => {
       <div className="max-w-[1240px] mx-auto px-6 py-12 space-y-16">
         
         {/* Mentorship continuity notice */}
-        <div className="p-5 md:p-6 rounded-3xl bg-orange-50 dark:bg-orange-950/20 border-2 border-orange-200 dark:border-orange-800/60 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
+        <div 
+          className="p-5 md:p-6 rounded-3xl border shadow-xs flex flex-col md:flex-row items-center justify-between gap-4"
+          style={{
+            backgroundColor: 'rgba(var(--primary-rgb), 0.06)',
+            borderColor: 'rgba(var(--primary-rgb), 0.25)'
+          }}
+        >
           <div className="space-y-1 text-center md:text-left">
             <h3 className="text-base md:text-lg font-bold text-neutral-900 dark:text-white">
               Looking for dedicated personal guidance?
@@ -321,7 +327,8 @@ export const ProgramDetailPage: React.FC = () => {
               Accelerate your professional growth with our structured curriculum — to complement your program with personalized, one-on-one industry mentorship,{' '}
               <a
                 href="#learning-options"
-                className="font-bold text-orange-600 dark:text-orange-400 underline decoration-orange-500 underline-offset-4 hover:text-orange-700 dark:hover:text-orange-300 transition-colors cursor-pointer"
+                className="font-bold underline underline-offset-4 cursor-pointer"
+                style={{ color: 'var(--primary)' }}
               >
                 click here ↗
               </a>
@@ -330,7 +337,7 @@ export const ProgramDetailPage: React.FC = () => {
           </div>
           <a
             href="#learning-options"
-            className="px-5 py-2.5 rounded-xl bg-[#f26b1d] hover:bg-[#e05d12] text-white text-sm font-bold shrink-0 shadow-md transition-all cursor-pointer"
+            className="px-5 py-2.5 rounded-xl bg-brand-gradient text-white text-sm font-bold shrink-0 shadow-glow transition-all cursor-pointer"
           >
             Compare Plans Below
           </a>

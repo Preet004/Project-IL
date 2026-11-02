@@ -2,6 +2,47 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Palette CSS Variables */
+:root, .palette-emerald {
+  --primary: #10b981;
+  --primary-rgb: 16, 185, 129;
+  --secondary: #8b5cf6;
+  --secondary-rgb: 139, 92, 246;
+  --accent: #f59e0b;
+  --accent-rgb: 245, 158, 11;
+  --glow-color: rgba(16, 185, 129, 0.4);
+}
+
+.palette-violet {
+  --primary: #8b5cf6;
+  --primary-rgb: 139, 92, 246;
+  --secondary: #ec4899;
+  --secondary-rgb: 236, 72, 153;
+  --accent: #06b6d4;
+  --accent-rgb: 6, 182, 212;
+  --glow-color: rgba(139, 92, 246, 0.4);
+}
+
+.palette-sunset {
+  --primary: #f59e0b;
+  --primary-rgb: 245, 158, 11;
+  --secondary: #f43f5e;
+  --secondary-rgb: 244, 63, 94;
+  --accent: #10b981;
+  --accent-rgb: 16, 185, 129;
+  --glow-color: rgba(245, 158, 11, 0.4);
+}
+
+.palette-ocean {
+  --primary: #0ea5e9;
+  --primary-rgb: 14, 165, 233;
+  --secondary: #3b82f6;
+  --secondary-rgb: 59, 130, 246;
+  --accent: #14b8a6;
+  --accent-rgb: 20, 184, 166;
+  --glow-color: rgba(14, 165, 233, 0.4);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -9,7 +50,7 @@
   }
   
   body {
-    @apply antialiased text-neutral-900 bg-[#fbfcfd] dark:bg-[#070b12] dark:text-neutral-100 selection:bg-cyan-500 selection:text-white transition-colors duration-300;
+    @apply antialiased text-neutral-900 bg-[#fbfcfd] dark:bg-[#070b12] dark:text-neutral-100 transition-colors duration-300;
   }
 
   code, pre, .font-mono {
@@ -28,46 +69,38 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(14, 165, 233, 0.25);
+  background: rgba(var(--primary-rgb), 0.3);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(14, 165, 233, 0.5);
+  background: rgba(var(--primary-rgb), 0.6);
 }
 
 /* Futuristic Ambient Grid Overlay */
 .cyber-grid {
   background-image: 
-    linear-gradient(to right, rgba(14, 165, 233, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(14, 165, 233, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(var(--primary-rgb), 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(var(--primary-rgb), 0.05) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 .dark .cyber-grid {
   background-image: 
-    linear-gradient(to right, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(var(--primary-rgb), 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(var(--primary-rgb), 0.04) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
-/* Futuristic Holographic Specular Glow & Shimmer */
-@keyframes holographicShimmer {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+/* Dynamic Futuristic Gradient Utilities */
+.bg-brand-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
 }
 
-.holographic-gradient {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(99, 102, 241, 0.15) 50%, rgba(236, 72, 153, 0.12) 100%);
-  background-size: 200% 200%;
-  animation: holographicShimmer 10s ease infinite;
+.text-brand-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .glow-border {
@@ -79,7 +112,7 @@
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.4), rgba(99, 102, 241, 0.3), rgba(20, 184, 166, 0.4));
+  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.5), rgba(var(--secondary-rgb), 0.4), rgba(var(--accent-rgb), 0.4));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -87,9 +120,13 @@
 }
 
 .text-glow {
-  text-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+  text-shadow: 0 0 24px rgba(var(--primary-rgb), 0.45);
 }
 
-.dark .text-glow {
-  text-shadow: 0 0 25px rgba(56, 189, 248, 0.45);
+.shadow-glow {
+  box-shadow: 0 10px 30px -5px rgba(var(--primary-rgb), 0.35);
+}
+
+.shadow-glow:hover {
+  box-shadow: 0 14px 40px -4px rgba(var(--primary-rgb), 0.5);
 }

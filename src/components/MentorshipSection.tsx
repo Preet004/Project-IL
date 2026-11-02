@@ -6,13 +6,11 @@ import {
   BookOpen, 
   Clock, 
   Users, 
-  ArrowUpRight, 
   Check, 
   X, 
   Sparkles, 
   Zap, 
-  Award,
-  HelpCircle
+  Award
 } from 'lucide-react';
 
 export const MentorshipSection: React.FC = () => {
@@ -44,16 +42,28 @@ export const MentorshipSection: React.FC = () => {
   return (
     <section id="mentorship" className="relative py-28 bg-[#fafbfc] dark:bg-[#070b12] border-t border-neutral-200/80 dark:border-neutral-800/80 transition-colors duration-300">
       
-      {/* Background Cyber Ambient */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
+      {/* Background Cyber Ambient with Dynamic Palette */}
+      <div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[420px] rounded-full blur-[140px] pointer-events-none transition-all duration-700" 
+        style={{
+          background: 'radial-gradient(circle, rgba(var(--primary-rgb), 0.15) 0%, rgba(var(--secondary-rgb), 0.12) 50%, rgba(var(--accent-rgb), 0.1) 100%)'
+        }}
+      />
       <div className="absolute inset-0 cyber-grid pointer-events-none opacity-40" />
 
       <div className="max-w-[1240px] mx-auto px-6 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 text-xs font-bold mb-3 border border-orange-500/20">
-            <Zap className="w-4 h-4 text-orange-500" />
+          <div 
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold mb-3 border"
+            style={{
+              backgroundColor: 'rgba(var(--primary-rgb), 0.1)',
+              borderColor: 'rgba(var(--primary-rgb), 0.3)',
+              color: 'var(--primary)'
+            }}
+          >
+            <Zap className="w-4 h-4" />
             <span>High-Value Mentorship & Transparent Plans</span>
           </div>
           
@@ -65,7 +75,14 @@ export const MentorshipSection: React.FC = () => {
             No overpriced ₹1,50,000 bootcamps. Transparent one-time pricing with dedicated senior engineer guidance, live production capstones, and verified ISO 9001:2015 certification.
           </p>
 
-          <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-50/80 dark:bg-orange-950/30 border border-orange-200/80 dark:border-orange-800 text-xs font-semibold text-orange-700 dark:text-orange-300">
+          <div 
+            className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-semibold"
+            style={{
+              backgroundColor: 'rgba(var(--primary-rgb), 0.08)',
+              borderColor: 'rgba(var(--primary-rgb), 0.25)',
+              color: 'var(--primary)'
+            }}
+          >
             <span>Average salary ROI realized within the first 14 working days of your new role.</span>
           </div>
         </div>
@@ -78,7 +95,10 @@ export const MentorshipSection: React.FC = () => {
           <select
             value={selectedDomain}
             onChange={(e) => setSelectedDomain(e.target.value)}
-            className="w-full sm:w-80 px-4 py-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-900 dark:text-white shadow-xs focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer"
+            className="w-full sm:w-80 px-4 py-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-900 dark:text-white shadow-xs focus:outline-none focus:ring-2 cursor-pointer"
+            style={{
+              outlineColor: 'var(--primary)'
+            }}
           >
             {domainOptions.map((domain) => (
               <option key={domain} value={domain}>
@@ -182,10 +202,10 @@ export const MentorshipSection: React.FC = () => {
           </div>
 
           {/* CARD 2: Mentor Led (₹11,500 - HIGHEST VALUE & MOST POPULAR) */}
-          <div className="relative rounded-3xl bg-white dark:bg-neutral-900/90 border-2 border-orange-500 shadow-2xl p-8 md:p-10 flex flex-col justify-between ring-2 ring-orange-500/20 glow-border group">
+          <div className="relative rounded-3xl bg-white dark:bg-neutral-900/90 shadow-2xl p-8 md:p-10 flex flex-col justify-between glow-border group">
             
             {/* High-Converting Glow Ribbon */}
-            <div className="absolute -top-3.5 left-8 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[11px] font-black uppercase px-4 py-1 rounded-full shadow-lg tracking-wider flex items-center gap-1">
+            <div className="absolute -top-3.5 left-8 bg-brand-gradient text-white text-[11px] font-black uppercase px-4 py-1 rounded-full shadow-lg tracking-wider flex items-center gap-1">
               <Sparkles className="w-3 h-3" />
               <span>MOST POPULAR · 10X CAREER VALUE</span>
             </div>
@@ -193,7 +213,7 @@ export const MentorshipSection: React.FC = () => {
             <div>
               {/* Header */}
               <div className="text-center mb-6 pt-2">
-                <span className="text-[11px] font-mono uppercase tracking-widest text-orange-600 dark:text-orange-400 font-semibold">
+                <span className="text-[11px] font-mono uppercase tracking-widest font-semibold" style={{ color: 'var(--primary)' }}>
                   Elite Practitioner Track
                 </span>
                 <h3 className="text-3xl font-extrabold text-neutral-950 dark:text-white tracking-tight mt-1">
@@ -205,7 +225,7 @@ export const MentorshipSection: React.FC = () => {
                 
                 <div className="mt-6">
                   <div className="flex items-baseline justify-center gap-1">
-                    <span className="text-4xl md:text-5xl font-black text-neutral-950 dark:text-white font-mono tracking-tight text-orange-600 dark:text-orange-400">
+                    <span className="text-4xl md:text-5xl font-black font-mono tracking-tight" style={{ color: 'var(--primary)' }}>
                       ₹11,500
                     </span>
                     <span className="text-xs text-neutral-400 font-sans">/ one-time</span>
@@ -243,19 +263,37 @@ export const MentorshipSection: React.FC = () => {
                   <span className="text-neutral-800 dark:text-neutral-200">ISO 9001:2015 Verified Certificate with Dynamic QR Code</span>
                 </div>
                 <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
-                  <div className="w-5 h-5 rounded-full bg-orange-500/10 text-orange-600 flex items-center justify-center shrink-0">
+                  <div 
+                    className="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
+                    style={{
+                      backgroundColor: 'rgba(var(--primary-rgb), 0.15)',
+                      color: 'var(--primary)'
+                    }}
+                  >
                     <Check className="w-3.5 h-3.5" />
                   </div>
                   <span className="text-neutral-900 dark:text-white font-bold">Official Signed Letter of Recommendation (LOR)</span>
                 </div>
                 <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
-                  <div className="w-5 h-5 rounded-full bg-orange-500/10 text-orange-600 flex items-center justify-center shrink-0">
+                  <div 
+                    className="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
+                    style={{
+                      backgroundColor: 'rgba(var(--primary-rgb), 0.15)',
+                      color: 'var(--primary)'
+                    }}
+                  >
                     <Check className="w-3.5 h-3.5" />
                   </div>
                   <span className="text-neutral-900 dark:text-white font-bold">Direct Referral to 100+ Hiring Partner Companies</span>
                 </div>
                 <div className="flex items-center gap-3 text-xs md:text-sm font-semibold">
-                  <div className="w-5 h-5 rounded-full bg-orange-500/10 text-orange-600 flex items-center justify-center shrink-0">
+                  <div 
+                    className="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
+                    style={{
+                      backgroundColor: 'rgba(var(--primary-rgb), 0.15)',
+                      color: 'var(--primary)'
+                    }}
+                  >
                     <Check className="w-3.5 h-3.5" />
                   </div>
                   <span className="text-neutral-900 dark:text-white font-bold">1-on-1 Technical Mock Interviews & Resume Polishing</span>
@@ -266,7 +304,7 @@ export const MentorshipSection: React.FC = () => {
             {/* Action Button */}
             <button
               onClick={handleStartLearning}
-              className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 hover:from-orange-600 hover:to-amber-600 text-white font-extrabold text-sm shadow-xl shadow-orange-500/30 transition-all text-center cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
+              className="w-full py-4 px-6 rounded-2xl bg-brand-gradient text-white font-extrabold text-sm shadow-glow transition-all text-center cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
             >
               Enroll in Mentor-Led Program
             </button>
@@ -281,15 +319,15 @@ export const MentorshipSection: React.FC = () => {
             <span>ISO 9001:2015 Accredited</span>
           </span>
           <span className="flex items-center gap-2">
-            <Award className="w-4 h-4 text-cyan-500" />
+            <Award className="w-4 h-4" style={{ color: 'var(--primary)' }} />
             <span>Verifiable LinkedIn Badge</span>
           </span>
           <span className="flex items-center gap-2">
-            <Users className="w-4 h-4 text-indigo-500" />
+            <Users className="w-4 h-4" style={{ color: 'var(--secondary)' }} />
             <span>50,000+ Alumni Network</span>
           </span>
           <span className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-amber-500" />
+            <Clock className="w-4 h-4" style={{ color: 'var(--accent)' }} />
             <span>Flexible Weekend Batches</span>
           </span>
         </div>
