@@ -4,6 +4,7 @@ import { useUser } from '../context/UserContext';
 import { MENTORSHIP_DOMAINS, MOCK_INTERNSHIPS } from '../data/mockData';
 import { MentorshipDomain } from '../types';
 import { X, Check, CheckCircle2, ChevronRight, Search, ShieldCheck, Sparkles, BookOpen, Clock, ArrowRight } from 'lucide-react';
+import { brandAssets } from '../assets/brandAssets';
 
 interface PricingPlan {
   id: 'self-paced' | 'mentor-led';
@@ -128,7 +129,7 @@ export const MentorshipModal: React.FC = () => {
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 p-1 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shadow-xs shrink-0">
                 <img
-                  src="/assets/internsloom_emblem.png"
+                  src={brandAssets.emblem}
                   alt="InternsLoom Emblem"
                   className="h-full w-full object-contain"
                 />

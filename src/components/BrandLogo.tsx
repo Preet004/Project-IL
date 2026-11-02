@@ -1,4 +1,5 @@
 import React from 'react';
+import { brandAssets } from '../assets/brandAssets';
 
 interface BrandLogoProps {
   className?: string;
@@ -16,13 +17,13 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       <div className={`inline-flex items-center ${className}`}>
         {/* Light mode: clean transparent logo */}
         <img
-          src="/assets/internsloom_logo_transparent.png"
+          src={brandAssets.logoTransparent}
           alt="InternsLoom"
           className="h-12 w-auto object-contain dark:hidden"
         />
         {/* Dark mode: white/cyan variant or transparent with subtle brightness */}
         <img
-          src="/assets/internsloom_logo_white.png"
+          src={brandAssets.logoWhite}
           alt="InternsLoom"
           className="h-12 w-auto object-contain hidden dark:block"
         />
@@ -36,7 +37,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
         <div className="flex items-center gap-3">
           <div className="p-1 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xs inline-flex items-center justify-center">
             <img
-              src="/assets/internsloom_emblem.png"
+              src={brandAssets.emblem}
               alt="InternsLoom Emblem"
               className="h-9 w-auto object-contain"
             />
@@ -60,7 +61,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       {/* Official Emblem Icon from user's PDF */}
       <div className="h-10 w-10 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 flex items-center justify-center shadow-xs group-hover:scale-105 group-hover:shadow-sm transition-all duration-200 overflow-hidden p-1">
         <img
-          src="/assets/internsloom_emblem.png"
+          src={brandAssets.emblem}
           alt="InternsLoom Emblem"
           className="h-full w-full object-contain"
         />

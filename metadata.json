@@ -1,6 +1,11 @@
 {
   "name": "InternsLoom - Career Platform",
   "description": "The bridge between student ambition and professional excellence with expert training, live capstone internships, and ISO 9001:2015 certification.",
+  "logo": "src/assets/internsloom_logo_transparent.png",
+  "icon": "src/assets/favicon.png",
+  "emblem": "src/assets/internsloom_emblem.png",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

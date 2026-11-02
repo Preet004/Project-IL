@@ -4,6 +4,7 @@ import { useUser } from '../context/UserContext';
 import { MOCK_INTERNSHIPS, CATEGORIES_LIST, BRANCH_DOMAINS } from '../data/mockData';
 import { Internship, MainCategory } from '../types';
 import { X, Search, Calendar, Award, BookOpen, Layers, CheckCircle, Bookmark, ShieldCheck, Download, Clock, Check, ChevronRight } from 'lucide-react';
+import { brandAssets } from '../assets/brandAssets';
 
 export const InternshipModal: React.FC = () => {
   const {
@@ -94,7 +95,7 @@ export const InternshipModal: React.FC = () => {
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-white dark:bg-neutral-800 p-1 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shadow-xs shrink-0">
                 <img
-                  src="/assets/internsloom_emblem.png"
+                  src={brandAssets.emblem}
                   alt="InternsLoom Emblem"
                   className="h-full w-full object-contain"
                 />

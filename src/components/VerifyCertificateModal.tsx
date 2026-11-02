@@ -4,6 +4,7 @@ import { useUser } from '../context/UserContext';
 import { VERIFIED_CERTIFICATES } from '../data/mockData';
 import { CertificateRecord } from '../types';
 import { X, ShieldCheck, Search, Award, CheckCircle, AlertCircle, FileCheck, ArrowRight } from 'lucide-react';
+import { brandAssets } from '../assets/brandAssets';
 
 export const VerifyCertificateModal: React.FC = () => {
   const { activeModal, setActiveModal, showToast } = useUser();
@@ -126,7 +127,7 @@ export const VerifyCertificateModal: React.FC = () => {
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-xl bg-white dark:bg-neutral-800 p-1.5 border border-emerald-500/30 flex items-center justify-center shrink-0 shadow-xs">
                         <img
-                          src="/assets/internsloom_emblem.png"
+                          src={brandAssets.emblem}
                           alt="InternsLoom Emblem"
                           className="h-full w-full object-contain"
                         />

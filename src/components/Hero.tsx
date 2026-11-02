@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { useUser } from '../context/UserContext';
 import { ChevronRight, ArrowUpRight, Award, ShieldCheck, Users, CheckCircle2, BookOpen } from 'lucide-react';
+import { brandAssets } from '../assets/brandAssets';
 
 export const Hero: React.FC = () => {
   const { setActiveModal, setSelectedCategoryId, navigateToProgram, navigateToView } = useUser();
@@ -43,7 +44,7 @@ export const Hero: React.FC = () => {
         >
           <div className="mb-3 p-2.5 rounded-2xl bg-white/80 dark:bg-neutral-900/80 border border-neutral-200/80 dark:border-neutral-800 shadow-sm backdrop-blur-xs inline-flex items-center justify-center">
             <img
-              src="/assets/internsloom_emblem.png"
+              src={brandAssets.emblem}
               alt="InternsLoom Emblem"
               className="h-16 md:h-20 w-auto object-contain"
             />
