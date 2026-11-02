@@ -21,7 +21,15 @@ import {
   Send,
   RotateCcw,
   ShieldCheck,
-  Check
+  ShieldAlert,
+  Check,
+  Lock,
+  Unlock,
+  KeyRound,
+  Eye,
+  EyeOff,
+  LogOut,
+  Settings
 } from 'lucide-react';
 
 export const CareersPage: React.FC = () => {
@@ -40,8 +48,28 @@ export const CareersPage: React.FC = () => {
     return INITIAL_JOB_VACANCIES;
   });
 
-  // Recruiter / Admin Edit Mode toggle
-  const [isRecruiterMode, setIsRecruiterMode] = useState(false);
+  // Protected Recruiter Authentication State
+  const [isRecruiterAuthenticated, setIsRecruiterAuthenticated] = useState<boolean>(() => {
+    return (
+      sessionStorage.getItem('internsloom_recruiter_auth') === 'true' ||
+      localStorage.getItem('internsloom_recruiter_auth') === 'true'
+    );
+  });
+
+  // Recruiter Auth & Passcode Security Modals
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authEmailOrId, setAuthEmailOrId] = useState('pms638657@gmail.com');
+  const [authPasscode, setAuthPasscode] = useState('');
+  const [showPasscodeText, setShowPasscodeText] = useState(false);
+  const [rememberSession, setRememberSession] = useState(true);
+  const [authError, setAuthError] = useState<string | null>(null);
+
+  // Change Passcode Modal
+  const [showChangePasscodeModal, setShowChangePasscodeModal] = useState(false);
+  const [currentPasscodeAttempt, setCurrentPasscodeAttempt] = useState('');
+  const [newPasscode, setNewPasscode] = useState('');
+  const [confirmNewPasscode, setConfirmNewPasscode] = useState('');
+  const [changePasscodeError, setChangePasscodeError] = useState<string | null>(null);
 
   // Filter & Search states
   const [selectedDepartment, setSelectedDepartment] = useState('All');
@@ -95,8 +123,80 @@ export const CareersPage: React.FC = () => {
     return matchesDept && matchesQuery;
   });
 
-  // Open modal for editing
+  // Master default security passcodes and custom stored passcode
+  const MASTER_DEFAULT_PASSCODES = ['InternsLoom@2025', 'admin2025', 'loom2025'];
+
+  const getValidPasscodes = (): string[] => {
+    const custom = localStorage.getItem('internsloom_recruiter_passcode');
+    return custom ? [custom, ...MASTER_DEFAULT_PASSCODES] : MASTER_DEFAULT_PASSCODES;
+  };
+
+  // Recruiter Login handler
+  const handleLoginRecruiter = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError(null);
+    const valid = getValidPasscodes();
+    const cleanAttempt = authPasscode.trim();
+
+    if (valid.includes(cleanAttempt)) {
+      setIsRecruiterAuthenticated(true);
+      if (rememberSession) {
+        localStorage.setItem('internsloom_recruiter_auth', 'true');
+      } else {
+        sessionStorage.setItem('internsloom_recruiter_auth', 'true');
+      }
+      setShowAuthModal(false);
+      setAuthPasscode('');
+      showToast('Authenticated as Recruiter. Vacancy management controls unlocked.');
+    } else {
+      setAuthError('Invalid passcode. Access denied. Please enter the authorized recruiter passcode.');
+    }
+  };
+
+  // Recruiter Lock / Sign Out handler
+  const handleLockPortal = () => {
+    setIsRecruiterAuthenticated(false);
+    localStorage.removeItem('internsloom_recruiter_auth');
+    sessionStorage.removeItem('internsloom_recruiter_auth');
+    showToast('Recruiter portal locked. Switched to candidate public mode.');
+  };
+
+  // Update Recruiter Passcode
+  const handleChangePasscode = (e: React.FormEvent) => {
+    e.preventDefault();
+    setChangePasscodeError(null);
+    const valid = getValidPasscodes();
+
+    if (!valid.includes(currentPasscodeAttempt.trim())) {
+      setChangePasscodeError('Current passcode is incorrect.');
+      return;
+    }
+
+    if (newPasscode.length < 6) {
+      setChangePasscodeError('New passcode must be at least 6 characters long.');
+      return;
+    }
+
+    if (newPasscode !== confirmNewPasscode) {
+      setChangePasscodeError('New passcodes do not match.');
+      return;
+    }
+
+    localStorage.setItem('internsloom_recruiter_passcode', newPasscode);
+    setShowChangePasscodeModal(false);
+    setCurrentPasscodeAttempt('');
+    setNewPasscode('');
+    setConfirmNewPasscode('');
+    showToast('Recruiter passcode successfully updated!');
+  };
+
+  // Open modal for editing (Protected)
   const handleOpenEdit = (job: JobVacancy) => {
+    if (!isRecruiterAuthenticated) {
+      setAuthError('Please authenticate with the recruiter passcode to edit vacancies.');
+      setShowAuthModal(true);
+      return;
+    }
     setEditingVacancy(job);
     setIsCreatingNew(false);
     setFormTitle(job.title);
@@ -113,8 +213,13 @@ export const CareersPage: React.FC = () => {
     setFormStatus(job.status);
   };
 
-  // Open modal for creating new
+  // Open modal for creating new (Protected)
   const handleOpenCreate = () => {
+    if (!isRecruiterAuthenticated) {
+      setAuthError('Please authenticate with the recruiter passcode to create vacancies.');
+      setShowAuthModal(true);
+      return;
+    }
     setEditingVacancy(null);
     setIsCreatingNew(true);
     setFormTitle('');
@@ -131,9 +236,14 @@ export const CareersPage: React.FC = () => {
     setFormStatus('Open');
   };
 
-  // Save vacancy (both create and update)
+  // Save vacancy (both create and update - Protected)
   const handleSaveVacancy = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isRecruiterAuthenticated) {
+      showToast('Unauthorized: Recruiter passcode required.');
+      setShowAuthModal(true);
+      return;
+    }
 
     const responsibilitiesArr = formResponsibilities
       .split('\n')
@@ -198,8 +308,12 @@ export const CareersPage: React.FC = () => {
     setIsCreatingNew(false);
   };
 
-  // Toggle status (Open/Closed)
+  // Toggle status (Open/Closed - Protected)
   const handleToggleStatus = (id: string) => {
+    if (!isRecruiterAuthenticated) {
+      setShowAuthModal(true);
+      return;
+    }
     setVacancies(
       vacancies.map((v) => {
         if (v.id === id) {
@@ -212,16 +326,24 @@ export const CareersPage: React.FC = () => {
     );
   };
 
-  // Delete vacancy
+  // Delete vacancy (Protected)
   const handleDeleteVacancy = (id: string, title: string) => {
+    if (!isRecruiterAuthenticated) {
+      setShowAuthModal(true);
+      return;
+    }
     if (window.confirm(`Are you sure you want to delete the vacancy "${title}"?`)) {
       setVacancies(vacancies.filter((v) => v.id !== id));
       showToast(`Vacancy "${title}" removed.`);
     }
   };
 
-  // Reset to default vacancies
+  // Reset to default vacancies (Protected)
   const handleResetDefaults = () => {
+    if (!isRecruiterAuthenticated) {
+      setShowAuthModal(true);
+      return;
+    }
     if (window.confirm('Reset all vacancies to initial default listings?')) {
       setVacancies(INITIAL_JOB_VACANCIES);
       showToast('Vacancies reset to default list.');
@@ -257,50 +379,51 @@ export const CareersPage: React.FC = () => {
             <span>Back to Home</span>
           </button>
 
-          {/* Recruiter Admin Mode Switch */}
+          {/* Recruiter & Staff Access Control */}
           <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold text-neutral-600 dark:text-neutral-400 hidden sm:inline">
-              Recruiter Mode
-            </span>
-            <button
-              onClick={() => {
-                setIsRecruiterMode(!isRecruiterMode);
-                showToast(
-                  !isRecruiterMode
-                    ? 'Recruiter edit mode enabled! You can now add, edit, or delete vacancies.'
-                    : 'Recruiter edit mode disabled.'
-                );
-              }}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
-                isRecruiterMode ? 'bg-blue-600' : 'bg-neutral-300 dark:bg-neutral-700'
-              }`}
-            >
-              <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  isRecruiterMode ? 'translate-x-6' : 'translate-x-1'
-                }`}
-              />
-            </button>
-            <span className={`text-xs font-bold px-2 py-0.5 rounded-md ${
-              isRecruiterMode ? 'bg-blue-500/10 text-blue-600' : 'text-neutral-400'
-            }`}>
-              {isRecruiterMode ? 'Admin Active' : 'Viewer'}
-            </span>
+            {isRecruiterAuthenticated ? (
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold border border-emerald-500/20 shadow-xs">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>Recruiter Mode Active</span>
+                </span>
+                <button
+                  onClick={handleLockPortal}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-red-200 dark:border-red-900/60 bg-red-50/70 dark:bg-red-950/40 text-red-600 dark:text-red-400 text-xs font-semibold hover:bg-red-100 dark:hover:bg-red-900/60 transition-colors cursor-pointer shadow-xs"
+                  title="Lock Recruiter Portal & Exit to Candidate View"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Lock Portal</span>
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  setAuthError(null);
+                  setShowAuthModal(true);
+                }}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-100/70 dark:bg-neutral-800/70 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-xs font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all cursor-pointer shadow-xs"
+                title="Recruiter & Admin Portal Access"
+              >
+                <Lock className="w-3.5 h-3.5 text-neutral-400 dark:text-neutral-500" />
+                <span>Recruiter Portal</span>
+              </button>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Recruiter Admin Mode Alert Banner */}
-      {isRecruiterMode && (
-        <div className="bg-blue-600 text-white px-6 py-3 text-xs md:text-sm">
+      {/* Recruiter Admin Mode Alert Banner - Protected */}
+      {isRecruiterAuthenticated && (
+        <div className="bg-gradient-to-r from-blue-700 to-indigo-700 text-white px-6 py-3 text-xs md:text-sm shadow-md">
           <div className="max-w-[1240px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="flex items-center gap-2 font-medium">
-              <Edit3 className="w-4 h-4" />
+              <ShieldCheck className="w-4 h-4 text-emerald-300" />
               <span>
-                <strong>Recruiter / Platform Owner Mode Enabled:</strong> You can add new vacancies, edit job details, change status (Open/Closed), or delete listings. Changes persist in real-time.
+                <strong>Authorized Recruiter Session:</strong> You can add new vacancies, edit job descriptions, toggle hiring status, or remove listings.
               </span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 shrink-0">
               <button
                 onClick={handleOpenCreate}
                 className="px-3.5 py-1.5 rounded-lg bg-white text-blue-700 font-bold text-xs hover:bg-neutral-100 flex items-center gap-1.5 shadow-xs cursor-pointer"
@@ -309,12 +432,31 @@ export const CareersPage: React.FC = () => {
                 <span>+ Post New Vacancy</span>
               </button>
               <button
+                onClick={() => {
+                  setChangePasscodeError(null);
+                  setShowChangePasscodeModal(true);
+                }}
+                className="px-3 py-1.5 rounded-lg bg-blue-800/90 hover:bg-blue-900 text-white text-xs font-medium flex items-center gap-1 cursor-pointer border border-blue-400/30"
+                title="Change Recruiter Passcode"
+              >
+                <KeyRound className="w-3 h-3" />
+                <span className="hidden md:inline">Change Passcode</span>
+              </button>
+              <button
                 onClick={handleResetDefaults}
-                className="px-3 py-1.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs font-medium flex items-center gap-1 cursor-pointer"
+                className="px-3 py-1.5 rounded-lg bg-blue-800/90 hover:bg-blue-900 text-white text-xs font-medium flex items-center gap-1 cursor-pointer border border-blue-400/30"
                 title="Reset to initial vacancies"
               >
                 <RotateCcw className="w-3 h-3" />
                 <span>Reset</span>
+              </button>
+              <button
+                onClick={handleLockPortal}
+                className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-bold flex items-center gap-1 cursor-pointer shadow-xs"
+                title="Lock and Exit"
+              >
+                <LogOut className="w-3 h-3" />
+                <span>Lock</span>
               </button>
             </div>
           </div>
@@ -376,11 +518,11 @@ export const CareersPage: React.FC = () => {
               Current Openings ({filteredVacancies.length})
             </h2>
             <p className="text-xs text-neutral-500">
-              {isRecruiterMode ? 'Click "Edit" on any vacancy to edit title, requirements, or status.' : 'Review requirements and submit your application.'}
+              {isRecruiterAuthenticated ? 'Click "Edit" on any vacancy to edit title, requirements, or status.' : 'Review requirements and submit your application.'}
             </p>
           </div>
 
-          {isRecruiterMode && (
+          {isRecruiterAuthenticated && (
             <button
               onClick={handleOpenCreate}
               className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm cursor-pointer"
@@ -489,7 +631,7 @@ export const CareersPage: React.FC = () => {
 
                   {/* Actions / Recruiter Controls */}
                   <div className="flex flex-row lg:flex-col gap-2.5 items-stretch lg:w-48 shrink-0 border-t lg:border-t-0 lg:border-l border-neutral-100 dark:border-neutral-800 pt-4 lg:pt-0 lg:pl-6">
-                    {isRecruiterMode ? (
+                    {isRecruiterAuthenticated ? (
                       <div className="space-y-2 w-full">
                         <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 block">
                           Recruiter Controls
@@ -905,6 +1047,281 @@ export const CareersPage: React.FC = () => {
                   >
                     <Check className="w-4 h-4" />
                     <span>{isCreatingNew ? 'Publish New Vacancy' : 'Save Changes'}</span>
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ============================================================== */}
+      {/* MODAL: Recruiter & Staff Passcode Authentication */}
+      {/* ============================================================== */}
+      <AnimatePresence>
+        {showAuthModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => {
+                setShowAuthModal(false);
+                setAuthError(null);
+              }}
+              className="fixed inset-0 bg-neutral-950/80 backdrop-blur-md"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="relative w-full max-w-md bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-2xl overflow-hidden z-10 p-6 md:p-8 space-y-6"
+            >
+              {/* Header */}
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                    <Lock className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-blue-600 block">
+                      Protected Access
+                    </span>
+                    <h3 className="text-lg font-bold text-neutral-950 dark:text-white">
+                      Recruiter & Staff Portal
+                    </h3>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowAuthModal(false);
+                    setAuthError(null);
+                  }}
+                  className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                This portal is restricted to authorized hiring managers and administrators. Please verify your recruiter credentials to manage vacancies.
+              </p>
+
+              {/* Error Message */}
+              {authError && (
+                <div className="p-3 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 flex items-start gap-2.5 text-xs text-red-600 dark:text-red-400">
+                  <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5" />
+                  <span>{authError}</span>
+                </div>
+              )}
+
+              {/* Form */}
+              <form onSubmit={handleLoginRecruiter} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
+                    Authorized Recruiter Email / ID
+                  </label>
+                  <input
+                    type="text"
+                    value={authEmailOrId}
+                    onChange={(e) => setAuthEmailOrId(e.target.value)}
+                    placeholder="e.g. pms638657@gmail.com"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
+                    Security Passcode *
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPasscodeText ? 'text' : 'password'}
+                      required
+                      autoFocus
+                      value={authPasscode}
+                      onChange={(e) => {
+                        setAuthPasscode(e.target.value);
+                        if (authError) setAuthError(null);
+                      }}
+                      placeholder="Enter recruiter passcode"
+                      className="w-full pl-3.5 pr-11 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPasscodeText(!showPasscodeText)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 cursor-pointer"
+                    >
+                      {showPasscodeText ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Remember device toggle */}
+                <div className="flex items-center justify-between text-xs pt-1">
+                  <label className="flex items-center gap-2 cursor-pointer text-neutral-600 dark:text-neutral-400">
+                    <input
+                      type="checkbox"
+                      checked={rememberSession}
+                      onChange={(e) => setRememberSession(e.target.checked)}
+                      className="rounded text-blue-600 focus:ring-blue-500 cursor-pointer"
+                    />
+                    <span>Remember on this browser</span>
+                  </label>
+                </div>
+
+                {/* Recruiter default passcode hint */}
+                <div className="p-3 rounded-xl bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200/70 dark:border-blue-900/40 text-[11px] text-blue-800 dark:text-blue-300 space-y-1">
+                  <div className="flex items-center gap-1.5 font-bold">
+                    <KeyRound className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                    <span>Default Administrator Passcode:</span>
+                  </div>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    Default: <code className="bg-white dark:bg-neutral-800 px-1.5 py-0.5 rounded border text-blue-600 font-mono font-bold">InternsLoom@2025</code> (You can update this inside settings once logged in).
+                  </p>
+                </div>
+
+                <div className="pt-2 flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowAuthModal(false);
+                      setAuthError(null);
+                    }}
+                    className="flex-1 py-2.5 rounded-full border border-neutral-200 dark:border-neutral-700 text-xs font-semibold text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                  >
+                    <Unlock className="w-3.5 h-3.5" />
+                    <span>Unlock Portal</span>
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ============================================================== */}
+      {/* MODAL: Change Recruiter Passcode */}
+      {/* ============================================================== */}
+      <AnimatePresence>
+        {showChangePasscodeModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => {
+                setShowChangePasscodeModal(false);
+                setChangePasscodeError(null);
+              }}
+              className="fixed inset-0 bg-neutral-950/80 backdrop-blur-md"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="relative w-full max-w-md bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-2xl overflow-hidden z-10 p-6 md:p-8 space-y-6"
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 flex items-center justify-center text-amber-600 dark:text-amber-400">
+                    <KeyRound className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-amber-600 block">
+                      Security Settings
+                    </span>
+                    <h3 className="text-lg font-bold text-neutral-950 dark:text-white">
+                      Change Recruiter Passcode
+                    </h3>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowChangePasscodeModal(false);
+                    setChangePasscodeError(null);
+                  }}
+                  className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {changePasscodeError && (
+                <div className="p-3 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 flex items-start gap-2.5 text-xs text-red-600 dark:text-red-400">
+                  <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5" />
+                  <span>{changePasscodeError}</span>
+                </div>
+              )}
+
+              <form onSubmit={handleChangePasscode} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
+                    Current Passcode *
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    value={currentPasscodeAttempt}
+                    onChange={(e) => setCurrentPasscodeAttempt(e.target.value)}
+                    placeholder="Enter existing passcode"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
+                    New Passcode *
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    value={newPasscode}
+                    onChange={(e) => setNewPasscode(e.target.value)}
+                    placeholder="At least 6 characters"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
+                    Confirm New Passcode *
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    value={confirmNewPasscode}
+                    onChange={(e) => setConfirmNewPasscode(e.target.value)}
+                    placeholder="Re-type new passcode"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div className="pt-2 flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowChangePasscodeModal(false);
+                      setChangePasscodeError(null);
+                    }}
+                    className="flex-1 py-2.5 rounded-full border border-neutral-200 dark:border-neutral-700 text-xs font-semibold text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                  >
+                    <Check className="w-3.5 h-3.5" />
+                    <span>Save New Passcode</span>
                   </button>
                 </div>
               </form>
